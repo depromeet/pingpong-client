@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.10.3",
+    "gitmoji-cli": "^7.0.2",
     "next": "12.3.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "recoil": "^0.7.5",
+    "styled-components": "^5.3.6",
+    "tailwindcss": "^3.1.8"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
@@ -20,5 +25,6 @@
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
     "typescript": "4.8.4"
-  }
+  },
+  "packageManager": "yarn@3.2.4"
 }
