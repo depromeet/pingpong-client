@@ -7,9 +7,10 @@
 ## 설치
 
 yarn berry를 사용하고 있습니다.
+`yarn --version`으로 현재 사용중인 버전을 확인하시고 v2 이하인 경우 `yarn set version berry`을 실행해주세요.
+zero-install 환경이므로 따로 install 해주실 필요는 없습니다.
 
 ```
-yarn install
 yarn dev
 ```
 
