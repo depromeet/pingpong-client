@@ -47,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:5.40.0"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.25"],\
             ["babel-loader", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:8.2.5"],\
+            ["chromatic", "npm:6.10.2"],\
             ["eslint", "npm:8.25.0"],\
             ["eslint-config-next", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:12.3.1"],\
             ["eslint-config-prettier", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:8.5.0"],\
@@ -10396,6 +10397,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/chownr-npm-2.0.0-638f1c9c61-c57cf9dd07.zip/node_modules/chownr/",\
           "packageDependencies": [\
             ["chownr", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["chromatic", [\
+        ["npm:6.10.2", {\
+          "packageLocation": "./.yarn/cache/chromatic-npm-6.10.2-33415cb1e5-186c4c1c49.zip/node_modules/chromatic/",\
+          "packageDependencies": [\
+            ["chromatic", "npm:6.10.2"],\
+            ["@discoveryjs/json-ext", "npm:0.5.7"],\
+            ["@types/webpack-env", "npm:1.18.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -23005,6 +23017,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:5.40.0"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.25"],\
             ["babel-loader", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:8.2.5"],\
+            ["chromatic", "npm:6.10.2"],\
             ["eslint", "npm:8.25.0"],\
             ["eslint-config-next", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:12.3.1"],\
             ["eslint-config-prettier", "virtual:40b07ccae147273674a057751fedb26ef9922bfa354da0ea9f6784e37cfaab08ba87d9c5dfaecf0a2aa74455483678a1767a5fca41edbd177f275555479b64d8#npm:8.5.0"],\

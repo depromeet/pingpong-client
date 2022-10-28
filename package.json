@@ -39,6 +39,7 @@
     "@typescript-eslint/parser": "^5.40.0",
     "@yarnpkg/sdks": "^3.0.0-rc.25",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.10.2",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",
