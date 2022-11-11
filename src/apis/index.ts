@@ -10,7 +10,7 @@ const handleError = (err: AxiosError) => {
   return null;
 };
 
-// only for GET
+// use for Query
 export const queryFn = async ({ queryKey }: QueryFunctionContext) => {
   if (!queryKey) return;
 
@@ -28,9 +28,22 @@ export const queryFn = async ({ queryKey }: QueryFunctionContext) => {
   }
 };
 
-export const request = async <T>(req: AxiosRequestConfig): Promise<T | null> => {
+//use for Mutation
+type Method = 'POST' | 'PUT' | 'DELETE';
+
+export const mutationFn = async (url: string, method: Method, params?: Record<string, unknown> | FormData | null) => {
+  const axiosConfig: AxiosRequestConfig = {
+    method,
+    url,
+  };
+
+  if (params) {
+    axiosConfig.data = params;
+  }
+
   try {
-    const res = await axios(req);
+    const res = await axios(axiosConfig);
+
     return res.data;
   } catch (err) {
     handleError(err as AxiosError);
