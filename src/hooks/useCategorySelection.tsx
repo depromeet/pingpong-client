@@ -16,33 +16,25 @@ const initialState: IState = {
   categoryLength: 0,
 };
 
-const CLICKED_NUMBER = 5;
+const SELECTED_CATEGORY_COUNT = 5;
 
 const reducer = (state: IState, action: IAction): IState => {
   switch (action.type) {
     case 'PUSH':
-      state.categoryLength++;
-
-      if (state.categoryLength > CLICKED_NUMBER) {
-        state.categoryLength = CLICKED_NUMBER;
-      } else {
+      if (state.categoryLength < SELECTED_CATEGORY_COUNT) {
         state.categoryList.push(action.category);
       }
-
-      return { ...state };
+      break;
     case 'POP':
-      state.categoryLength--;
-
-      if (state.categoryLength < 0) {
-        state.categoryLength = 0;
-      } else {
+      if (state.categoryLength > 0) {
         state.categoryList.splice(state.categoryList.indexOf(action.category), 1);
       }
-
-      return { ...state };
+      break;
     default:
-      return state;
+      break;
   }
+  state.categoryLength = state.categoryList.length;
+  return state;
 };
 
 const useCategorySelection = (): [IState, MouseEventHandler] => {
