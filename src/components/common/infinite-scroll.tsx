@@ -1,6 +1,5 @@
-import type { QueryFunctionContext } from '@tanstack/react-query';
-import axios from 'axios';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import useInfiniteScroll from 'src/hooks/queries/useInfiniteScroll';
 
 interface PageParam {
@@ -15,19 +14,16 @@ interface User extends PageParam {
   avatar: string;
 }
 
-function InfiniteScroll() {
-  const fetchData = async (queryKey: QueryFunctionContext): Promise<User[]> => {
-    const { pageParam } = queryKey;
-    const res = await axios.get('https://636783c3f5f549f052d6d334.mockapi.io/users?cursor=' + pageParam);
-    return res.data;
-  };
+function InfiniteScrollSample() {
+  const { ref, inView } = useInView();
 
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteScroll<User[]>(
-    {
-      queryKey: 'dataSample',
-      queryFn: fetchData,
-    },
-  );
+  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteScroll();
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
   return status === 'loading' ? (
     <p>Loading...</p>
@@ -36,7 +32,7 @@ function InfiniteScroll() {
   ) : (
     <>
       {!isFetching &&
-        data.map((page: User, i: number) => (
+        data.pages.map((page: User, i: number) => (
           <Fragment key={i}>
             {page.id} : {page.name}
           </Fragment>
@@ -51,11 +47,4 @@ function InfiniteScroll() {
   );
 }
 
-export default InfiniteScroll;
-
-// const BigButton = styled.div`
-//   width: 10rem;
-//   height: 5rem;
-//   color: white;
-//   background-color: black;
-// `;
+export default InfiniteScrollSample;
