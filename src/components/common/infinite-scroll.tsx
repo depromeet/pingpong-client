@@ -1,29 +1,13 @@
 import { Fragment, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
-import useInfiniteScroll from 'src/hooks/queries/useInfiniteScroll';
 
-interface PageParam {
-  previousId: number | null;
-  nextId: number | null;
-}
-
-interface User extends PageParam {
-  id: number;
-  name: string;
-  createdAt: string;
-  avatar: string;
-}
+import useInfinitePosts from '@/hooks/queries/useInfinitePosts';
 
 function InfiniteScrollSample() {
-  const { ref, inView } = useInView();
-
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfiniteScroll();
+  const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status } = useInfinitePosts();
 
   useEffect(() => {
-    if (inView) {
-      fetchNextPage();
-    }
-  }, [inView, fetchNextPage]);
+    fetchNextPage();
+  }, [fetchNextPage]);
 
   return status === 'loading' ? (
     <p>Loading...</p>
@@ -32,11 +16,13 @@ function InfiniteScrollSample() {
   ) : (
     <>
       {!isFetching &&
-        data.pages.map((page: User, i: number) => (
-          <Fragment key={i}>
-            {page.id} : {page.name}
-          </Fragment>
-        ))}
+        data.pages.map((page: Card, i: number) => {
+          return (
+            <Fragment key={i}>
+              <p>{page.id}</p>
+            </Fragment>
+          );
+        })}
       <div>
         <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
           {isFetchingNextPage ? 'Loading more...' : hasNextPage ? 'Load More' : 'Nothing more to load'}
