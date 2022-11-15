@@ -102,7 +102,7 @@ const Home: NextPage = () => {
       {isSuccess && <CategoryCarousel list={categoryData} />}
       <Layout.DefaultPadding>
         <CardContainer>
-          {cardData.content.map((item) => {
+          {posts.map((item) => {
             return (
               <li key={item.id}>
                 <Card {...item} />
