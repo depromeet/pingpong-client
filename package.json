@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.10.3",
+    "autoprefixer": "10.4.13",
     "gitmoji-cli": "^7.0.2",
     "next": "^13.0.2",
+    "postcss": "8.4.18",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.1",
