@@ -5,6 +5,7 @@ on:
     branches:
       - main 
       - dev
+      - test
 jobs:
   test:
     runs-on: ubuntu-latest
