@@ -32,11 +32,17 @@ function InfiniteScrollSample() {
   ) : (
     <>
       {!isFetching &&
-        data.pages.map((page: User, i: number) => (
-          <Fragment key={i}>
-            {page.id} : {page.name}
-          </Fragment>
-        ))}
+        data.pages.map((page: User, i: number) => {
+          page.map((list) => {
+            console.log(list);
+          });
+
+          return (
+            <Fragment key={i}>
+              <p>{page.id}</p>
+            </Fragment>
+          );
+        })}
       <div>
         <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
           {isFetchingNextPage ? 'Loading more...' : hasNextPage ? 'Load More' : 'Nothing more to load'}
