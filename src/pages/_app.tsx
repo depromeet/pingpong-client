@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
@@ -13,4 +13,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp
+export default MyApp;
