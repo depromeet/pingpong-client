@@ -23,6 +23,15 @@ module.exports = {
         button: ['1.5rem', { fontWeight: '500', letterSpacing: '-0.3px', lineHeight: '100%' }],
         overline: ['1.1rem', { fontWeight: '500', letterSpacing: '-0.1px', lineHeight: '100%' }],
       },
+      colors: {
+        gray: {
+          100: '#DFDFDF',
+          200: '#E5E5E5',
+          300: '#AAAAAA',
+          400: '#666666',
+          500: '#333333',
+        },
+      },
     },
   },
 };
