@@ -1,12 +1,8 @@
 import type { ImageProps } from 'next/legacy/image';
 import Image from 'next/legacy/image';
 
-export interface IImageProps extends ImageProps {
+export interface ProfileImageProps extends ImageProps {
   size: 'small' | 'medium' | 'large';
-}
-
-interface IOption {
-  option: IImageProps;
 }
 
 const imgSize = {
@@ -15,7 +11,7 @@ const imgSize = {
   large: 80,
 };
 
-const ProfileImg = ({ option: { size, alt, src } }: IOption) => {
+const ProfileImg = ({ size, alt, src }: ProfileImageProps) => {
   return (
     <div className="relative w-fit h-fit">
       <Image alt={alt} src={src} width={imgSize[size]} height={imgSize[size]} className="rounded-full" />
