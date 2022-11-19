@@ -21,7 +21,7 @@ const Button = ({
   // const DynamicIcon = dynamic(() => import(`../../../public/icons/${iconName}.svg`));
 
   const primaryButtonClass = 'text-white bg-black disabled:bg-gray-300';
-  const secondaryButtonClass = 'text-black bg-white';
+  const secondaryButtonClass = 'text-gray-500 bg-white border-2 border-gray-500 disabled:text-gray-300 border-gray-300';
   const defaultButtonClass = 'text-button px-24 py-16 rounded-xl';
 
   const getButtonClass = () => {
