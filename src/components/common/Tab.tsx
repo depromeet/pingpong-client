@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import tabAtom from 'src/store/tab/atom';
 
 interface ITabName {
@@ -6,17 +6,11 @@ interface ITabName {
 }
 
 const Tab = ({ content }: ITabName) => {
-  const [selectedTabs, setSelectedTabs] = useRecoilState<string[]>(tabAtom);
+  const setSelectedTabs = useSetRecoilState<string>(tabAtom);
 
   const handleClicked = (event: React.MouseEvent) => {
     const clickedTab = event.currentTarget.innerHTML;
-
-    if (selectedTabs.includes(clickedTab)) {
-      const newSelectedTabs = selectedTabs.filter((selectedTab) => selectedTab !== clickedTab);
-      setSelectedTabs([...newSelectedTabs]);
-    } else {
-      setSelectedTabs([...selectedTabs, clickedTab]);
-    }
+    setSelectedTabs(clickedTab);
   };
 
   return (
