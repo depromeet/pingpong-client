@@ -18,6 +18,7 @@ const Button = ({
   disabled = false,
   clickHandler,
 }: PropsWithChildren<ButtonProps>) => {
+  // TODO: storybook 내에서 svg import 가 안되는 이슈 발생하여 해결중
   // const DynamicIcon = dynamic(() => import(`../../../public/icons/${iconName}.svg`));
 
   const primaryButtonClass = 'text-white bg-black disabled:bg-gray-300';
