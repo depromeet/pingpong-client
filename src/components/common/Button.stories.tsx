@@ -1,5 +1,6 @@
-import { ComponentMeta } from '@storybook/react';
+import type { ComponentMeta, Story } from '@storybook/react';
 
+import type { ButtonProps } from './Button';
 import Button from './Button';
 
 export default {
@@ -11,4 +12,30 @@ export default {
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-export const Primary = () => <Button primary>zzzz</Button>;
+const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+
+const mockClickHandler = () => {
+  console.log('clicked');
+};
+
+export const Primary = Template.bind({});
+
+Primary.args = {
+  buttonStyle: 'primary',
+  hasIcon: true,
+  iconName: 'arrow-right',
+  position: 'right',
+  children: 'Primary Button',
+  clickHandler: mockClickHandler,
+};
+
+export const Secondary = Template.bind({});
+
+Secondary.args = {
+  buttonStyle: 'secondary',
+  hasIcon: true,
+  iconName: 'arrow-right',
+  position: 'right',
+  children: 'Secondary Button',
+  clickHandler: mockClickHandler,
+};
