@@ -50,6 +50,8 @@
     "@yarnpkg/sdks": "^3.0.0-rc.25",
     "babel-loader": "^8.2.5",
     "chromatic": "^6.10.2",
+    "commitlint": "17.2.0",
+    "commitlint-config-gitmoji": "2.2.6",
     "eslint": "8.25.0",
     "eslint-config-next": "^13.0.2",
     "eslint-config-prettier": "^8.5.0",
