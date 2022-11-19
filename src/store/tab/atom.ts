@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 
-const tabAtom = atom<string[]>({
+const tabAtom = atom<string>({
   key: 'tabAtom',
-  default: [],
+  default: '',
 });
 
 export default tabAtom;
