@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import type { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,6 +5,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   hasIcon?: boolean;
   iconName?: string;
   position?: string;
+  disabled?: boolean;
   clickHandler: () => void;
 }
 
@@ -15,13 +15,14 @@ const Button = ({
   iconName = 'arrow-right',
   position = 'right',
   children,
+  disabled = false,
   clickHandler,
 }: PropsWithChildren<ButtonProps>) => {
-  const DynamicIcon = dynamic(() => import(`../../../public/icons/${iconName}.svg`));
+  // const DynamicIcon = dynamic(() => import(`../../../public/icons/${iconName}.svg`));
 
-  const primaryButtonClass = 'text-white bg-black disabled:bg-color-gray-500';
+  const primaryButtonClass = 'text-white bg-black disabled:bg-gray-300';
   const secondaryButtonClass = 'text-black bg-white';
-  const defaultButtonClass = 'px-3 py-2 rounded-xl';
+  const defaultButtonClass = 'text-button px-24 py-16 rounded-xl';
 
   const getButtonClass = () => {
     return `${buttonStyle === 'primary' ? primaryButtonClass : secondaryButtonClass} ${defaultButtonClass}`;
@@ -30,13 +31,13 @@ const Button = ({
   return (
     <div className="flex">
       {position === 'right' ? (
-        <button className={`${getButtonClass()}`} onClick={clickHandler}>
+        <button className={`${getButtonClass()}`} onClick={clickHandler} disabled={disabled}>
           {children}
-          {hasIcon && <DynamicIcon />}
+          {/* {hasIcon && <DynamicIcon />} */}
         </button>
       ) : (
-        <button className={`${getButtonClass()}`} onClick={clickHandler}>
-          {hasIcon && <DynamicIcon />}
+        <button className={`${getButtonClass()}`} onClick={clickHandler} disabled={disabled}>
+          {/* {hasIcon && <DynamicIcon />} */}
           {children}
         </button>
       )}

@@ -26,6 +26,7 @@ Primary.args = {
   iconName: 'arrow-right',
   position: 'right',
   children: 'Primary Button',
+  disabled: true,
   clickHandler: mockClickHandler,
 };
 
@@ -37,5 +38,6 @@ Secondary.args = {
   iconName: 'arrow-right',
   position: 'right',
   children: 'Secondary Button',
+  disabled: true,
   clickHandler: mockClickHandler,
 };
