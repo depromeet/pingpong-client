@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 interface PortalProps {
@@ -6,7 +7,18 @@ interface PortalProps {
 }
 
 export default function Portal({ children, isShowing }: PropsWithChildren<PortalProps>) {
-  const container = typeof window !== 'undefined' && document.body;
+  const [isMounted, setIsMounted] = useState(false);
+  const [container, setContainer] = useState<Element | null>(null);
 
-  return container ? createPortal(<div>{isShowing && children}</div>, container) : <></>;
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const containerDOM = document.getElementById('portal');
+    setContainer(containerDOM);
+  }, [isMounted]);
+
+  if (!isMounted || !container) return <></>;
+  return createPortal(<div>{isShowing && children}</div>, container);
 }

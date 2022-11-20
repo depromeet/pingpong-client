@@ -8,11 +8,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <Component {...pageProps} />;
-      </RecoilRoot>
-    </QueryClientProvider>
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <div id="portal" />
+        <Component {...pageProps} />
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 
