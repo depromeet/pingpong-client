@@ -19,7 +19,7 @@ export default function BottomSheet({ isShowing, children, handleClose }: Bottom
   return (
     <Portal isShowing={isShowing}>
       <DimmedBackdrop onClick={onDeleteHandler}>
-        <CotentWrapper>{children}</CotentWrapper>
+        <ContentWrapper>{children}</ContentWrapper>
       </DimmedBackdrop>
     </Portal>
   );
@@ -30,7 +30,6 @@ const DimmedBackdrop = styled.div`
   z-index: 10000;
   top: 0;
   left: 0;
-
   width: 100vw;
   height: 100%;
 
@@ -39,12 +38,11 @@ const DimmedBackdrop = styled.div`
 `;
 
 // TODO: transition 추가
-const CotentWrapper = styled.div`
+const ContentWrapper = styled.div`
   position: absolute;
   top: 100%;
   transform: translateY(-100%);
   z-index: 1000;
-
   width: 100%;
 
   background-color: white;
