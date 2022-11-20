@@ -14,7 +14,7 @@ import type { PropsWithChildren } from 'react';
 * className을 통해 tailwindCSS를 이용할 수 있습니다.
 */
 
-interface InternalSvgProps {
+export interface InternalSvgProps {
   size: number;
   width: number;
   height: number;
