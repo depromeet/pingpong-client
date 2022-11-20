@@ -35,11 +35,8 @@ const DimmedBackdrop = styled.div`
   height: 100%;
 
   background-color: rgba(0, 0, 0, 0.6);
-
   overflow: hidden;
 `;
-
-const HIGHT = 190;
 
 const CotentWrapper = styled.div`
   position: absolute;
@@ -48,29 +45,29 @@ const CotentWrapper = styled.div`
   z-index: 1000;
 
   width: 100%;
-  height: ${HIGHT}px;
 
-  background-color: pink;
+  background-color: white;
   border-radius: 1rem 1rem 0 0;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
-const defaultEasing = [0.6, -0.05, 0.01, 0.99];
+// MEMO: framer에서 사용되던 tranmsition 값
+// const defaultEasing = [0.6, -0.05, 0.01, 0.99];
 
-const bottomSheetVariants = {
-  initial: {
-    y: 0,
-    transition: { duration: 0.6, ease: defaultEasing },
-    willChange: 'transform',
-  },
-  animate: {
-    y: '-100%',
-    transition: { duration: 0.6, ease: defaultEasing },
-    willChange: 'transform',
-  },
-  exit: {
-    y: 0,
-    transition: { duration: 0.6, ease: defaultEasing },
-    willChange: 'transform',
-  },
-};
+// const bottomSheetVariants = {
+//   initial: {
+//     y: 0,
+//     transition: { duration: 0.6, ease: defaultEasing },
+//     willChange: 'transform',
+//   },
+//   animate: {
+//     y: '-100%',
+//     transition: { duration: 0.6, ease: defaultEasing },
+//     willChange: 'transform',
+//   },
+//   exit: {
+//     y: 0,
+//     transition: { duration: 0.6, ease: defaultEasing },
+//     willChange: 'transform',
+//   },
+// };
