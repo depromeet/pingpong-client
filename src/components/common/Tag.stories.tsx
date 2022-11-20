@@ -1,4 +1,5 @@
 import type { ComponentMeta, Story } from '@storybook/react';
+import type { PropsWithChildren } from 'react';
 
 import type { TagProps } from './Tag';
 import Tag from './Tag';
@@ -12,7 +13,7 @@ export default {
   component: Tag,
 } as ComponentMeta<typeof Tag>;
 
-const Template: Story<TagProps> = (args) => <Tag {...args} />;
+const Template: Story<PropsWithChildren<TagProps>> = (args) => <Tag {...args} />;
 
 export const DarkTag = Template.bind({});
 
