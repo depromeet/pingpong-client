@@ -38,6 +38,7 @@ const DimmedBackdrop = styled.div`
   overflow: hidden;
 `;
 
+// TODO: transition 추가
 const CotentWrapper = styled.div`
   position: absolute;
   top: 100%;
