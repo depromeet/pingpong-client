@@ -1,5 +1,5 @@
-import type { ImageProps } from 'next/legacy/image';
-import Image from 'next/legacy/image';
+import type { ImageProps } from 'next/image';
+import Image from 'next/image';
 
 export interface ProfileImageProps extends ImageProps {
   size: 'small' | 'medium' | 'large';
