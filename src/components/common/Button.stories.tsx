@@ -1,4 +1,5 @@
 import type { ComponentMeta, Story } from '@storybook/react';
+import type { PropsWithChildren } from 'react';
 
 import type { ButtonProps } from './Button';
 import Button from './Button';
@@ -12,7 +13,7 @@ export default {
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<PropsWithChildren<ButtonProps>> = (args) => <Button {...args} />;
 
 const mockClickHandler = () => {
   console.log('clicked');
