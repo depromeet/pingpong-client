@@ -1,29 +1,31 @@
 import type { ReactNode } from 'react';
 import React from 'react';
-import { css } from 'styled-components';
+import styled from 'styled-components';
 
 import Portal from './Portal';
 
 export interface BottomSheetProps {
   isShowing: boolean;
   children: ReactNode;
-  onClose: VoidFunction;
+  handleClose: VoidFunction;
 }
 
-export default function BottomSheet({ isShowing, children, onClose }: BottomSheetProps) {
+export default function BottomSheet({ isShowing, children, handleClose }: BottomSheetProps) {
   const onDeleteHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target !== e.currentTarget) return;
-    onClose();
+    handleClose();
   };
 
   return (
     <Portal isShowing={isShowing}>
-      <div className="transition-all">{children}</div>
+      <DimmedBackdrop onClick={onDeleteHandler}>
+        <CotentWrapper>{children}</CotentWrapper>
+      </DimmedBackdrop>
     </Portal>
   );
 }
 
-const dimBackdropCss = () => css`
+const DimmedBackdrop = styled.div`
   position: fixed;
   z-index: 10000;
   top: 0;
@@ -38,7 +40,8 @@ const dimBackdropCss = () => css`
 `;
 
 const HIGHT = 190;
-const contentWrapperCss = () => css`
+
+const CotentWrapper = styled.div`
   position: absolute;
   top: 100%;
   transform: translateY(-100%);
@@ -47,13 +50,14 @@ const contentWrapperCss = () => css`
   width: 100%;
   height: ${HIGHT}px;
 
-  background-color: ${colors.gray9};
-  border-radius: ${radius.lg} ${radius.lg} 0 0;
-
+  background-color: pink;
+  border-radius: 1rem 1rem 0 0;
   overflow-y: scroll;
 `;
 
-export const bottomSheetVariants: Variants = {
+const defaultEasing = [0.6, -0.05, 0.01, 0.99];
+
+const bottomSheetVariants = {
   initial: {
     y: 0,
     transition: { duration: 0.6, ease: defaultEasing },
