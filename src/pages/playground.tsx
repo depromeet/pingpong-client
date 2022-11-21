@@ -15,7 +15,7 @@ const Playground = () => {
 
   return (
     <div>
-      <BottomSheet isShowing={isShowing} handleClose={() => setIsShowing(false)}>
+      <BottomSheet isShowing={isShowing} onClose={() => setIsShowing(false)}>
         <BottomSheetOptions list={mockList} />
       </BottomSheet>
       <TestButton onClick={() => setIsShowing(true)}>바텀시트 열기</TestButton>

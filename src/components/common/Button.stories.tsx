@@ -30,7 +30,7 @@ Primary.args = {
   position: 'right',
   children: 'Sample Button',
   disabled: true,
-  clickHandler: mockClickHandler,
+  onClick: mockClickHandler,
 };
 
 export const Secondary = Template.bind({});
@@ -42,5 +42,5 @@ Secondary.args = {
   position: 'right',
   children: 'Sample Button',
   disabled: true,
-  clickHandler: mockClickHandler,
+  onClick: mockClickHandler,
 };

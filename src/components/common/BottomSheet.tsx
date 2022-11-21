@@ -7,18 +7,18 @@ import Portal from './Portal';
 export interface BottomSheetProps {
   isShowing: boolean;
   children: ReactNode;
-  handleClose: VoidFunction;
+  onClose: VoidFunction;
 }
 
-export default function BottomSheet({ isShowing, children, handleClose }: BottomSheetProps) {
-  const onDeleteHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+export default function BottomSheet({ isShowing, children, onClose }: BottomSheetProps) {
+  const handleDelete = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target !== e.currentTarget) return;
-    handleClose();
+    onClose();
   };
 
   return (
     <Portal isShowing={isShowing}>
-      <DimmedBackdrop onClick={onDeleteHandler}>
+      <DimmedBackdrop onClick={handleDelete}>
         <ContentWrapper>{children}</ContentWrapper>
       </DimmedBackdrop>
     </Portal>

@@ -8,7 +8,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   iconName?: string;
   position?: string;
   disabled?: boolean;
-  clickHandler: () => void;
+  onClick: () => void;
 }
 
 const Button = ({
@@ -18,7 +18,7 @@ const Button = ({
   position = 'right',
   children,
   disabled = false,
-  clickHandler,
+  onClick,
 }: PropsWithChildren<ButtonProps>) => {
   // TODO: storybook 내에서 svg import 가 안되는 이슈 발생하여 해결중
   // const DynamicIcon = dynamic(() => import(`../../../public/icons/${iconName}.svg`));
@@ -27,20 +27,12 @@ const Button = ({
   return (
     <div className="flex">
       {position === 'right' ? (
-        <button
-          className={`btn-${buttonStyle.toLowerCase()} ${defaultClass}`}
-          onClick={clickHandler}
-          disabled={disabled}
-        >
+        <button className={`btn-${buttonStyle.toLowerCase()} ${defaultClass}`} onClick={onClick} disabled={disabled}>
           {children}
           {/* {hasIcon && <DynamicIcon />} */}
         </button>
       ) : (
-        <button
-          className={`btn-${buttonStyle.toLowerCase()} ${defaultClass}`}
-          onClick={clickHandler}
-          disabled={disabled}
-        >
+        <button className={`btn-${buttonStyle.toLowerCase()} ${defaultClass}`} onClick={onClick} disabled={disabled}>
           {/* {hasIcon && <DynamicIcon />} */}
           {children}
         </button>
