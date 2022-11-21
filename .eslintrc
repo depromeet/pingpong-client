@@ -75,7 +75,7 @@
     "import/no-duplicates": "error", // merges import statements of the same file. (autofixable, mostly)
 
     // Unused import recommended rules
-    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-imports": "off",
     "unused-imports/no-unused-vars": [
       "warn",
       { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
