@@ -25,12 +25,19 @@ module.exports = {
       },
       colors: {
         gray: {
-          100: '#DFDFDF',
-          200: '#E5E5E5',
-          300: '#AAAAAA',
-          400: '#666666',
-          500: '#333333',
+          100: '#F8F8F8',
+          200: '#DFDFDF',
+          300: '#E5E5E5',
+          400: '#CBCBCB',
+          500: '#AAAAAA',
+          600: '#999999',
+          700: '#666666',
+          800: '#333333',
         },
+        red: {
+          300: '#F35151',
+        },
+        primary: '#222222', //FIXME: change to primary color
       },
       spacing: {
         1: '0.1rem',
