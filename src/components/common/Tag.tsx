@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import { TagStyleClass, TagStyleType } from '@/constants/components';
+import { TagStyleType } from '../../constants/components';
 
 export interface TagProps {
   styleType?: keyof typeof TagStyleType;
@@ -9,7 +9,7 @@ export interface TagProps {
 const Tag = ({ styleType = TagStyleType.DARK, children }: PropsWithChildren<TagProps>) => {
   return (
     <div className="flex">
-      <div className={`${TagStyleClass[styleType]} ${TagStyleClass.DEFAULT}`}>{children}</div>
+      <div className={`tag-${styleType.toLowerCase()} text-b4 px-10 py-4 rounded-full`}>{children}</div>
     </div>
   );
 };
