@@ -1,8 +1,8 @@
 import type { ComponentMeta, Story } from '@storybook/react';
 import type { PropsWithChildren } from 'react';
 
-import { TagStyleType } from '@/constants/components';
-
+// TODO: alias Storybook에서도 파싱되게 세팅 추가해야함
+import { TagStyleType } from '../../constants/components';
 import type { TagProps } from './Tag';
 import Tag from './Tag';
 

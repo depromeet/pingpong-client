@@ -16,3 +16,23 @@
     box-sizing: border-box;
   }
 }
+
+.btn-primary {
+  @apply text-white bg-black disabled:bg-gray-300;
+}
+
+.btn-secondary {
+  @apply text-gray-500 bg-white border border-gray-500 disabled:text-gray-300 disabled:border-gray-300;
+}
+
+.tag-dark {
+  @apply text-white bg-gray-500;
+}
+
+.tag-medium {
+  @apply text-gray-500 bg-gray-200;
+}
+
+.tag-light {
+  @apply text-gray-500 bg-white border border-gray-200;
+}
