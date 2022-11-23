@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import IconClose from '../../../public/icons/x-icon.svg';
+import IconClose from '../../../public/icons/arrow-left.svg';
 
 export interface ChipProps {
   handleClick: () => void;
@@ -9,7 +9,7 @@ export interface ChipProps {
 const Chip = ({ children, handleClick }: PropsWithChildren<ChipProps>) => {
   return (
     <div className="flex">
-      <button className={''} onClick={handleClick}>
+      <button className={'bg-black'} onClick={handleClick}>
         {children}
         <IconClose />
       </button>
