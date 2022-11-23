@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 
 module.exports = {
@@ -18,5 +19,10 @@ module.exports = {
   framework: '@storybook/react',
   core: {
     builder: '@storybook/builder-webpack5',
+  },
+  webpackFinal: async (config) => {
+    config.resolve.modules = [path.resolve(__dirname, '..'), 'node_modules'];
+
+    return config;
   },
 };
