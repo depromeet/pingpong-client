@@ -1,18 +1,16 @@
-import Tab from 'src/components/common/Tab';
+import type { TabProps } from 'src/store/components/types';
 
-interface ITabList {
-  list: string[];
+import Tab from './Tab';
+
+interface TabListProps {
+  list: TabProps[];
 }
 
-const TabList = ({ list }: ITabList) => {
+const TabList = ({ list }: TabListProps) => {
   return (
     <ul>
-      {list.map((content) => {
-        return (
-          <li key={content}>
-            <Tab content={content} />
-          </li>
-        );
+      {list.map(({ id, content }) => {
+        return <li key={id}>{<Tab id={id} content={content} />}</li>;
       })}
     </ul>
   );
