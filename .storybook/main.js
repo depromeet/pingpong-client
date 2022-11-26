@@ -30,6 +30,8 @@ module.exports = {
       loader: require.resolve('@svgr/webpack'),
     });
 
+    config.resolve.modules = [path.resolve(__dirname, '..'), 'node_modules'];
+
     return config;
   },
 };

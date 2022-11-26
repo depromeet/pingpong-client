@@ -13,3 +13,7 @@ export const formatQueryString = (url: string, queryObject?: Record<string, unkn
 
   return `${url}?${queries}`;
 };
+
+export const uniqueId = (id?: string | number) => {
+  return id + Math.random().toString(16).slice(2);
+};
