@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 
+import Layout from '@/components/common/Layout';
+
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
@@ -11,7 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <div id="portal" />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </QueryClientProvider>
     </RecoilRoot>
   );
