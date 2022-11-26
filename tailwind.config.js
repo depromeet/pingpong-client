@@ -52,6 +52,20 @@ module.exports = {
         24: '2.4rem',
         32: '3.2rem',
       },
+      keyframes: {
+        slideup: {
+          '0%': { transform: 'translateY(100px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        fadeout: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
+      },
+      animation: {
+        slideup: 'slideup 1s',
+        fadeout: 'fadeout 1s forwards',
+      },
     },
   },
 };

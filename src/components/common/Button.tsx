@@ -13,8 +13,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({
   buttonStyle = ButtonStyleType.PRIMARY,
-  hasIcon = false,
-  iconName = 'arrow-right',
+  // hasIcon = false,
+  // iconName = 'arrow-right',
   position = 'right',
   children,
   disabled = false,

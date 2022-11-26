@@ -1,7 +1,7 @@
-type DefaultProps = {
+interface DefaultProps {
   value?: string;
   disabled?: boolean;
   name?: string;
   id?: string;
   className?: string;
-};
+}
