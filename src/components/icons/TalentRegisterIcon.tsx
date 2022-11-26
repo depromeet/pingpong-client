@@ -1,5 +1,5 @@
-import type { InternalSvgProps } from '../Svg';
-import Svg from '../Svg';
+import type { InternalSvgProps } from '../common/Svg';
+import Svg from '../common/Svg';
 
 export const TalentRegisterIcon = ({ ...props }: Partial<InternalSvgProps>) => {
   return (
