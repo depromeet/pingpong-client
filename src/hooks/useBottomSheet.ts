@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
 
-import { bottomSheetOpenState } from '@/store/bottomSheet';
+import { bottomSheetAtom } from '@/store/components';
 
 export function useBottomSheet() {
-  const [isShowing, setIsShowing] = useRecoilState(bottomSheetOpenState);
+  const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
 
   return {
     isShowing,
