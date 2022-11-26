@@ -3,11 +3,16 @@ import { atom } from 'recoil';
 import type { TabProps } from './types';
 
 const tabAtom = atom<TabProps>({
-  key: 'tabAtom',
+  key: 'tab',
   default: {
     id: '',
     content: '',
   },
 });
 
-export { tabAtom };
+const bottomSheetAtom = atom({
+  key: 'bottomSheet',
+  default: false,
+});
+
+export { bottomSheetAtom, tabAtom };
