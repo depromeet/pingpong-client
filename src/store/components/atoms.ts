@@ -10,9 +10,14 @@ const tabAtom = atom<TabProps>({
   },
 });
 
+const toastAtom = atom<string | null>({
+  key: 'toastAtom',
+  default: null,
+});
+
 const bottomSheetAtom = atom({
   key: 'bottomSheet',
   default: false,
 });
 
-export { bottomSheetAtom, tabAtom };
+export { bottomSheetAtom, tabAtom, toastAtom };
