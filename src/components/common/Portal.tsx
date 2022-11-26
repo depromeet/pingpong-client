@@ -4,9 +4,10 @@ import { createPortal } from 'react-dom';
 
 interface PortalProps {
   isShowing: boolean;
+  className?: string;
 }
 
-export default function Portal({ children, isShowing }: PropsWithChildren<PortalProps>) {
+export default function Portal({ children, isShowing, className }: PropsWithChildren<PortalProps>) {
   const [isMounted, setIsMounted] = useState(false);
   const [container, setContainer] = useState<Element | null>(null);
 
@@ -19,6 +20,7 @@ export default function Portal({ children, isShowing }: PropsWithChildren<Portal
     setContainer(containerDOM);
   }, [isMounted]);
 
-  if (!isMounted || !container) return <></>;
-  return createPortal(<div>{isShowing && children}</div>, container);
+  if (!isMounted || !container) return null;
+
+  return createPortal(<div className={className}>{isShowing && children}</div>, container);
 }
