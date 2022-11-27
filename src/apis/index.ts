@@ -4,7 +4,7 @@ import { formatQueryString } from 'src/lib/utils';
 
 axios.defaults.baseURL = 'https://zoo-animal-api.herokuapp.com';
 
-const handleError = (err: AxiosError) => {
+const handleError = (_: AxiosError) => {
   //TODO: axios error handling
   return null;
 };
