@@ -2,11 +2,12 @@ import { uniqueId } from '@/lib/utils';
 
 interface HeaderTitleProps {
   texts: string[];
+  className?: string;
 }
 
-const HeaderTitle = ({ texts }: HeaderTitleProps) => {
+const HeaderTitle = ({ texts, className }: HeaderTitleProps) => {
   return (
-    <h1 className="text-h2">
+    <h1 className={`text-h2 ${className}`}>
       {texts.map((text) => {
         const uniqueKey = uniqueId('key');
         return (
