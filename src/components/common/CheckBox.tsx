@@ -1,7 +1,7 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import { uniqueId } from 'src/lib/utils';
 
-import { CheckIcon } from './icons';
+import { CheckIcon } from '../icons';
 
 interface Props extends Omit<DefaultProps, 'value'> {
   label?: string;

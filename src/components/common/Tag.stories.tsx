@@ -27,13 +27,13 @@ DarkTag.args = {
 export const MediumTag = Template.bind({});
 
 MediumTag.args = {
-  styleType: TagStyleType.MEDIUM,
+  styleType: TagStyleType.LIGHT,
   children: 'Sample Tag',
 };
 
 export const LightTag = Template.bind({});
 
 LightTag.args = {
-  styleType: TagStyleType.LIGHT,
+  styleType: TagStyleType.OUTLINE,
   children: 'Sample Tag',
 };

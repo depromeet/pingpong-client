@@ -18,8 +18,8 @@ const Input = ({ type = 'text', onChange, className, showCount, error, maxLength
     <div className={`relative w-full flex flex-col text-2xl ${className}`}>
       <input
         type={type}
-        className={`w-full pl-[12px] pr-[46px] py-[12.5px] border border-gray-300 focus:border-primary focus:outline-none placeholder:text-gray-400 rounded-[8px] ${
-          error && '!border-red-300'
+        className={`w-full pl-[12px] pr-[46px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none placeholder:text-gray-300 rounded-[8px] ${
+          error && '!border-primary-error'
         }`}
         onChange={(e) => onChange && onChange(e.target.value)}
         maxLength={maxLength}
@@ -28,7 +28,7 @@ const Input = ({ type = 'text', onChange, className, showCount, error, maxLength
       {props.value && (
         <button
           type="button"
-          className="absolute right-0 w-[20px] h-[20px] m-[13px] rounded-full my-[13px] bg-gray-400 grid place-items-center"
+          className="absolute right-0 w-[20px] h-[20px] m-[13px] rounded-full my-[13px] bg-[#CFCFCF] grid place-items-center"
           onClick={handleClear}
         >
           <span className="hidden">내용 삭제</span>
@@ -42,9 +42,9 @@ const Input = ({ type = 'text', onChange, className, showCount, error, maxLength
           error ? 'justify-between' : 'justify-end'
         }`}
       >
-        {error && <span className="text-red-300 ml-1 ">{error}</span>}
+        {error && <span className="text-primary-error ml-1 ">{error}</span>}
         {showCount && (
-          <span className="text-gray-600 !justify-self-end">
+          <span className="text-gray-400 !justify-self-end">
             {props.value?.length}/{maxLength}
           </span>
         )}

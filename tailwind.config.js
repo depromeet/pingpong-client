@@ -25,19 +25,24 @@ module.exports = {
       },
       colors: {
         gray: {
-          100: '#F8F8F8',
-          200: '#DFDFDF',
-          300: '#E5E5E5',
-          400: '#CBCBCB',
-          500: '#AAAAAA',
-          600: '#999999',
-          700: '#666666',
-          800: '#333333',
+          100: '#F3F3F3',
+          200: '#E7E7E7',
+          300: '#CFCFCF',
+          400: '#A0A0A0',
+          500: '#585858',
+          600: '#111111',
         },
-        red: {
-          300: '#F35151',
+        primary: {
+          red: '#FB6C6C',
+          error: '#F84848',
+          blue: '#4D77FF',
+          dark: '#27292F',
         },
-        primary: '#222222', //FIXME: change to primary color
+        bg: {
+          gray: '#FAFAFA',
+          red: '#FFF0F0',
+          blue: '#EDF1FF',
+        },
       },
       spacing: {
         1: '0.1rem',

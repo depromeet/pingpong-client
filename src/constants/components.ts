@@ -1,7 +1,7 @@
 export const TagStyleType = {
   DARK: 'DARK',
-  MEDIUM: 'MEDIUM',
   LIGHT: 'LIGHT',
+  OUTLINE: 'OUTLINE',
 } as const;
 
 export const ButtonStyleType = {
