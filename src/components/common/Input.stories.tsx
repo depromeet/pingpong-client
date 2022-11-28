@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Input from './Input';
 
 export default {
-  title: 'Input',
+  title: 'Commons/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 
