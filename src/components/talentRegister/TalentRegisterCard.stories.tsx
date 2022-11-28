@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import TalentRegisterCard from './TalentRegisterCard';
 
 export default {
-  title: 'TalentRegisterCard',
+  title: 'Components/TalentRegisterCard',
   component: TalentRegisterCard,
 } as ComponentMeta<typeof TalentRegisterCard>;
 
