@@ -11,7 +11,7 @@ export default {
    * See https://storybook.js.org/docs/react/configure/overview#configure-story-loading
    * to learn how to generate automatic titles
    */
-  title: 'Tag',
+  title: 'Commons/Tag',
   component: Tag,
 } as ComponentMeta<typeof Tag>;
 
