@@ -22,9 +22,9 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterHeaderProps) =>
   const { color, contents } = sort === 'share' ? SHARE : EXCHANGE;
 
   return (
-    <div className={`relative w-[375px] h-[213px] ${color} ${className}`}>
+    <div className={`relative w-full h-[213px] ${color} ${className}`}>
       <IconAnchor icon={<XIcon className="absolute right-[16px] top-[60px]" />} href="/talent/register" />
-      <TalentRegisterHeaderIcon />
+      <TalentRegisterHeaderIcon className="w-full" />
       <HeaderTitle texts={contents} className="absolute text-gray-100 left-[16px] bottom-[15.5px]" />
     </div>
   );
