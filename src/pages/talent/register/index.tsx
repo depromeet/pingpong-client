@@ -6,11 +6,11 @@ const TITLE = ['Ping-Pong !', '재능을 공유 할 방식을 선택해주세요
 
 const Register = () => {
   return (
-    <div className="relative w-[375px] h-[812px] px-[16px]">
+    <div className="relative w-full h-[812px] px-[16px]">
       <HeaderTitle texts={TITLE} className="pt-[60px]" />
       <TalentRegisterCard sort="share" className="mt-[48px]" />
       <TalentRegisterCard sort="exchange" className="mt-[16.5px]" />
-      <NavigationBar className="absolute bottom-0 left-0" />
+      <NavigationBar className="fixed bottom-0 left-0" />
     </div>
   );
 };
