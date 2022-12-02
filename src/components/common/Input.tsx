@@ -44,7 +44,7 @@ const Input = ({ type = 'text', onChange, className, showCount, error, maxLength
       >
         {error && <span className="text-primary-error ml-1 ">{error}</span>}
         {showCount && (
-          <span className="text-gray-400 !justify-self-end">
+          <span className="text-gray-400 !justify-self-end pt-[8px]">
             {props.value?.length}/{maxLength}
           </span>
         )}
