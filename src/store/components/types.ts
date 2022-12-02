@@ -3,4 +3,9 @@ interface TabProps {
   content: string;
 }
 
-export type { TabProps };
+interface TalentRegisterInputInfo {
+  inputKey: string;
+  contents: string;
+}
+
+export type { TabProps, TalentRegisterInputInfo };
