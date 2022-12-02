@@ -1,8 +1,8 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
 
-import type { TabProps } from './types';
+import type { TalentRegisterInputInfo } from './types';
 
-const tabAtom = atom<TabProps>({
+const tabAtom = atom({
   key: 'tab',
   default: {
     id: '',
@@ -30,4 +30,27 @@ const headerAtom = atom<Header | null>({
   default: null,
 });
 
-export { bottomSheetAtom, headerAtom, popupAtom, tabAtom, toastAtom };
+// INFO:: 추후 key에 따른 Atom 관리를 위해 InputKeyAtom을 추가하였습니다.
+const talentRegisterInputKeyAtom = atom<string[]>({
+  key: 'talentRegisterInputKey',
+  default: [],
+});
+
+/* INFO::
+ * atomFamily를 통해 input atom을 동적으로 생성하고 관리할 수 있습니다.
+ * atom은 고유한 inputKey를 통해 구분되어집니다.
+ */
+const talentRegisterInputAtomFamily = atomFamily<TalentRegisterInputInfo, string>({
+  key: 'talentRegisterInput',
+  default: (inputKey) => ({ inputKey, contents: '' }),
+});
+
+export {
+  bottomSheetAtom,
+  headerAtom,
+  popupAtom,
+  tabAtom,
+  talentRegisterInputAtomFamily,
+  talentRegisterInputKeyAtom,
+  toastAtom,
+};
