@@ -16,10 +16,18 @@ const Playground = () => {
   ];
 
   const { list, currentSelected, onChange } = useRadioGroup([
-    '사용자 정보가 부정확해요.',
-    '광고성/홍보성 글이에요.',
-    'text3',
-    'text4',
+    {
+      key: 'INCORRECT',
+      label: '사용자 정보가 부정확해요.',
+    },
+    {
+      key: 'MARKETING',
+      label: '광고성/홍보성 글이에요.',
+    },
+    {
+      key: 'DUPLICATED',
+      label: '이 게시글이 도배 되어있어요.',
+    },
   ]);
 
   return (
