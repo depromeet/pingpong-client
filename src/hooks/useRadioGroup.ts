@@ -1,11 +1,19 @@
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
-const useRadioGroup = (list: string[]) => {
-  const [currentSelected, setCurrentSelected] = useState<string>('');
+export interface Radio {
+  key: string;
+  label: string;
+}
+
+const useRadioGroup = (list: Radio[]) => {
+  const [currentSelected, setCurrentSelected] = useState<Radio | null>(null);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCurrentSelected(e.target.value);
+    setCurrentSelected(() => ({
+      key: e.target.id,
+      label: e.target.value,
+    }));
   };
 
   return {
