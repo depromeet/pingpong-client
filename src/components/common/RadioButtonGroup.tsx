@@ -4,15 +4,25 @@ import styled from 'styled-components';
 import { colors } from '@/constants/styles';
 import type { Radio } from '@/hooks/useRadioGroup';
 
-interface RadioButtonGroup {
+export interface RadioUI extends Radio {
+  subLabel?: string;
+}
+
+interface RadioButtonGroupProps {
   size?: 'small' | 'medium';
   currentSelected: Radio | null;
-  list: Radio[];
+  list: RadioUI[];
   onChange: (args: Radio) => void;
   name?: string;
 }
 
-const RadioButtonGroup = ({ size = 'medium', currentSelected, list, onChange, name = 'radio' }: RadioButtonGroup) => {
+const RadioButtonGroup = ({
+  size = 'medium',
+  currentSelected,
+  list,
+  onChange,
+  name = 'radio',
+}: RadioButtonGroupProps) => {
   return (
     <RadioButtonContainer size={size}>
       {list.map((item) => {
@@ -27,6 +37,7 @@ const RadioButtonGroup = ({ size = 'medium', currentSelected, list, onChange, na
             <label htmlFor={item.label} className={isSelected ? 'selected' : ''}>
               <input type="radio" id={item.key} name={name} value={item.label} />
               <span className="text-b2">{item.label}</span>
+              <span className="text-b3 text-gray-300 ml-8">{item.subLabel}</span>
             </label>
           </RadioButton>
         );

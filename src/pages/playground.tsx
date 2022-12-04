@@ -73,6 +73,32 @@ const Playground = () => {
     },
   ]);
 
+  const {
+    list: timeList,
+    currentSelected: selectedTime,
+    onChange: onChangeTime,
+  } = useRadioGroup([
+    {
+      key: 'MORNING',
+      label: '오전',
+      subLabel: '6AM - 12PM',
+    },
+    {
+      key: 'AFTERNOON',
+      label: '오후',
+      subLabel: '12PM - 6PM',
+    },
+    {
+      key: 'NIGHT',
+      label: '밤',
+      subLabel: '6PM - 12AM',
+    },
+    {
+      key: 'NONE',
+      label: '조율 가능',
+    },
+  ]);
+
   return (
     <PlaygroundContainer>
       <PlaygroundBlock>
@@ -87,14 +113,21 @@ const Playground = () => {
         <RadioGroup list={list} currentSelected={currentSelected} onChange={onChange} />
       </PlaygroundBlock>
       <PlaygroundBlock>
-        <PlaygroundTitle>Radio Button</PlaygroundTitle>
-        <RadioButtonGroup
-          size="small"
-          list={locationList}
-          currentSelected={selectedLocation}
-          onChange={onChangeLocation}
-        />
-        <RadioButtonGroup list={periodList} currentSelected={selectedPeriod} onChange={onChangePeriod} />
+        <PlaygroundTitle>Radio Button (Group)</PlaygroundTitle>
+        <PlaygroundRow>
+          <RadioButtonGroup
+            size="small"
+            list={locationList}
+            currentSelected={selectedLocation}
+            onChange={onChangeLocation}
+          />
+        </PlaygroundRow>
+        <PlaygroundRow>
+          <RadioButtonGroup list={periodList} currentSelected={selectedPeriod} onChange={onChangePeriod} />
+        </PlaygroundRow>
+        <PlaygroundRow>
+          <RadioButtonGroup list={timeList} currentSelected={selectedTime} onChange={onChangeTime} />
+        </PlaygroundRow>
       </PlaygroundBlock>
     </PlaygroundContainer>
   );
@@ -117,6 +150,10 @@ const PlaygroundBlock = styled.div`
   background-color: #eee;
   margin-bottom: 2rem;
   padding: 4rem;
+`;
+
+const PlaygroundRow = styled.div`
+  margin-top: 4rem;
 `;
 
 const PlaygroundTitle = styled.h3`
