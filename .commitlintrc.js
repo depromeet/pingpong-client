@@ -1,1 +1,1 @@
-module.exports = { extends: ['gitmoji'] };
+module.exports = { extends: ['gitmoji'], ignores: [(message) => message.includes('WIP')] };
