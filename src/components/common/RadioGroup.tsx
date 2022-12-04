@@ -1,4 +1,3 @@
-import type { ChangeEvent } from 'react';
 import { uniqueId } from 'src/lib/utils';
 import styled from 'styled-components';
 
@@ -8,7 +7,7 @@ import { Radio } from '@/hooks/useRadioGroup';
 interface RadioGroupProps {
   currentSelected: Radio | null;
   list: Radio[];
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (args: Radio) => void;
   name?: string;
 }
 

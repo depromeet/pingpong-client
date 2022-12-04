@@ -1,5 +1,4 @@
-import type { ChangeEvent } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface Radio {
   key: string;
@@ -7,12 +6,12 @@ export interface Radio {
 }
 
 const useRadioGroup = (list: Radio[]) => {
-  const [currentSelected, setCurrentSelected] = useState<Radio | null>(null);
+  const [currentSelected, setCurrentSelected] = useState<Radio>(list[0]);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChange = ({ key, label }: Radio) => {
     setCurrentSelected(() => ({
-      key: e.target.id,
-      label: e.target.value,
+      key,
+      label,
     }));
   };
 

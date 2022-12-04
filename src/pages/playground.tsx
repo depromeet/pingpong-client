@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
+import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import useRadioGroup from '@/hooks/useRadioGroup';
@@ -30,6 +31,48 @@ const Playground = () => {
     },
   ]);
 
+  const {
+    list: locationList,
+    currentSelected: selectedLocation,
+    onChange: onChangeLocation,
+  } = useRadioGroup([
+    {
+      key: 'ONLINE',
+      label: '온라인',
+    },
+    {
+      key: 'OFFLINE',
+      label: '오프라인',
+    },
+    {
+      key: 'BOTH',
+      label: '상관 없음',
+    },
+  ]);
+
+  const {
+    list: periodList,
+    currentSelected: selectedPeriod,
+    onChange: onChangePeriod,
+  } = useRadioGroup([
+    {
+      key: 'DAYLY',
+      label: '1주 미만',
+    },
+    {
+      key: 'WEEKLY',
+      label: '1주 이상',
+    },
+    {
+      key: 'MONTHLY',
+      label: '1개월 이상',
+    },
+    {
+      key: 'NONE',
+      label: '조율 가능',
+    },
+  ]);
+
   return (
     <PlaygroundContainer>
       <PlaygroundBlock>
@@ -42,6 +85,16 @@ const Playground = () => {
       <PlaygroundBlock>
         <PlaygroundTitle>Radio (Group)</PlaygroundTitle>
         <RadioGroup list={list} currentSelected={currentSelected} onChange={onChange} />
+      </PlaygroundBlock>
+      <PlaygroundBlock>
+        <PlaygroundTitle>Radio Button</PlaygroundTitle>
+        <RadioButtonGroup
+          size="small"
+          list={locationList}
+          currentSelected={selectedLocation}
+          onChange={onChangeLocation}
+        />
+        <RadioButtonGroup list={periodList} currentSelected={selectedPeriod} onChange={onChangePeriod} />
       </PlaygroundBlock>
     </PlaygroundContainer>
   );
