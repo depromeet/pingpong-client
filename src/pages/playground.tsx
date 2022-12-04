@@ -15,7 +15,7 @@ const Playground = () => {
     { id: 2, label: '후후' },
   ];
 
-  const { labelList, currentSelected, onChange } = useRadioGroup([
+  const { list, currentSelected, onChange } = useRadioGroup([
     '사용자 정보가 부정확해요.',
     '광고성/홍보성 글이에요.',
     'text3',
@@ -33,7 +33,7 @@ const Playground = () => {
       </PlaygroundBlock>
       <PlaygroundBlock>
         <PlaygroundTitle>Radio (Group)</PlaygroundTitle>
-        <RadioGroup list={labelList} currentSelected={currentSelected} onChange={onChange} />
+        <RadioGroup list={list} currentSelected={currentSelected} onChange={onChange} />
       </PlaygroundBlock>
     </PlaygroundContainer>
   );
