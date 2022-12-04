@@ -21,7 +21,7 @@ export default function Profile() {
         </article>
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
           <div>
-            <Image src={'/images/empty.png'} alt="profile" width={100} height={100} />
+            <Image src={'/images/empty-profile.png'} alt="profile" width={100} height={100} />
           </div>
           <span className="text-h2">{`말하는 감자`}</span>
         </article>

@@ -15,7 +15,7 @@ Share.args = {
   tag: { id: 'id', label: '소분류' },
   title: '테스트 제목입니다.',
   type: 'share',
-  user: { nickname: '닉네임', profile: '/images/empty.png', rank: 'Beginner' },
+  user: { nickname: '닉네임', profile: '/images/empty-profile.png', rank: 'Beginner' },
 };
 
 export const Exchange = Template.bind({});
@@ -24,7 +24,7 @@ Exchange.args = {
   tag: { id: 'id', label: '소분류' },
   title: '테스트 제목입니다.',
   type: 'exchange',
-  user: { nickname: '닉네임', profile: '/images/empty.png', rank: 'Beginner' },
+  user: { nickname: '닉네임', profile: '/images/empty-profile.png', rank: 'Beginner' },
   needed: [
     { id: '1', label: '취업 · 이직 · 진로' },
     { id: '2', label: '기획 · PM' },

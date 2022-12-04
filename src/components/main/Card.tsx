@@ -28,7 +28,7 @@ const Card = (props: Card) => {
         {user && (
           <section className="bg-white rounded-xl flex items-center gap-3 px-5 py-3">
             <article>
-              <ProfileImg size="small" alt="profile" src={'/images/empty.png'} />
+              <ProfileImg size="small" alt="profile" src={'/images/empty-profile.png'} />
             </article>
             <article className="flex flex-col overflow-hidden">
               <h2 className="text-gray-500 text-b4 w-full whitespace-nowrap text-ellipsis overflow-hidden">

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
+import Empty from '@/components/common/Empty';
 import RadioGroup from '@/components/common/RadioGroup';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import useRadioGroup from '@/hooks/useRadioGroup';
@@ -42,6 +43,9 @@ const Playground = () => {
       <PlaygroundBlock>
         <PlaygroundTitle>Radio (Group)</PlaygroundTitle>
         <RadioGroup list={list} currentSelected={currentSelected} onChange={onChange} />
+      </PlaygroundBlock>
+      <PlaygroundBlock>
+        <Empty>없습니다</Empty>
       </PlaygroundBlock>
     </PlaygroundContainer>
   );
