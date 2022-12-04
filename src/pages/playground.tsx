@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
 import RadioGroup from '@/components/common/RadioGroup';
-import { useBottomSheet } from '@/hooks/useBottomSheet';
+import useBottomSheet from '@/hooks/useBottomSheet';
 import useRadioGroup from '@/hooks/useRadioGroup';
 
 const Playground = () => {
