@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import type { RadioUI } from '@/components/common/RadioButtonGroup';
 
 export interface Radio {
   key: string;
   label: string;
 }
 
-const useRadioGroup = (list: Radio[]) => {
+const useRadioGroup = (list: RadioUI[] | Radio[]) => {
   const [currentSelected, setCurrentSelected] = useState<Radio>(list[0]);
 
   const onChange = ({ key, label }: Radio) => {
