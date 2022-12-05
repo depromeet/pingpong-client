@@ -20,7 +20,7 @@ const RadioGroup = ({ currentSelected, list, onChange, name = 'radio' }: RadioGr
 
         return (
           <Radio key={uniqueId('radio')}>
-            <label htmlFor={item.label} className={isSelected ? 'selected' : ''}>
+            <label htmlFor={item.key} className={isSelected ? 'selected' : ''}>
               <input type="radio" id={item.key} name={name} value={item.label} onChange={onChange} />
               <span className="text-b2">{item.label}</span>
             </label>
