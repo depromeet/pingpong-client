@@ -34,7 +34,7 @@ const RadioButtonGroup = ({
             key={uniqueId('radio')}
             onClick={() => onChange({ key: item.key, label: item.label })}
           >
-            <label htmlFor={item.label} className={isSelected ? 'selected' : ''}>
+            <label htmlFor={item.key} className={isSelected ? 'selected' : ''}>
               <input type="radio" id={item.key} name={name} value={item.label} />
               <span className="text-b2">{item.label}</span>
               <span className="text-b3 text-gray-300 ml-8">{item.subLabel}</span>
