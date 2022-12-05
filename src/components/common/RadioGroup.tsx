@@ -18,9 +18,9 @@ const RadioGroup = ({ currentSelected, list, onChange, name = 'radio' }: RadioGr
         const isSelected = currentSelected?.label === item.label;
 
         return (
-          <Radio key={uniqueId('radio')}>
+          <Radio key={uniqueId('radio')} onClick={() => onChange({ key: item.key, label: item.label })}>
             <label htmlFor={item.key} className={isSelected ? 'selected' : ''}>
-              <input type="radio" id={item.key} name={name} value={item.label} onChange={onChange} />
+              <input type="radio" id={item.key} name={name} value={item.label} />
               <span className="text-b2">{item.label}</span>
             </label>
           </Radio>
