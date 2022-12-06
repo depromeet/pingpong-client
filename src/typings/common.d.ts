@@ -15,3 +15,8 @@ interface PopupProps {
   confirmText?: string;
   cancelText?: string;
 }
+
+interface Header {
+  title: string;
+  activeButton?: string;
+}
