@@ -15,7 +15,7 @@ const Input = ({ type = 'text', onChange, className, showCount, error, maxLength
   };
 
   return (
-    <div className={`relative w-full flex flex-col text-2xl ${className}`}>
+    <div className={`relative w-full flex flex-col text-b2 ${className}`}>
       <input
         type={type}
         className={`w-full pl-[12px] pr-[46px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none placeholder:text-gray-300 rounded-[8px] ${
