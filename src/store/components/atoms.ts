@@ -25,4 +25,9 @@ const popupAtom = atom<PopupProps | null>({
   default: null,
 });
 
-export { bottomSheetAtom, popupAtom, tabAtom, toastAtom };
+const headerAtom = atom<Header | null>({
+  key: 'header',
+  default: null,
+});
+
+export { bottomSheetAtom, headerAtom, popupAtom, tabAtom, toastAtom };

@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Button from '@/components/common/Button';
 import Tag from '@/components/common/Tag';
 import TextBox from '@/components/common/TextBox';
 
