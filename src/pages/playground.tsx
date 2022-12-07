@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
+import Card from '@/components/common/Card';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
 import useBottomSheet from '@/hooks/useBottomSheet';
@@ -99,6 +100,20 @@ const Playground = () => {
     },
   ]);
 
+  const cardMockData = {
+    id: 7,
+    isShare: false,
+    title: '제목',
+    subCategory: '대1중1소1',
+    likes: 0,
+    memberId: 1,
+    nickname: '감자',
+    image:
+      'https://images.unsplash.com/photo-1670433000581-7b36d9b2fe4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2318&q=80',
+    ranks: '루키',
+    takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
+  };
+
   return (
     <PlaygroundContainer>
       <PlaygroundBlock>
@@ -127,6 +142,12 @@ const Playground = () => {
         </PlaygroundRow>
         <PlaygroundRow>
           <RadioButtonGroup list={timeList} currentSelected={selectedTime} onChange={onChangeTime} />
+        </PlaygroundRow>
+      </PlaygroundBlock>
+      <PlaygroundBlock>
+        <PlaygroundTitle>Radio Button (Group)</PlaygroundTitle>
+        <PlaygroundRow>
+          <Card {...cardMockData} />
         </PlaygroundRow>
       </PlaygroundBlock>
     </PlaygroundContainer>

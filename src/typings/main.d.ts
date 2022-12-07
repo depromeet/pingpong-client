@@ -11,19 +11,15 @@ type Tag = {
   label: string;
 };
 
-type Card =
-  | {
-      type: 'exchange';
-      user?: User;
-      title: string;
-      like: number;
-      tag: Tag;
-      needed?: Tag[];
-    }
-  | {
-      type: 'share';
-      user?: User;
-      title: string;
-      like: number;
-      tag: Tag;
-    };
+interface Card {
+  id: number;
+  isShare: boolean;
+  title: string;
+  subCategory: string;
+  likes: number;
+  memberId: number;
+  nickname: string;
+  image: string;
+  ranks: string;
+  takenTalents: string[];
+}
