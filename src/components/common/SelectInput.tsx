@@ -20,13 +20,9 @@ const SelectInput = ({ className, placeholder, selectedInputList, href }: Select
           className={`w-full flex items-center justify-between pl-[12px] pr-[17.5px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none rounded-[8px]`}
         >
           {selectedInputList ? (
-            selectedInputList.map((selectedInput) => {
-              return (
-                <span key={uniqueId(selectedInput)} className="w-full truncate">
-                  {selectedInput}
-                </span>
-              );
-            })
+            <span key={uniqueId('selectedInput')} className="w-full text-left truncate">
+              {selectedInputList.join(', ')}
+            </span>
           ) : (
             <span className={'place-self-start text-gray-300'}>{placeholder}</span>
           )}
