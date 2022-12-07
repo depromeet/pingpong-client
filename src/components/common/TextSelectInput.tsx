@@ -10,6 +10,7 @@ export interface TextSelectInputOptionProps {
   placeholder?: string;
   htmlFor?: string;
   selectedInputList?: string[];
+  required?: boolean;
   className?: string;
 }
 
@@ -18,14 +19,17 @@ interface TextSelectInputProps {
 }
 
 const TextSelectInput = ({
-  option: { key, title, href, explanation, placeholder, htmlFor, selectedInputList, className },
+  option: { key, title, href, explanation, placeholder, htmlFor, selectedInputList, required, className },
 }: TextSelectInputProps) => {
   return (
     <div className={className}>
       {title && (
-        <label htmlFor={htmlFor} className="text-t3">
-          {title}
-        </label>
+        <div>
+          <label htmlFor={htmlFor} className="text-t3">
+            {title}
+          </label>
+          {required && <span className="text-primary-red text-b4"> *</span>}
+        </div>
       )}
       {explanation && <span className="block text-b4 text-gray-400 pt-[2px]">{explanation}</span>}
       <SelectInput placeholder={placeholder} href={href} selectedInputList={selectedInputList} className="mt-[8px]" />

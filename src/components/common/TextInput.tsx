@@ -14,6 +14,7 @@ export interface TextInputOptionProps {
   showCount?: boolean;
   maxLength?: number;
   error?: string;
+  required?: boolean;
   className?: string;
 }
 
@@ -22,16 +23,19 @@ interface TextInputProps {
 }
 
 const TextInput = ({
-  option: { key, title, explanation, placeholder, htmlFor, showCount, maxLength, error, className },
+  option: { key, title, explanation, placeholder, htmlFor, showCount, maxLength, error, required, className },
 }: TextInputProps) => {
   const [input, setInput] = useRecoilState(talentRegisterInputSelectorFamily(key));
 
   return (
     <div className={className}>
       {title && (
-        <label htmlFor={htmlFor} className="text-t3">
-          {title}
-        </label>
+        <div>
+          <label htmlFor={htmlFor} className="text-t3">
+            {title}
+          </label>
+          {required && <span className="text-primary-red text-b4"> *</span>}
+        </div>
       )}
       {explanation && <span className="block text-b4 text-gray-400 pt-[2px]">{explanation}</span>}
       <Input
