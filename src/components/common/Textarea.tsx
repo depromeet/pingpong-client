@@ -3,13 +3,14 @@ type Props = DefaultProps & {
   placeholder?: string;
   maxLength: number;
   error?: string;
+  className?: string;
 };
 
-const Textarea = ({ onChange, maxLength, error, ...props }: Props) => {
+const Textarea = ({ onChange, maxLength, error, className, ...props }: Props) => {
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className}`}>
       <textarea
-        className={`w-full pl-[12px] pr-[46px] py-[12.5px] text-b2 border border-gray-200 focus:border-primary-dark focus:outline-none placeholder:text-gray-300 rounded-[8px] ${
+        className={`w-full text-b2 pl-[12px] pr-[46px] py-[12.5px] border border-gray-200 resize-none focus:border-primary-dark focus:outline-none placeholder:text-gray-300 placeholder:text-b2 rounded-[8px] ${
           error && '!border-primary-error resize-none'
         }`}
         onChange={(e) => onChange && onChange(e.target.value)}
