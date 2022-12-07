@@ -24,11 +24,11 @@ const TextSelectInput = ({
   return (
     <div className={className}>
       {title && (
-        <div>
+        <div className="relative">
           <label htmlFor={htmlFor} className="text-t3">
             {title}
           </label>
-          {required && <span className="text-primary-red text-b4"> *</span>}
+          {required && <span className="absolute text-primary-red text-b4 ml-[3px] top-[0px]">*</span>}
         </div>
       )}
       {explanation && <span className="block text-b4 text-gray-400 pt-[2px]">{explanation}</span>}
