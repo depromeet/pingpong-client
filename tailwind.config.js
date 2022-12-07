@@ -55,6 +55,7 @@ module.exports = {
         16: '1.6rem',
         20: '2rem',
         24: '2.4rem',
+        28: '2.8rem',
         32: '3.2rem',
       },
       keyframes: {
