@@ -5,7 +5,7 @@ import { talentRegisterInputSelectorFamily } from '@/store/components/selectors'
 
 import Input from './Input';
 
-export interface TalentRegisterInputOptionProps {
+export interface TextInputOptionProps {
   key: string;
   title?: string;
   explanation?: string;
@@ -16,13 +16,13 @@ export interface TalentRegisterInputOptionProps {
   error?: string;
 }
 
-interface TalentRegisterInputProps {
-  option: TalentRegisterInputOptionProps;
+interface TextInputProps {
+  option: TextInputOptionProps;
 }
 
 const TextInput = ({
   option: { key, title, explanation, placeholder, htmlFor, showCount, maxLength, error },
-}: TalentRegisterInputProps) => {
+}: TextInputProps) => {
   const [input, setInput] = useRecoilState(talentRegisterInputSelectorFamily(key));
 
   return (
