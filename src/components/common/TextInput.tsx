@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 
 import { talentRegisterInputSelectorFamily } from '@/store/components/selectors';
 
-import Input from '../common/Input';
+import Input from './Input';
 
 export interface TalentRegisterInputOptionProps {
   key: string;
@@ -20,7 +20,7 @@ interface TalentRegisterInputProps {
   option: TalentRegisterInputOptionProps;
 }
 
-const TalentRegisterInput = ({
+const TextInput = ({
   option: { key, title, explanation, placeholder, htmlFor, showCount, maxLength, error },
 }: TalentRegisterInputProps) => {
   const [input, setInput] = useRecoilState(talentRegisterInputSelectorFamily(key));
@@ -47,4 +47,4 @@ const TalentRegisterInput = ({
   );
 };
 
-export default memo(TalentRegisterInput);
+export default memo(TextInput);
