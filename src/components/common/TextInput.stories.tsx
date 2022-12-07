@@ -1,13 +1,13 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import TalentRegisterInput from './TalentRegisterInput';
+import TextInput from './TextInput';
 
 export default {
-  title: 'Components/TalentRegisterInput',
-  component: TalentRegisterInput,
-} as ComponentMeta<typeof TalentRegisterInput>;
+  title: 'Components/TextInput',
+  component: TextInput,
+} as ComponentMeta<typeof TextInput>;
 
-const Template: ComponentStory<typeof TalentRegisterInput> = (args) => <TalentRegisterInput {...args} />;
+const Template: ComponentStory<typeof TextInput> = (args) => <TextInput {...args} />;
 
 export const Title = Template.bind({});
 Title.args = {
