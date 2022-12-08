@@ -11,10 +11,10 @@ const Template: ComponentStory<typeof TalentRegisterCard> = (args) => <TalentReg
 
 export const Share = Template.bind({});
 Share.args = {
-  sort: 'share',
+  sort: 'SHARE',
 };
 
 export const Exchange = Template.bind({});
 Exchange.args = {
-  sort: 'exchange',
+  sort: 'EXCHANGE',
 };
