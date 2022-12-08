@@ -25,7 +25,7 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterHeaderProps) =>
     <div className={`relative w-full h-[213px] ${color} ${className}`}>
       <IconAnchor icon={<XIcon className="absolute right-[16px] top-[60px]" />} href="/talent/register" />
       <TalentRegisterHeaderIcon className="w-full" />
-      <HeaderTitle texts={contents} className="absolute text-gray-100 left-[16px] bottom-[15.5px]" />
+      <HeaderTitle texts={contents} textClassName="text-gray-100" className="absolute left-[16px] bottom-[15.5px]" />
     </div>
   );
 };
