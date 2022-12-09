@@ -18,7 +18,7 @@ const EmptyCardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 3rem 8.6rem;
-  background-color: ${colors.gray200};
+  background-color: ${colors.gray100};
   color: ${colors.gray500};
   border-radius: 1.2rem;
 
