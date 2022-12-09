@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { useTest } from 'src/hooks/test';
 import styled from 'styled-components';
 
 import ProfileImg from '@/components/common/ProfileImg';
@@ -7,8 +6,11 @@ import ProfileImg from '@/components/common/ProfileImg';
 import Card from '../components/common/Card';
 
 const Home: NextPage = () => {
-  const { data } = useTest();
-  const name = '말하는감자';
+  const userData = {
+    nickname: '말하는감자',
+    image:
+      'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
+  };
 
   const cardData = {
     content: [
@@ -62,17 +64,18 @@ const Home: NextPage = () => {
       <div className="mb-28">
         <HomeHeader>
           <HomeTitle>
-            {name} 님,
+            {userData.nickname} 님,
             <br />
             핑퐁에서 재능을 나눠볼까요?
-            <ProfileImg />
           </HomeTitle>
+          <ProfileImg size="large" src={userData.image} alt="user-profile-img" />
         </HomeHeader>
       </div>
       <div className="mb-12">
         <HomeSubtitle className="mb-2">핑퐁! 내가 찾던 재능</HomeSubtitle>
         <HomeDesc>내가 가진 재능과 받고 싶은 재능이 일치해요</HomeDesc>
       </div>
+
       {cardData.content.map((item) => {
         return <Card key={item.id} {...item} />;
       })}

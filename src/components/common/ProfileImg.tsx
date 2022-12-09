@@ -1,22 +1,42 @@
 import type { ImageProps } from 'next/image';
 import Image from 'next/image';
+import styled from 'styled-components';
 
 export interface ProfileImageProps extends ImageProps {
   size: 'small' | 'medium' | 'large';
 }
 
 const imgSize = {
-  small: 36,
-  medium: 56,
-  large: 80,
+  small: '3.6rem',
+  medium: '5.6rem',
+  large: '6.4rem',
+  xlarge: '8rem',
 };
 
-const ProfileImg = ({ size, alt, src }: ProfileImageProps) => {
+const ProfileImg = ({ size = 'small', alt = 'profile-img', src }: ProfileImageProps) => {
   return (
-    <div className="relative w-fit h-fit">
-      <Image alt={alt} src={src} width={imgSize[size]} height={imgSize[size]} className="rounded-full" />
-    </div>
+    <ImageWrapper className="relative" width={imgSize[size]} height={imgSize[size]}>
+      <Image
+        alt={alt}
+        src={src}
+        fill
+        className="rounded-full"
+        sizes="30vw"
+        style={{
+          objectFit: 'cover',
+        }}
+      />
+    </ImageWrapper>
   );
 };
 
 export default ProfileImg;
+
+interface ImageSize {
+  width: string;
+  height: string;
+}
+
+const ImageWrapper = styled.div<ImageSize>`
+  ${({ width, height }: ImageSize) => `width: ${width}; height: ${height}`}
+`;
