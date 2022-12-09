@@ -2,7 +2,7 @@ import type { ImageProps } from 'next/image';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-export interface ProfileImageProps extends ImageProps {
+export interface ProfileImageProps extends Partial<ImageProps> {
   size: 'small' | 'medium' | 'large';
 }
 
