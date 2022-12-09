@@ -49,7 +49,7 @@ const EXPLANATION_SHARE = {
   placeholder: '최대 300자 까지 입력이 가능해요.',
   htmlFor: 'explanation',
   maxLength: 300,
-  // error: '최대 300자까지 입력이 가능해요.',
+  error: '최대 300자까지 입력이 가능해요.',
   required: true,
   className: 'mb-[16px]',
 };
@@ -61,7 +61,7 @@ const EXPLANATION_EXCHANGE = {
   placeholder: '최대 300자 까지 입력이 가능해요.',
   htmlFor: 'explanation',
   maxLength: 300,
-  // error: '최대 300자까지 입력이 가능해요.',
+  error: '최대 300자까지 입력이 가능해요.',
   required: true,
   className: 'mb-[16px]',
 };
