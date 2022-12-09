@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
 import Card from '@/components/common/Card';
+import ProfileImg from '@/components/common/ProfileImg';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
 import useBottomSheet from '@/hooks/useBottomSheet';
@@ -145,9 +146,14 @@ const Playground = () => {
         </PlaygroundRow>
       </PlaygroundBlock>
       <PlaygroundBlock>
-        <PlaygroundTitle>Radio Button (Group)</PlaygroundTitle>
+        <PlaygroundTitle>Card</PlaygroundTitle>
         <PlaygroundRow>
           <Card {...cardMockData} />
+        </PlaygroundRow>
+        <PlaygroundTitle>ProfileImg</PlaygroundTitle>
+        <PlaygroundRow>
+          <ProfileImg size="large" src={cardMockData.image} alt="user-profile-img" />
+          <ProfileImg size="medium" alt="user-profile-img" />
         </PlaygroundRow>
       </PlaygroundBlock>
     </PlaygroundContainer>
@@ -168,16 +174,17 @@ const PlaygroundContainer = styled.div`
 `;
 
 const PlaygroundBlock = styled.div`
-  background-color: #eee;
+  background-color: #e5f4ff;
   margin-bottom: 2rem;
   padding: 4rem;
 `;
 
 const PlaygroundRow = styled.div`
-  margin-top: 4rem;
+  margin-top: 2rem;
 `;
 
 const PlaygroundTitle = styled.h3`
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.3rem;
+  margin-top: 3rem;
 `;
