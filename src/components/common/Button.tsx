@@ -14,6 +14,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({
   buttonStyle = ButtonStyleType.PRIMARY,
+  type,
   // hasIcon = false,
   // iconName = 'arrow-right',
   position = 'right',
@@ -30,6 +31,7 @@ const Button = ({
     <div className="flex w-full">
       {position === 'right' ? (
         <button
+          type={type}
           className={`btn-${buttonStyle.toLowerCase()} ${defaultClass} ${className}`}
           onClick={onClick}
           disabled={disabled}
@@ -39,6 +41,7 @@ const Button = ({
         </button>
       ) : (
         <button
+          type={type}
           className={`btn-${buttonStyle.toLowerCase()} ${defaultClass} ${className}`}
           onClick={onClick}
           disabled={disabled}
