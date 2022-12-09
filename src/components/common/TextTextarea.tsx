@@ -1,4 +1,7 @@
 import React, { memo } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { talentRegisterInputSelectorFamily } from '@/store/components/selectors';
 
 import Textarea from './Textarea';
 
@@ -21,7 +24,8 @@ interface TextTextareaProps {
 const TextTextarea = ({
   option: { key, title, explanation, maxLength, error, placeholder, htmlFor, required, className },
 }: TextTextareaProps) => {
-  // TODO:: onChange value에 대한 state 관리 로직 필요
+  const [input, setInput] = useRecoilState(talentRegisterInputSelectorFamily(key));
+
   return (
     <div className={className}>
       {title && (
@@ -33,7 +37,14 @@ const TextTextarea = ({
         </div>
       )}
       {explanation && <span className="block text-b4 text-gray-400 pt-[2px]">{explanation}</span>}
-      <Textarea maxLength={maxLength} placeholder={placeholder} error={error} className="mt-[8px]" />
+      <Textarea
+        value={input.contents}
+        maxLength={maxLength}
+        placeholder={placeholder}
+        error={maxLength && input.contents.length >= maxLength ? error : undefined}
+        className="mt-[8px]"
+        onChange={(value) => setInput((prev) => ({ ...prev, contents: value }))}
+      />
     </div>
   );
 };

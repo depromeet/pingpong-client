@@ -16,6 +16,7 @@ const Textarea = ({ onChange, maxLength, error, className, ...props }: Props) =>
         onChange={(e) => onChange && onChange(e.target.value)}
         cols={6}
         rows={6}
+        maxLength={maxLength}
         {...props}
       ></textarea>
       <div className={`flex items-center w-full text-b4 mt-[8px] ${error ? 'justify-between' : 'justify-end'}`}>
