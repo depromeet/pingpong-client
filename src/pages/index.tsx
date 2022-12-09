@@ -1,8 +1,10 @@
 import type { NextPage } from 'next';
 import styled from 'styled-components';
 
+import Divider from '@/components/common/Divider';
 import EmptyCard from '@/components/common/EmptyCard';
 import ProfileImg from '@/components/common/ProfileImg';
+import Layout from '@/components/layouts';
 
 import Card from '../components/common/Card';
 
@@ -16,7 +18,7 @@ const Home: NextPage = () => {
   const cardData = {
     content: [
       {
-        id: 7,
+        id: 12,
         isShare: false,
         title: '제목',
         subCategory: '대1중1소1',
@@ -29,7 +31,7 @@ const Home: NextPage = () => {
         takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
       },
       {
-        id: 8,
+        id: 89,
         isShare: false,
         title: '주고받고',
         subCategory: '프론트엔드 개발',
@@ -61,35 +63,48 @@ const Home: NextPage = () => {
   };
 
   return (
-    <HomeContainer>
-      <div className="mb-28">
-        <HomeHeader>
+    <Layout.DefaultContainer>
+      <Layout.DefaultPadding>
+        <div className="mb-28">
+          <HomeHeader>
+            <HomeTitle>
+              <span className="text-primary-blue">{userData.nickname}</span> 님,
+              <br />
+              핑퐁에서 재능을 나눠볼까요?
+            </HomeTitle>
+            <ProfileImg size="large" src={userData.image} alt="user-profile-img" />
+          </HomeHeader>
+        </div>
+        <div className="mb-12">
+          <HomeSubtitle className="mb-2">핑퐁! 내가 찾던 재능</HomeSubtitle>
+          <HomeDesc>내가 가진 재능과 받고 싶은 재능이 일치해요</HomeDesc>
+        </div>
+        <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
+      </Layout.DefaultPadding>
+      <Divider />
+      <Layout.DefaultPadding>
+        <div className="mb-36">
           <HomeTitle>
-            {userData.nickname} 님,
+            다양한 카테고리에서
             <br />
-            핑퐁에서 재능을 나눠볼까요?
+            재능을 발견해 보세요
           </HomeTitle>
-          <ProfileImg size="large" src={userData.image} alt="user-profile-img" />
-        </HomeHeader>
-      </div>
-      <div className="mb-12">
-        <HomeSubtitle className="mb-2">핑퐁! 내가 찾던 재능</HomeSubtitle>
-        <HomeDesc>내가 가진 재능과 받고 싶은 재능이 일치해요</HomeDesc>
-      </div>
-      <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
-      {cardData.content.map((item) => {
-        return <Card key={item.id} {...item} />;
-      })}
-      <HomeTitle>다양한 카테고리에서 재능을 발견해 보세요</HomeTitle>
-    </HomeContainer>
+        </div>
+        <CardContainer>
+          {cardData.content.map((item) => {
+            return (
+              <li key={item.id}>
+                <Card {...item} />
+              </li>
+            );
+          })}
+        </CardContainer>
+      </Layout.DefaultPadding>
+    </Layout.DefaultContainer>
   );
 };
 
 export default Home;
-
-const HomeContainer = styled.div`
-  padding: 6rem 1.6rem;
-`;
 
 const HomeHeader = styled.div`
   display: flex;
@@ -114,4 +129,10 @@ const HomeDesc = styled.p`
   font-size: 1.3rem;
   line-height: 1.95rem;
   letter-spacing: -0.03rem;
+`;
+
+const CardContainer = styled.ul`
+  > li ~ li {
+    margin-top: 1.2rem;
+  }
 `;
