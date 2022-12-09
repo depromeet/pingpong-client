@@ -5,9 +5,9 @@ const SORT = 'EXCHANGE';
 
 const TalentRegisterExchange = () => {
   return (
-    <div className="w-[375px] px-[16px]">
+    <div className="w-[375px]">
       <TalentRegisterHeader sort={SORT} />
-      <TalentRegisterForm className="py-[24px]" sort={SORT} />
+      <TalentRegisterForm className="px-[16px] py-[24.5px]" sort={SORT} />
     </div>
   );
 };
