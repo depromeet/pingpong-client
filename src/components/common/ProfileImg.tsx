@@ -13,7 +13,9 @@ const imgSize = {
   xlarge: '8rem',
 };
 
-const ProfileImg = ({ size = 'small', alt = 'profile-img', src }: ProfileImageProps) => {
+const defaultImgSrc = '/images/empty-profile.png';
+
+const ProfileImg = ({ size = 'small', alt = 'profile-img', src = defaultImgSrc }: ProfileImageProps) => {
   return (
     <ImageWrapper className="relative" width={imgSize[size]} height={imgSize[size]}>
       <Image
