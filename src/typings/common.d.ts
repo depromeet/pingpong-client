@@ -20,3 +20,17 @@ interface Header {
   title: string;
   activeButton?: string;
 }
+
+interface CardInfo {
+  id: number;
+  isShare: boolean;
+  title: string;
+  subCategory: string;
+  likes: number;
+  memberId: number;
+  nickname: string;
+  image: string;
+  ranks: string;
+  takenTalents: string[];
+  hideTakenTalents?: boolean;
+}

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
 import Card from '@/components/common/Card';
+import Carousel from '@/components/common/CardCarousel';
 import ProfileImg from '@/components/common/ProfileImg';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
@@ -115,6 +116,53 @@ const Playground = () => {
     takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
   };
 
+  const cardListData = {
+    content: [
+      {
+        id: 12,
+        isShare: false,
+        title: '제목',
+        subCategory: '대1중1소1',
+        likes: 0,
+        memberId: 1,
+        nickname: '감자',
+        image:
+          'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
+        ranks: '루키',
+        takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
+      },
+      {
+        id: 89,
+        isShare: false,
+        title: '주고받고',
+        subCategory: '프론트엔드 개발',
+        likes: 0,
+        memberId: 1,
+        nickname: '감자',
+        image:
+          'https://images.unsplash.com/photo-1670433000581-7b36d9b2fe4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2318&q=80',
+        ranks: '루키',
+        takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
+      },
+      {
+        id: 8,
+        isShare: true,
+        title: '디자인 가르쳐드립니다',
+        subCategory: 'UI/UX',
+        likes: 0,
+        memberId: 1,
+        nickname: '감자',
+        image:
+          'https://images.unsplash.com/photo-1670258880107-e0b02eb0ff14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80',
+        ranks: '루키',
+        takenTalents: [],
+      },
+    ],
+    totalElements: 26,
+    totalPages: 13,
+    hasNextPages: true,
+  };
+
   return (
     <PlaygroundContainer>
       <PlaygroundBlock>
@@ -156,6 +204,8 @@ const Playground = () => {
           <ProfileImg size="medium" alt="user-profile-img" />
         </PlaygroundRow>
       </PlaygroundBlock>
+      <PlaygroundTitle>Card Carousel</PlaygroundTitle>
+      <Carousel list={cardListData.content} />
     </PlaygroundContainer>
   );
 };

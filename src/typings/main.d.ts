@@ -10,16 +10,3 @@ type Tag = {
   id: string;
   label: string;
 };
-
-interface Card {
-  id: number;
-  isShare: boolean;
-  title: string;
-  subCategory: string;
-  likes: number;
-  memberId: number;
-  nickname: string;
-  image: string;
-  ranks: string;
-  takenTalents: string[];
-}
