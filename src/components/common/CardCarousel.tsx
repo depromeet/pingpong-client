@@ -26,7 +26,7 @@ export default CardCarousel;
 
 const SwiperWrapper = styled.div`
   .swiper {
-    padding-bottom: 3rem;
+    padding-bottom: 3.6rem;
   }
 
   .swiper-slide {
