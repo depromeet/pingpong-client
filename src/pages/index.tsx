@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
 import styled from 'styled-components';
 
+import Card from '@/components/common/Card';
+import CardCarousel from '@/components/common/CardCarousel';
 import Divider from '@/components/common/Divider';
 import EmptyCard from '@/components/common/EmptyCard';
 import ProfileImg from '@/components/common/ProfileImg';
 import Layout from '@/components/layouts';
-
-import Card from '../components/common/Card';
 
 const Home: NextPage = () => {
   const userData = {
@@ -79,7 +79,11 @@ const Home: NextPage = () => {
           <HomeSubtitle className="mb-2">핑퐁! 내가 찾던 재능</HomeSubtitle>
           <HomeDesc>내가 가진 재능과 받고 싶은 재능이 일치해요</HomeDesc>
         </div>
-        <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
+        {cardData.content.length ? (
+          <CardCarousel list={cardData.content} />
+        ) : (
+          <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
+        )}
       </Layout.DefaultPadding>
       <Divider />
       <Layout.DefaultPadding>
