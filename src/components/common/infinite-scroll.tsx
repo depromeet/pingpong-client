@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 import useInfiniteScroll from 'src/hooks/queries/useInfiniteScroll';
 
 interface PageParam {
