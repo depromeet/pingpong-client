@@ -30,6 +30,28 @@ const headerAtom = atom<Header | null>({
   default: null,
 });
 
+const talentRegisterAtom = atom({
+  key: 'talentRegister',
+  default: {
+    title: '',
+    content: '',
+    isShare: false,
+    subCategoryId: 0,
+    links: ['', '', ''],
+    chatLink: '',
+    takenTalentIds: [0, 0, 0],
+    takenContent: '',
+    exchangeType: '',
+    exchangePeriod: '',
+    exchangeTime: '',
+  },
+});
+
+const talentRegisterOrderAtom = atom({
+  key: 'talentRegisterOrder',
+  default: 1,
+});
+
 // INFO:: 추후 key에 따른 Atom 관리를 위해 InputKeyAtom을 추가하였습니다.
 const talentRegisterInputKeyAtom = atom<string[]>({
   key: 'talentRegisterInputKey',
@@ -50,7 +72,9 @@ export {
   headerAtom,
   popupAtom,
   tabAtom,
+  talentRegisterAtom,
   talentRegisterInputAtomFamily,
   talentRegisterInputKeyAtom,
+  talentRegisterOrderAtom,
   toastAtom,
 };
