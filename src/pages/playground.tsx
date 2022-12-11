@@ -4,7 +4,7 @@ import BottomSheet from '@/components/common/BottomSheet';
 import BottomSheetOptions from '@/components/common/BottomSheetOptions';
 import Card from '@/components/common/Card';
 import Carousel from '@/components/common/CardCarousel';
-import ProfileImg from '@/components/common/ProfileImg';
+import CircleImg from '@/components/common/CircleImg';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
 import useBottomSheet from '@/hooks/useBottomSheet';
@@ -198,10 +198,10 @@ const Playground = () => {
         <PlaygroundRow>
           <Card {...cardMockData} />
         </PlaygroundRow>
-        <PlaygroundTitle>ProfileImg</PlaygroundTitle>
+        <PlaygroundTitle>CircleImg</PlaygroundTitle>
         <PlaygroundRow>
-          <ProfileImg size="large" src={cardMockData.image} alt="user-profile-img" />
-          <ProfileImg size="medium" alt="user-profile-img" />
+          <CircleImg size="large" src={cardMockData.image} alt="user-profile-img" />
+          <CircleImg size="medium" alt="user-profile-img" />
         </PlaygroundRow>
       </PlaygroundBlock>
       <PlaygroundTitle>Card Carousel</PlaygroundTitle>

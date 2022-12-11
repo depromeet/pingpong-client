@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import { uniqueId } from '@/lib/utils';
 
-import ProfileImg from '../common/ProfileImg';
 import Tag from '../common/Tag';
 import { HeartIcon } from '../icons';
+import CircleImg from './CircleImg';
 
 const Card = ({
   isShare,
@@ -41,7 +41,7 @@ const Card = ({
           {
             <section className="bg-white rounded-xl flex items-center gap-3 px-5 py-3">
               <article className="rounded-full">
-                <ProfileImg size="small" alt="profile" src={image} />
+                <CircleImg size="small" alt="profile" src={image} />
               </article>
               <article className="flex flex-col overflow-hidden">
                 <h2 className="text-gray-500 text-b4 w-full whitespace-nowrap text-ellipsis overflow-hidden">
