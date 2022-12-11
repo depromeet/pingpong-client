@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
 import CardCarousel from '@/components/common/CardCarousel';
+import CircleImg from '@/components/common/CircleImg';
 import Divider from '@/components/common/Divider';
 import EmptyCard from '@/components/common/EmptyCard';
-import ProfileImg from '@/components/common/ProfileImg';
 import Layout from '@/components/layouts';
+import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 
 const Home: NextPage = () => {
   const userData = {
@@ -62,6 +63,83 @@ const Home: NextPage = () => {
     hasNextPages: true,
   };
 
+  const categoryData = [
+    {
+      id: 1,
+      name: '전체',
+      image:
+        'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
+      midCategories: [
+        {
+          id: 1,
+          name: '대1중1',
+        },
+        {
+          id: 2,
+          name: '대1중2',
+        },
+        {
+          id: 3,
+          name: '대1중3',
+        },
+      ],
+    },
+    {
+      id: 2,
+      name: '데이터',
+      image:
+        'https://images.unsplash.com/photo-1670433000581-7b36d9b2fe4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2318&q=80',
+      midCategories: [
+        {
+          id: 4,
+          name: '대2중1',
+        },
+        {
+          id: 5,
+          name: '대2중2',
+        },
+        {
+          id: 6,
+          name: '대2중3',
+        },
+      ],
+    },
+    {
+      id: 3,
+      name: '자기계발',
+      image:
+        'https://images.unsplash.com/photo-1670258880107-e0b02eb0ff14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80',
+      midCategories: [],
+    },
+    {
+      id: 4,
+      name: '디자인/영상',
+      image:
+        'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
+      midCategories: [
+        {
+          id: 1,
+          name: '대1중1',
+        },
+        {
+          id: 2,
+          name: '대1중2',
+        },
+        {
+          id: 3,
+          name: '대1중3',
+        },
+      ],
+    },
+    {
+      id: 5,
+      name: '자기계발',
+      image:
+        'https://images.unsplash.com/photo-1670258880107-e0b02eb0ff14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80',
+      midCategories: [],
+    },
+  ];
+
   return (
     <Layout.DefaultContainer>
       <Layout.DefaultPadding>
@@ -72,7 +150,7 @@ const Home: NextPage = () => {
               <br />
               핑퐁에서 재능을 나눠볼까요?
             </HomeTitle>
-            <ProfileImg size="large" src={userData.image} alt="user-profile-img" />
+            <CircleImg size="large" src={userData.image} alt="user-profile-img" />
           </HomeHeader>
         </div>
         <div className="mb-12">
@@ -94,6 +172,9 @@ const Home: NextPage = () => {
             재능을 발견해 보세요
           </HomeTitle>
         </div>
+      </Layout.DefaultPadding>
+      <CategoryCarousel list={categoryData} />
+      <Layout.DefaultPadding>
         <CardContainer>
           {cardData.content.map((item) => {
             return (

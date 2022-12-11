@@ -34,3 +34,9 @@ interface CardInfo {
   takenTalents: string[];
   hideTakenTalents?: boolean;
 }
+
+interface MainCategoryInfo {
+  id: number;
+  name: string;
+  image: string;
+}
