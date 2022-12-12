@@ -12,14 +12,14 @@ interface SelectInputProps {
   href: string;
 }
 
-const SelectInput = ({ className, placeholder, selectedInputList, href }: SelectInputProps) => {
+const SelectInput = ({ className, placeholder = '', selectedInputList, href }: SelectInputProps) => {
   return (
     <div className={`w-full text-2xl ${className}`}>
       <Link href={href}>
         <button
           className={`w-full flex items-center justify-between pl-[12px] pr-[17.5px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none rounded-[8px]`}
         >
-          {selectedInputList ? (
+          {selectedInputList?.length ? (
             <span key={uniqueId('selectedInput')} className="w-full text-left truncate">
               {selectedInputList.join(', ')}
             </span>
