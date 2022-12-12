@@ -8,12 +8,13 @@ export interface RadioUI extends Radio {
   subLabel?: string;
 }
 
-interface RadioButtonGroupProps {
+export interface RadioButtonGroupProps {
   size?: 'small' | 'medium';
   currentSelected: Radio | null;
   list: RadioUI[];
   onChange: (args: Radio) => void;
   name?: string;
+  className?: string;
 }
 
 const RadioButtonGroup = ({
@@ -22,9 +23,10 @@ const RadioButtonGroup = ({
   list,
   onChange,
   name = 'radio',
+  className,
 }: RadioButtonGroupProps) => {
   return (
-    <RadioButtonContainer size={size}>
+    <RadioButtonContainer size={size} className={className}>
       {list.map((item) => {
         const isSelected = currentSelected?.label === item.label;
 
@@ -49,7 +51,7 @@ const RadioButtonGroup = ({
 export default RadioButtonGroup;
 
 const RadioButton = styled.div<{ size: 'small' | 'medium' }>`
-  ${({ size }: { size: 'small' | 'medium' }) => (size === 'small' ? `flex: 1 0 33%;` : `flex: 1 0 calc(50% - 0.8rem);`)}
+  ${({ size }: { size: 'small' | 'medium' }) => (size === 'small' ? `flex: 1 0 30%;` : `flex: 1 0 calc(50% - 0.8rem);`)}
 
   > label {
     display: flex;
