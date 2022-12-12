@@ -23,7 +23,7 @@
 }
 
 .btn-secondary {
-  @apply text-gray-500 bg-white border border-gray-500 disabled:text-gray-300 disabled:border-gray-300;
+  @apply text-gray-500 bg-white border border-gray-200 disabled:text-gray-300 disabled:border-gray-300 active:border-black;
 }
 
 .tag-dark {
