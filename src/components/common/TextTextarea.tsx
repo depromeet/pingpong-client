@@ -9,7 +9,7 @@ export interface TextTextareaOptionProps {
   placeholder?: string;
   maxLength: number;
   error?: string;
-  htmlFor?: string;
+  htmlFor: string;
   required?: boolean;
   className?: string;
 }
