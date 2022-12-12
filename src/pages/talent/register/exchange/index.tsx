@@ -7,7 +7,7 @@ const TalentRegisterExchange = () => {
   return (
     <div className="w-[375px]">
       <TalentRegisterHeader sort={SORT} />
-      <TalentRegisterForm className="px-[16px] py-[24.5px]" sort={SORT} />
+      <TalentRegisterForm sort={SORT} />
     </div>
   );
 };
