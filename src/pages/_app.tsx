@@ -4,6 +4,7 @@ import 'swiper/css/bundle';
 import 'swiper/css/pagination';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 
@@ -15,6 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
         <div id="portal" />
         <Layout>
           <Component {...pageProps} />
