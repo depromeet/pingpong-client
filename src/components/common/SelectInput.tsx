@@ -19,7 +19,7 @@ const SelectInput = ({ className, placeholder = '', selectedInputList, href }: S
         <button
           className={`w-full flex items-center justify-between pl-[12px] pr-[17.5px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none rounded-[8px]`}
         >
-          {selectedInputList?.length ? (
+          {selectedInputList?.length === 0 ? (
             <span key={uniqueId('selectedInput')} className="w-full text-left truncate">
               {selectedInputList.join(', ')}
             </span>
