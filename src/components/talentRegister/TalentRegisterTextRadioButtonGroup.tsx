@@ -1,10 +1,10 @@
-import type { Radio } from '@/hooks/useRadioGroup';
 import useRadioGroup from '@/hooks/useRadioGroup';
 
+import type { RadioUI } from '../common/RadioButtonGroup';
 import TextRadioButtonGroup from '../common/TextRadioButtonGroup';
 
 interface TalentRegisterTextRadioButtonGroupProp {
-  radioList: Radio[];
+  radioList: RadioUI[];
   inputKey: string;
   htmlFor: string;
   title: string;
