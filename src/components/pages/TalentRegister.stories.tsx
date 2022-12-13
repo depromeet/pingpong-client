@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import TalentRegister from '.';
+import TalentRegister from '../../pages/talent/register';
 
 export default {
   title: 'Pages/Talent/TalentTalentRegister',
