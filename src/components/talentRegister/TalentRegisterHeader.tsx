@@ -31,7 +31,7 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
       <IconAnchor icon={<XIcon className="absolute right-[16px] top-[60px]" />} href="/talent/register" />
       <Image src={src} alt={alt} width={375} height={187} className="w-full z-99" priority />
       <HeaderTitle
-        texts={sort === 'EXCHANGE' && order === 2 ? contents2 : contents}
+        texts={sort === 'EXCHANGE' && (order === 2 || order == 3) ? contents2 : contents}
         textClassName="text-gray-100"
         className="absolute left-[16px] bottom-[15.5px]"
       />
