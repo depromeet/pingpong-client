@@ -61,7 +61,7 @@ const EXPLANATION = {
 };
 
 export default {
-  title: 'Components/TalentRegisterForm/TalentRegisterFormOne',
+  title: 'Components/TalentRegisterForm/TalentRegisterFormThree',
   component: TalentRegisterFormThree,
   decorators: [
     (Story) => (
