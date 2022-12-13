@@ -3,7 +3,7 @@ import axios from 'axios';
 import { formatQueryString } from 'src/lib/utils';
 
 //FIXME: to proxy
-axios.defaults.baseURL = 'https://www.pingpongg.shop:8080/api/v1';
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const handleError = (_: AxiosError) => {
   //TODO: axios error handling
@@ -50,7 +50,7 @@ export const mutateFetcher = async <T>(
   }
 };
 
-export const request = async <T>(req: AxiosRequestConfig): Promise<AxiosResponse<T | null>> => {
+export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosResponse<T | null>> => {
   try {
     const res = await axios(req);
 
