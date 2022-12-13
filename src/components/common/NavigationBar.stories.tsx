@@ -3,7 +3,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import NavigationBar from './NavigationBar';
 
 export default {
-  title: 'NavigationBar',
+  title: 'Commons/NavigationBar',
   component: NavigationBar,
 } as ComponentMeta<typeof NavigationBar>;
 
