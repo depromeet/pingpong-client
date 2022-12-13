@@ -10,7 +10,7 @@ import TextTextarea from '../common/TextTextarea';
 const CATEGORY = {
   SHARE: {
     key: 'category2',
-    href: 'talent/register/category/share',
+    href: '/talent/register/share/category',
     title: '어떤 재능을 나누고 싶나요?',
     explanation: '',
     placeholder: '카테고리를 선택해 주세요.',
@@ -21,7 +21,7 @@ const CATEGORY = {
   },
   EXCHANGE: {
     key: 'category2',
-    href: 'talent/register/category/exchange',
+    href: '/talent/register/exchange/category',
     title: '어떤 재능을 받고 싶나요?',
     explanation: '',
     placeholder: '카테고리를 선택해 주세요.',
