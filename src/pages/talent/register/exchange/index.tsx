@@ -5,7 +5,7 @@ const SORT = 'EXCHANGE';
 
 const TalentRegisterExchange = () => {
   return (
-    <div className="w-[375px]">
+    <div className="w-full">
       <TalentRegisterHeader sort={SORT} />
       <TalentRegisterForm sort={SORT} />
     </div>
