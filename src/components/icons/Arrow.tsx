@@ -25,7 +25,7 @@ const Arrow = ({ color = 'black', direction = 'left', height, width, className }
       <svg
         width={width ?? 11}
         height={height ?? 20}
-        viewBox={`0 0 ${width ?? 11} ${height ?? 20}`}
+        viewBox={`0 0 11 20`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
