@@ -12,7 +12,6 @@ interface UseTabProps {
 }
 
 const useTab = ({ key, id, selectingNumber = 1 }: UseTabProps) => {
-  console.log(key);
   const [selectedTab, setSelectedTab] = useRecoilState<TabProps[]>(tabAtomFamily(key));
   const [clicked, setClicked] = useState(false);
 
