@@ -7,12 +7,10 @@ import Tag from '../common/Tag';
 import { HeartIcon } from '../icons';
 
 const Card = ({
-  id,
   isShare,
   title,
   subCategory,
   likes,
-  memberId,
   nickname,
   image,
   ranks,

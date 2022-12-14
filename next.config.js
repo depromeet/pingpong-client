@@ -12,6 +12,7 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
+    unoptimized: true,
   },
   webpack(config) {
     config.module.rules.push({
