@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "pingpong-697ec"
+  },
+  "targets": {
+    "pingpong-697ec": {
+      "hosting": {
+        "dev": [
+          "pingpong-dev"
+        ],
+        "main": [
+          "pingpong-697ec"
+        ]
+      }
+    }
+  }
+}
