@@ -32,8 +32,8 @@ const Arrow = ({ color = 'black', direction = 'left', height, width, className }
         <path
           d="M10.1667 0.833328L1 9.99999L10.1667 19.1667"
           stroke={getColor()}
-          stroke-width="1.6"
-          stroke-linejoin="round"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
         />
       </svg>
     </div>
