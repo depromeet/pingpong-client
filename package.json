@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export -o dist/dev",
+    "build:prd": "next build && next export -o dist/main",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
