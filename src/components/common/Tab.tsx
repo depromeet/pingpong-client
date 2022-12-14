@@ -1,18 +1,24 @@
-import { useSetRecoilState } from 'recoil';
-import { tabAtom } from 'src/store/components/atoms';
 import type { TabProps } from 'src/store/components/types';
 
-const Tab = ({ id, content }: TabProps) => {
-  const setSelectedTabs = useSetRecoilState<TabProps>(tabAtom);
+import useTab from '@/hooks/useTab';
 
-  const handleClicked = (event: React.MouseEvent) => {
-    const { id: clickedTabId, innerHTML: clickedTabContent } = event.currentTarget;
-    setSelectedTabs({ id: clickedTabId, content: clickedTabContent });
-  };
+interface WithKeyTabProps extends TabProps {
+  categoryKey: string;
+}
+
+const Tab = ({ categoryKey, id, name }: WithKeyTabProps) => {
+  const { onClick, clicked } = useTab({ key: categoryKey, id });
 
   return (
-    <button id={id} onClick={handleClicked} className="text-button">
-      {content}
+    <button
+      type="button"
+      id={`${id}`}
+      onClick={onClick}
+      className={`text-gray-300 text-t3 pt-[14px] pb-[12px] ${
+        clicked ? 'text-black border-b-black border-b-2' : ''
+      } w-fit whitespace-nowrap`}
+    >
+      {name}
     </button>
   );
 };
