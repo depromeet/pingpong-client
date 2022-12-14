@@ -1,13 +1,10 @@
 import { atom, atomFamily } from 'recoil';
 
-import type { TalentRegisterInputInfo } from './types';
+import type { TabProps, TalentRegisterInputInfo } from './types';
 
-const tabAtom = atom({
+const tabAtomFamily = atomFamily<TabProps[], string>({
   key: 'tab',
-  default: {
-    id: '',
-    content: '',
-  },
+  default: () => [{ id: 1, name: '' }],
 });
 
 const toastAtom = atom<string | null>({
@@ -71,7 +68,7 @@ export {
   bottomSheetAtom,
   headerAtom,
   popupAtom,
-  tabAtom,
+  tabAtomFamily,
   talentRegisterAtom,
   talentRegisterInputAtomFamily,
   talentRegisterInputKeyAtom,
