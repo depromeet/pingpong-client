@@ -19,7 +19,7 @@ interface TextSelectInputProps {
 }
 
 const TextSelectInput = ({
-  option: { key, title, href, explanation, placeholder, htmlFor, selectedInputList, required, className },
+  option: { title, href, explanation, placeholder, htmlFor, selectedInputList, required, className },
 }: TextSelectInputProps) => {
   return (
     <div className={className}>
