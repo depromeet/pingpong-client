@@ -1,6 +1,6 @@
 interface TabProps {
-  id: string;
-  content: string;
+  id: number;
+  name: string;
 }
 
 interface TalentRegisterInputInfo {
