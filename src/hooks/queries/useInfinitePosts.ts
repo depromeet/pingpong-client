@@ -1,16 +1,19 @@
 import type { QueryFunctionContext } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useRef } from 'react';
+
+import useIntersectionObserver from '../useIntersectionObserver';
 
 interface PageParam {
   totalElements: number;
   totalPages: number;
   hasNextPages: boolean;
-  page: number;
+  pageNumber: number;
 }
 
 interface InfinitePost extends PageParam {
-  content: Card[];
+  content: CardInfo[];
 }
 
 const PAGE_SIZE = 3;
@@ -19,14 +22,15 @@ const DEFAULT_PAGE = 0;
 const useInfinitePosts = () => {
   const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
     const axiosClient = axios.create({
-      baseURL: 'https://www.pingpongg.shop:8080',
+      baseURL: 'https://test.pingpongg.shop',
       headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN07JqpIO2GoO2BsCIsIm1lbWJlcklkIjoxLCJleHAiOjYwOTgyNDU3MDA2MX0.gzAYnYOpnp93B-akfG4-bC09UH6ZAuJU62eYt8gFIIXtCSCMK_j_sPHElldlwVUlZu8b9ZtB4B4Lu6OyIeSe8w',
+        Authorization: `Bearer ${process.env.TOKEN}`,
       },
     });
 
-    const { data } = await axiosClient.get('/api/v1/posts', {
+    const {
+      data: { data },
+    } = await axiosClient.get('/api/v1/posts', {
       params: {
         isShare: false,
         page: pageParam,
@@ -37,16 +41,16 @@ const useInfinitePosts = () => {
     return data;
   };
 
-  const { data } = useInfiniteQuery({
+  const { data, fetchNextPage, isSuccess, isLoading, isError } = useInfiniteQuery({
     queryKey: ['infinitePosts'],
     queryFn: fetchPosts,
     getNextPageParam: (lastPage) => {
-      if (lastPage.page >= lastPage.totalPages) return false;
-      return lastPage.page + 1;
+      if (lastPage.pageNumber >= lastPage.totalPages) return false;
+      return lastPage.pageNumber + 1;
     },
     getPreviousPageParam: (firstPage) => {
-      if (firstPage.page <= 0) return false;
-      return firstPage.page - 1;
+      if (firstPage.pageNumber <= 0) return false;
+      return firstPage.pageNumber - 1;
     },
   });
 
@@ -54,6 +58,10 @@ const useInfinitePosts = () => {
 
   return {
     posts,
+    fetchNextPage,
+    isSuccess,
+    isLoading,
+    isError,
   };
 };
 
