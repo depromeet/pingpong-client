@@ -10,3 +10,15 @@ type Tag = {
   id: string;
   label: string;
 };
+
+interface MainCategory {
+  id: number;
+  image: string;
+  midCategories: MidCategory[];
+  name: string;
+}
+
+interface MidCategory {
+  id: number;
+  name: string;
+}
