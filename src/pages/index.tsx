@@ -9,6 +9,8 @@ import EmptyCard from '@/components/common/EmptyCard';
 import Layout from '@/components/layouts';
 import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 import useCategories from '@/hooks/queries/useCategories';
+import useInfinitePosts from '@/hooks/queries/useInfinitePosts';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const Home: NextPage = () => {
   const userData = {
@@ -65,6 +67,16 @@ const Home: NextPage = () => {
   };
 
   const { data: categoryData, isSuccess } = useCategories();
+  const { posts, fetchNextPage, isSuccess, isLoading, isError } = useInfinitePosts();
+
+  const [ref] = useIntersectionObserver({
+    callback: fetchNextPage,
+    options: {
+      root: null,
+      rootMargin: '0px',
+      threshold: [0.3, 0.3, 1],
+    },
+  });
 
   return (
     <Layout.DefaultContainer>
@@ -110,12 +122,39 @@ const Home: NextPage = () => {
             );
           })}
         </CardContainer>
+        {isSuccess && (
+          <CardContainer>
+            {posts.map((item) => {
+              return (
+                <li key={item.id}>
+                  <Card {...item} />
+                </li>
+              );
+            })}
+          </CardContainer>
+        )}
+        <ContainerRef ref={ref}>
+          <Spinner />
+        </ContainerRef>
       </Layout.DefaultPadding>
     </Layout.DefaultContainer>
   );
 };
 
 export default Home;
+
+const ContainerRef = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 0.1rem solid red;
+`;
+
+const Spinner = styled.div`
+  content: '';
+  width: 5rem;
+  height: 3rem;
+  background-color: black;
+`;
 
 const HomeHeader = styled.div`
   display: flex;
