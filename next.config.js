@@ -11,6 +11,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'dpm-pingpong-bucket.s3.ap-northeast-2.amazonaws.com',
+      },
     ],
     unoptimized: true,
   },
