@@ -1,6 +1,7 @@
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useBackPage from '@/hooks/useBackPage';
 import useNextPage from '@/hooks/useNextPage';
+import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
 import { talentRegisterOrderAtom } from '@/store/components';
 
 import Button from '../common/Button';
@@ -34,7 +35,7 @@ const CATEGORY = {
 
 const EXPLANATION = {
   SHARE: {
-    key: 'explanation2',
+    key: 'takenContent',
     title: '상세 설명',
     explanation: '나누고 싶은 재능에 대해 설명해 주세요.',
     placeholder: '최대 300자 까지 입력이 가능해요.',
@@ -45,7 +46,7 @@ const EXPLANATION = {
     className: 'mb-[16px]',
   },
   EXCHANGE: {
-    key: 'explanation2',
+    key: 'takenContent',
     title: '상세 설명',
     explanation: '받고 싶은 재능에 대해 설명해 주세요.',
     placeholder: '최대 300자 까지 입력이 가능해요.',
@@ -60,10 +61,11 @@ const EXPLANATION = {
 const TalentRegisterFormThree = ({ className, sort }: TalentRegisterProps) => {
   const { handleOrder: onNextClick } = useNextPage(talentRegisterOrderAtom);
   const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
+  const categoryKey = SetTalnetRegisterCategorySelectInputKey();
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
-      <TextSelectInput option={CATEGORY[sort]} />
+      <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
       <TextTextarea option={EXPLANATION[sort]} />
       <div className="grid grid-cols-[0.3fr_1fr] gap-x-[8px]">
         <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
