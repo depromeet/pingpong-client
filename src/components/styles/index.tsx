@@ -16,7 +16,7 @@ const Subtitle = styled.h2`
   letter-spacing: -0.03rem;
 `;
 
-const Content = styled.h2`
+const Content = styled.p`
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 2.4rem;
