@@ -22,7 +22,7 @@ const Tag = ({ styleType = TagStyleType.DARK, color = 'blue', children, classNam
           ? 'border border-primary-blue bg-white text-primary-blue'
           : 'border border-primary-red bg-white text-primary-red';
       case 'NONE':
-        return 'border border-gray-300 bg-white text-gray-500 text-b2 px-[14px] py-[6.5px]';
+        return 'border border-gray-300 bg-white text-gray-500 text-b2 px-[14px]';
     }
   };
 
