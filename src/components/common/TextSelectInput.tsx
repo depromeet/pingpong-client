@@ -1,4 +1,7 @@
 import React, { memo } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import { tabAtomFamily } from '@/store/components';
 
 import SelectInput from './SelectInput';
 
@@ -9,7 +12,6 @@ export interface TextSelectInputOptionProps {
   explanation?: string;
   placeholder?: string;
   htmlFor?: string;
-  selectedInputList?: string[];
   required?: boolean;
   className?: string;
 }
@@ -19,8 +21,10 @@ interface TextSelectInputProps {
 }
 
 const TextSelectInput = ({
-  option: { title, href, explanation, placeholder, htmlFor, selectedInputList, required, className },
+  option: { key, title, href, explanation, placeholder, htmlFor, required, className },
 }: TextSelectInputProps) => {
+  const input = useRecoilValue(tabAtomFamily(key));
+
   return (
     <div className={className}>
       {title && (
@@ -32,7 +36,7 @@ const TextSelectInput = ({
         </div>
       )}
       {explanation && <span className="block text-b4 text-gray-400 pt-[2px]">{explanation}</span>}
-      <SelectInput placeholder={placeholder} href={href} selectedInputList={selectedInputList} className="mt-[8px]" />
+      <SelectInput placeholder={placeholder} href={href} selectedInputList={input} className="mt-[8px]" />
     </div>
   );
 };
