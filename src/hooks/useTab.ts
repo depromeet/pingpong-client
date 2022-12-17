@@ -11,6 +11,12 @@ interface UseTabProps {
   selectingNumber?: number;
 }
 
+/** TODO: 추후 수정 필요
+ * 로직을 recoil 안에다 작성하려다가 밖으로 빼서 작성하였는데 key 관리 관련해서 문제가 있습니다.
+ * 추후에 해당 로직을 recoil 안에다 작성하는 것이 유지보수 측면에서 유리할 듯 합니다.
+ */
+
+// TODO: useTab example 추가하기
 const useTab = ({ key, id, selectingNumber = 1 }: UseTabProps) => {
   const [selectedTab, setSelectedTab] = useRecoilState<TabProps[]>(tabAtomFamily(key));
   const [clicked, setClicked] = useState(false);
