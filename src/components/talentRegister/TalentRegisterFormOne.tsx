@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useNextPage from '@/hooks/useNextPage';
-import { talentRegisterOrderAtom } from '@/store/components';
+import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
+import { talentRegisterMethodAtom, talentRegisterOrderAtom } from '@/store/components';
 
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
@@ -9,24 +13,22 @@ import TextTextarea from '../common/TextTextarea';
 
 const CATEGORY = {
   SHARE: {
-    key: 'category',
+    key: 'subCategory',
     href: '/talent/register/share/category',
     title: '어떤 재능을 나누고 싶나요?',
     explanation: '',
     placeholder: '카테고리를 선택해 주세요.',
     htmlFor: 'category',
-    selectedInputList: [''],
     required: true,
     className: 'mb-[28px]',
   },
   EXCHANGE: {
-    key: 'category',
+    key: 'subCategory',
     href: '/talent/register/exchange/category',
     title: '어떤 재능을 주고 싶나요?',
     explanation: '',
     placeholder: '카테고리를 선택해 주세요.',
     htmlFor: 'category',
-    selectedInputList: [''],
     required: true,
     className: 'mb-[28px]',
   },
@@ -47,7 +49,7 @@ const TITLE = {
 
 const EXPLANATION = {
   SHARE: {
-    key: 'explanation',
+    key: 'content',
     title: '상세 설명',
     explanation: '나누고 싶은 재능에 대해 설명해 주세요.',
     placeholder: '최대 300자 까지 입력이 가능해요.',
@@ -58,7 +60,7 @@ const EXPLANATION = {
     className: 'mb-[16px]',
   },
   EXCHANGE: {
-    key: 'explanation',
+    key: 'content',
     title: '상세 설명',
     explanation: '주고 싶은 재능에 대해 설명해 주세요.',
     placeholder: '최대 300자 까지 입력이 가능해요.',
@@ -101,10 +103,20 @@ const CHAT_LINK = {
 
 const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
   const { handleOrder: onClick } = useNextPage(talentRegisterOrderAtom);
+  const setMethod = useSetRecoilState(talentRegisterMethodAtom);
+  const categoryKey = SetTalnetRegisterCategorySelectInputKey();
+
+  useEffect(() => {
+    if (sort === 'SHARE') {
+      setMethod(false);
+    } else {
+      setMethod(true);
+    }
+  }, [setMethod, sort]);
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
-      <TextSelectInput option={CATEGORY[sort]} />
+      <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
       <TextInput option={TITLE} />
       <TextTextarea option={EXPLANATION[sort]} />
       <TextInput option={LINK1} />
