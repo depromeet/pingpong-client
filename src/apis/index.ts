@@ -61,3 +61,12 @@ export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosRes
     throw err;
   }
 };
+
+const BASE_URL = 'https://test.pingpongg.shop';
+
+export const axiosClient = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    Authorization: `Bearer ${process.env.TOKEN}`,
+  },
+});

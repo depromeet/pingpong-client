@@ -1,9 +1,7 @@
 import type { QueryFunctionContext } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useRef } from 'react';
 
-import useIntersectionObserver from '../useIntersectionObserver';
+import { axiosClient } from '@/apis';
 
 interface PageParam {
   totalElements: number;
@@ -21,13 +19,6 @@ const DEFAULT_PAGE = 0;
 
 const useInfinitePosts = () => {
   const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
-    const axiosClient = axios.create({
-      baseURL: 'https://test.pingpongg.shop',
-      headers: {
-        Authorization: `Bearer ${process.env.TOKEN}`,
-      },
-    });
-
     const {
       data: { data },
     } = await axiosClient.get('/api/v1/posts', {
