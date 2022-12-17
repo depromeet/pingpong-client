@@ -1,6 +1,9 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import CircleImg from '@/components/common/CircleImg';
+import Tag from '@/components/common/Tag';
 import PostHeader from '@/components/posts/PostHeader';
 import { Layout, Typography } from '@/components/styles';
 import { colors } from '@/constants/styles';
@@ -9,7 +12,6 @@ import usePostQuery from '@/hooks/queries/usePostQuery';
 const PostDetail = () => {
   const router = useRouter();
 
-  // TODO: posts/[id] 사용
   const postId = Number(router.query.id);
 
   const mockImage =
@@ -24,7 +26,33 @@ const PostDetail = () => {
         {postIsSuccess && (
           <>
             <Layout.DefaultPadding>
-              <Typography.Title className="mb-24">{postData.title}</Typography.Title>
+              <ProfileContainer className="mb-16 pb-16">
+                <CircleImg size="small" src={postData.image} />
+                <ProfileInfo className="ml-12">
+                  <h5>{postData.nickname}</h5>
+                  <aside>{postData.ranks}</aside>
+                </ProfileInfo>
+                <Link href={`/profile/${postData.memberId}`}>
+                  <ProfileLinkButton>
+                    <Typography.Desc>프로필보기</Typography.Desc>
+                  </ProfileLinkButton>
+                </Link>
+              </ProfileContainer>
+              {postData.isShare ? (
+                <>
+                  <Tag styleType="DARK" color="red">
+                    {postData.subCategory}
+                  </Tag>
+                  <Tag styleType="OUTLINE" color="red">
+                    재능나눔
+                  </Tag>
+                </>
+              ) : (
+                <Tag styleType="DARK" color="blue">
+                  {postData.subCategory}
+                </Tag>
+              )}
+              <Typography.Title className="mt-12 mb-24">{postData.title}</Typography.Title>
               <Typography.Subtitle className="mb-6">재능 소개</Typography.Subtitle>
               <Typography.Content className="mb-24">{postData.content}</Typography.Content>
               <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>
@@ -94,4 +122,37 @@ const PostDetailRow = styled.div`
   ${GrayBlock} ~ ${GrayBlock} {
     margin-top: 0.8rem;
   }
+`;
+
+const ProfileContainer = styled.section`
+  display: flex;
+  position: relative;
+  border-bottom: 0.1rem solid ${colors.gray100};
+`;
+
+const ProfileInfo = styled.div`
+  > h5 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2.1rem;
+    letter-spacing: -0.03rem;
+  }
+
+  > aside {
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    letter-spacing: -0.03rem;
+    color: ${colors.gray400};
+  }
+`;
+
+const ProfileLinkButton = styled.button`
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  border: 0.1rem solid ${colors.gray200};
+  color: ${colors.gray500};
 `;
