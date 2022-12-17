@@ -55,8 +55,6 @@ const Divider = styled.div`
   height: 0.8rem;
   background-color: ${colors.gray100};
   padding: -6rem;
-  margin-top: 3.2rem;
-  margin-bottom: 4rem;
 `;
 
 export const Layout = {
