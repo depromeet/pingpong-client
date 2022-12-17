@@ -22,8 +22,10 @@ const PostDetail = () => {
         <Layout.DefaultPadding>
           {postIsSuccess && (
             <div>
-              <h2>{postData.title}</h2>
-              <p>{postData.content}</p>
+              <Typography.Title>{postData.title}</Typography.Title>
+              <Typography.Subtitle>재능 소개</Typography.Subtitle>
+              <Typography.Content>{postData.content}</Typography.Content>
+              <Typography.Subtitle>링크</Typography.Subtitle>
             </div>
           )}
         </Layout.DefaultPadding>

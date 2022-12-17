@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import Card from '@/components/common/Card';
 import CardCarousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
-import Divider from '@/components/common/Divider';
 import EmptyCard from '@/components/common/EmptyCard';
 import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 import { Layout, Typography } from '@/components/styles';
@@ -100,7 +99,7 @@ const Home: NextPage = () => {
           <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
         )}
       </Layout.DefaultPadding>
-      <Divider />
+      <Layout.Divider />
       <Layout.DefaultPadding>
         <div className="mb-36">
           <Typography.Title>
