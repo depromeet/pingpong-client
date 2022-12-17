@@ -1,14 +1,14 @@
 import Link from 'next/link';
 
 import { uniqueId } from '@/lib/utils';
+import type { TagProps } from '@/store/components/types';
 
 import { RightArrowIcon } from '../icons/RightArrowIcon';
 
 interface SelectInputProps {
   className?: string;
   placeholder?: string;
-  selectedInputList?: string[];
-  // TODO:: selectedInputList 데이터 형태에 따른 코드 수정 필요
+  selectedInputList?: TagProps[];
   href: string;
 }
 
@@ -20,11 +20,11 @@ const SelectInput = ({ className, placeholder = '', selectedInputList, href }: S
           className={`w-full flex items-center justify-between pl-[12px] pr-[17.5px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none rounded-[8px]`}
         >
           {selectedInputList?.length === 0 ? (
-            <span key={uniqueId('selectedInput')} className="w-full text-left truncate">
-              {selectedInputList.join(', ')}
-            </span>
-          ) : (
             <span className={'place-self-start text-gray-300'}>{placeholder}</span>
+          ) : (
+            <span key={uniqueId('selectedInput')} className="w-full text-left truncate">
+              {selectedInputList?.map((list) => list.name).join(', ')}
+            </span>
           )}
           <RightArrowIcon />
         </button>
