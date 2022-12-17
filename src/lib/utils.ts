@@ -1,3 +1,9 @@
+import { useRecoilValue } from 'recoil';
+
+import { talentRegisterOrderAtom } from '@/store/components';
+
+import type { MakeAndRemoveAtomKeyProps } from './types';
+
 export const formatQueryString = (url: string, queryObject?: Record<string, unknown>): string => {
   if (!queryObject) {
     return url;
@@ -16,4 +22,16 @@ export const formatQueryString = (url: string, queryObject?: Record<string, unkn
 
 export const uniqueId = (id?: string | number) => {
   return id + Math.random().toString(16).slice(2);
+};
+
+export const SetTalnetRegisterCategorySelectInputKey = () => {
+  const order = useRecoilValue(talentRegisterOrderAtom);
+
+  return order === 1 ? 'subCategoryId' : 'takenTalentIds';
+};
+
+export const makeAndRemoveAtomKey = ({ prev, newInput, input }: MakeAndRemoveAtomKeyProps) => {
+  return newInput.contents.length === 0
+    ? prev.filter((prevInput) => prevInput !== input.inputKey)
+    : Array.from(new Set([...prev, input.inputKey]));
 };
