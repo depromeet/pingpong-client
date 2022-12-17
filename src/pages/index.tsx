@@ -99,7 +99,7 @@ const Home: NextPage = () => {
           <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
         )}
       </Layout.DefaultPadding>
-      <Layout.Divider />
+      <Layout.Divider className="mt-32 mb-40" />
       <Layout.DefaultPadding>
         <div className="mb-36">
           <Typography.Title>
