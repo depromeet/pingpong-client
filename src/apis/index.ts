@@ -62,6 +62,11 @@ export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosRes
   }
 };
 
+export interface ServerResponse<T = Record<string, unknown>> {
+  data: T;
+  message: string;
+}
+
 const BASE_URL = 'https://test.pingpongg.shop';
 
 export const axiosClient = axios.create({
