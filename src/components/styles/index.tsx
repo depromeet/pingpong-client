@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { colors } from '@/constants/styles';
+
 const Title = styled.h1`
   font-weight: 700;
   font-size: 2rem;
@@ -14,6 +16,14 @@ const Subtitle = styled.h2`
   letter-spacing: -0.03rem;
 `;
 
+const Content = styled.h2`
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: -0.04rem;
+  color: ${colors.gray500};
+`;
+
 const Desc = styled.p`
   font-size: 1.3rem;
   line-height: 1.95rem;
@@ -23,6 +33,7 @@ const Desc = styled.p`
 export const Typography = {
   Title,
   Subtitle,
+  Content,
   Desc,
 };
 
@@ -38,8 +49,19 @@ const DefaultPadding = styled.div`
   padding: 0 1.6rem;
 `;
 
+const Divider = styled.div`
+  content: '';
+  width: 100%;
+  height: 0.8rem;
+  background-color: ${colors.gray100};
+  padding: -6rem;
+  margin-top: 3.2rem;
+  margin-bottom: 4rem;
+`;
+
 export const Layout = {
   DefaultContainer,
   DefaultPadding,
   DetailContainer,
+  Divider,
 };
