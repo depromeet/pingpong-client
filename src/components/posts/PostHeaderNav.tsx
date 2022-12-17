@@ -1,12 +1,18 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import ArrowLeftIcon from '../../../public/icons/arrow-left.svg';
 import MoreIcon from '../../../public/icons/more.svg';
 
 const PostHeaderNav = () => {
+  const router = useRouter();
+
   return (
     <HeaderNavContainer>
-      <ArrowLeftIcon />
+      <button onClick={() => router.back()}>
+        <ArrowLeftIcon />
+      </button>
       <MoreIcon />
     </HeaderNavContainer>
   );

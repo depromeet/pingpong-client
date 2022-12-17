@@ -1,19 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
-export const axiosClient = axios.create({
-  baseURL: 'https://test.pingpongg.shop',
-  headers: {
-    Authorization: `Bearer ${process.env.TOKEN}`,
-  },
-});
+import { axiosClient } from '@/apis';
 
 interface ServerResponse<T = Record<string, unknown>> {
   data: T;
   message: string;
 }
 
-const useCategories = () => {
+const useCategoriesQuery = () => {
   const fetchCategories = async () => {
     const {
       data: { data },
@@ -24,4 +18,4 @@ const useCategories = () => {
   return useQuery({ queryKey: ['categories'], queryFn: fetchCategories });
 };
 
-export default useCategories;
+export default useCategoriesQuery;

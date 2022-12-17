@@ -40,3 +40,29 @@ interface MainCategoryInfo {
   name: string;
   image: string;
 }
+
+interface LinkInfo {
+  id: number;
+  content: string;
+}
+
+interface PostInfo {
+  id: number;
+  title: string;
+  content: string;
+  isShare: false;
+  subCategory: string;
+  links: LinkInfo[];
+  chatLink: string;
+  likes: number;
+  takenContent: string;
+  takenTalents: string[];
+  exchangeType: string; // ONLINE | ... type 뭐뭐있는지 알아야됨
+  exchangePeriod: string; // A_WEEK | ... type 뭐뭐있는지 알아야됨
+  exchangeTime: string; // NOON | ... type 뭐뭐있는지 알아야됨
+  memberId: number;
+  nickname: string;
+  image: string;
+  ranks: string;
+  isLike: false;
+}

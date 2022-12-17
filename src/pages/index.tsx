@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
@@ -8,10 +9,10 @@ import CardCarousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
 import Divider from '@/components/common/Divider';
 import EmptyCard from '@/components/common/EmptyCard';
-import Layout from '@/components/layouts';
 import CategoryCarousel from '@/components/main/MainCategoryCarousel';
-import useCategories from '@/hooks/queries/useCategories';
-import useInfinitePosts from '@/hooks/queries/useInfinitePosts';
+import { Layout, Typography } from '@/components/styles';
+import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
+import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 
 const Home: NextPage = () => {
   const userData = {
@@ -68,8 +69,8 @@ const Home: NextPage = () => {
     hasNextPages: true,
   };
 
-  const { data: categoryData, isSuccess: categoryIsSuccess } = useCategories();
-  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePosts();
+  const { data: categoryData, isSuccess: categoryIsSuccess } = useCategoriesQuery();
+  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery();
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -81,17 +82,17 @@ const Home: NextPage = () => {
       <Layout.DefaultPadding>
         <div className="mb-28">
           <HomeHeader>
-            <HomeTitle>
+            <Typography.Title>
               <span className="text-primary-blue">{userData.nickname}</span> 님,
               <br />
               핑퐁에서 재능을 나눠볼까요?
-            </HomeTitle>
+            </Typography.Title>
             <CircleImg size="large" src={userData.image} alt="user-profile-img" />
           </HomeHeader>
         </div>
         <div className="mb-12">
-          <HomeSubtitle className="mb-2">핑퐁! 내가 찾던 재능</HomeSubtitle>
-          <HomeDesc>내가 가진 재능과 받고 싶은 재능이 일치해요</HomeDesc>
+          <Typography.Subtitle className="mb-2">핑퐁! 내가 찾던 재능</Typography.Subtitle>
+          <Typography.Desc>내가 가진 재능과 받고 싶은 재능이 일치해요</Typography.Desc>
         </div>
         {cardData.content.length ? (
           <CardCarousel list={cardData.content} />
@@ -102,11 +103,11 @@ const Home: NextPage = () => {
       <Divider />
       <Layout.DefaultPadding>
         <div className="mb-36">
-          <HomeTitle>
+          <Typography.Title>
             다양한 카테고리에서
             <br />
             재능을 발견해 보세요
-          </HomeTitle>
+          </Typography.Title>
         </div>
       </Layout.DefaultPadding>
       {categoryIsSuccess && <CategoryCarousel list={categoryData} />}
@@ -115,7 +116,9 @@ const Home: NextPage = () => {
           {posts.map((item) => {
             return (
               <li key={item.id}>
-                <Card {...item} />
+                <Link href={`/posts/${item.id}`}>
+                  <Card {...item} />
+                </Link>
               </li>
             );
           })}
@@ -157,26 +160,6 @@ const Spinner = styled.div`
 const HomeHeader = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const HomeTitle = styled.h1`
-  font-weight: 700;
-  font-size: 2rem;
-  line-height: 2.8rem;
-  letter-spacing: -0.03rem;
-`;
-
-const HomeSubtitle = styled.h2`
-  font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 2.1rem;
-  letter-spacing: -0.03rem;
-`;
-
-const HomeDesc = styled.p`
-  font-size: 1.3rem;
-  line-height: 1.95rem;
-  letter-spacing: -0.03rem;
 `;
 
 const CardContainer = styled.ul`
