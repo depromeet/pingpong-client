@@ -37,10 +37,21 @@ export const queryFetcher = async (url: string, queries?: Record<string, unknown
 export const mutateFetcher = async <T>(
   url: string,
   method: 'POST' | 'PUT' | 'DELETE',
+  data?: T,
   params?: Record<string, unknown>,
 ): Promise<T | null> => {
   try {
-    const res = await axios({ url, method, params });
+    // FIXME: axios config 관련 리팩토링 필요
+    const res = await axios({
+      url,
+      method,
+      data,
+      params,
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN} `,
+        'Content-Type': 'application/json',
+      },
+    });
 
     return res.data;
   } catch (err) {
