@@ -1,4 +1,6 @@
 import type { NextPage } from 'next';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -10,7 +12,6 @@ import Layout from '@/components/layouts';
 import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 import useCategories from '@/hooks/queries/useCategories';
 import useInfinitePosts from '@/hooks/queries/useInfinitePosts';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const Home: NextPage = () => {
   const userData = {
@@ -67,16 +68,12 @@ const Home: NextPage = () => {
   };
 
   const { data: categoryData, isSuccess } = useCategories();
-  const { posts, fetchNextPage, isSuccess, isLoading, isError } = useInfinitePosts();
+  const { posts, fetchNextPage, isSuccess, isLoading } = useInfinitePosts();
+  const { ref, inView } = useInView();
 
-  const [ref] = useIntersectionObserver({
-    callback: fetchNextPage,
-    options: {
-      root: null,
-      rootMargin: '0px',
-      threshold: [0.3, 0.3, 1],
-    },
-  });
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView, fetchNextPage]);
 
   return (
     <Layout.DefaultContainer>
@@ -133,9 +130,7 @@ const Home: NextPage = () => {
             })}
           </CardContainer>
         )}
-        <ContainerRef ref={ref}>
-          <Spinner />
-        </ContainerRef>
+        <ContainerRef ref={ref}>{isLoading && <Spinner />}</ContainerRef>
       </Layout.DefaultPadding>
     </Layout.DefaultContainer>
   );
@@ -146,9 +141,9 @@ export default Home;
 const ContainerRef = styled.div`
   display: flex;
   justify-content: center;
-  border: 0.1rem solid red;
 `;
 
+// TODO: Spinner Image 실제로 대체 필요
 const Spinner = styled.div`
   content: '';
   width: 5rem;
