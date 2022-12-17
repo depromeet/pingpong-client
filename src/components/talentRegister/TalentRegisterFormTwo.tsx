@@ -1,7 +1,10 @@
+import { useRecoilValue } from 'recoil';
+
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useBackPage from '@/hooks/useBackPage';
-import useNextPage from '@/hooks/useNextPage';
+import useRegisterTalentPost from '@/hooks/useRegisterTalentPost';
 import { talentRegisterOrderAtom } from '@/store/components';
+import { talentRegisterSelector } from '@/store/components/selectors';
 
 import Button from '../common/Button';
 import TalentRegisterTextRadioButtonGroup from './TalentRegisterTextRadioButtonGroup';
@@ -18,11 +21,11 @@ const ENVIRONMENT = {
         label: '오프라인',
       },
       {
-        key: 'BOTH',
+        key: 'ANY_TYPE',
         label: '상관 없음',
       },
     ],
-    inputKey: 'radioButtonEnvironment',
+    inputKey: 'exchangeType',
     htmlFor: 'radioButtonEnvironment',
     title: '재능 나눔 환경을 선택해 주세요',
     size: 'small' as const,
@@ -38,11 +41,11 @@ const ENVIRONMENT = {
         label: '오프라인',
       },
       {
-        key: 'BOTH',
+        key: 'ANY_TYPE',
         label: '상관 없음',
       },
     ],
-    inputKey: 'radioButtonEnvironment',
+    inputKey: 'exchangeType',
     htmlFor: 'radioButtonEnvironment',
     title: '재능 교환 환경을 선택해 주세요',
     size: 'small' as const,
@@ -53,46 +56,46 @@ const PERIOD = {
   SHARE: {
     radioList: [
       {
-        key: 'DAYLY',
+        key: 'A_WEEK',
         label: '1주 미만',
       },
       {
-        key: 'WEEKLY',
+        key: 'LESS_THAN_A_MONTH',
         label: '1주 이상',
       },
       {
-        key: 'MONTHLY',
+        key: 'MORE_THAN_A_MONTH',
         label: '1개월 이상',
       },
       {
-        key: 'NONE',
+        key: 'ANY_PERIOD',
         label: '조율 가능',
       },
     ],
-    inputKey: 'radioButtonPeriod',
+    inputKey: 'exchangePeriod',
     htmlFor: 'radioButtonPeriod',
     title: '재능 나눔 기간을 선택해 주세요',
   },
   EXCHANGE: {
     radioList: [
       {
-        key: 'DAYLY',
+        key: 'A_WEEK',
         label: '1주 미만',
       },
       {
-        key: 'WEEKLY',
+        key: 'LESS_THAN_A_MONTH',
         label: '1주 이상',
       },
       {
-        key: 'MONTHLY',
+        key: 'MORE_THAN_A_MONTH',
         label: '1개월 이상',
       },
       {
-        key: 'NONE',
+        key: 'ANY_PERIOD',
         label: '조율 가능',
       },
     ],
-    inputKey: 'radioButtonPeriod',
+    inputKey: 'exchangePeriod',
     htmlFor: 'radioButtonPeriod',
     title: '재능 교환 기간을 선택해 주세요',
   },
@@ -101,7 +104,7 @@ const PERIOD = {
 const TIME = {
   radioList: [
     {
-      key: 'MORNING',
+      key: 'NOON',
       label: '오전',
       subLabel: '6AM - 12PM',
     },
@@ -111,23 +114,24 @@ const TIME = {
       subLabel: '12PM - 6PM',
     },
     {
-      key: 'NIGHT',
+      key: 'EVENING',
       label: '밤',
       subLabel: '6PM - 12AM',
     },
     {
-      key: 'NONE',
+      key: 'ANY_TIME',
       label: '조율 가능',
     },
   ],
-  inputKey: 'radioButtonTime',
+  inputKey: 'exchangeTime',
   htmlFor: 'radioButtonTime',
   title: '선호하는 시간대를 선택하세요',
 };
 
 const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
-  const { handleOrder: onNextClick } = useNextPage(talentRegisterOrderAtom);
   const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
+  const talentInfo = useRecoilValue(talentRegisterSelector);
+  const { mutate } = useRegisterTalentPost();
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
@@ -138,7 +142,7 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
         <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
           이전
         </Button>
-        <Button type="button" onClick={onNextClick} className="w-full h-[48px]">
+        <Button type="button" onClick={() => mutate(talentInfo)} className="w-full h-[48px]">
           {sort === 'SHARE' ? '재능 나눔 등록하기' : '재능 교환 등록하기'}
         </Button>
       </div>
