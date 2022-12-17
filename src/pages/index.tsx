@@ -20,6 +20,7 @@ const Home: NextPage = () => {
       'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
   };
 
+  // TODO: cardData 실제 데이터로 연결 (posts 5개)
   const cardData = {
     content: [
       {
@@ -67,8 +68,8 @@ const Home: NextPage = () => {
     hasNextPages: true,
   };
 
-  const { data: categoryData, isSuccess } = useCategories();
-  const { posts, fetchNextPage, isSuccess, isLoading } = useInfinitePosts();
+  const { data: categoryData, isSuccess: categoryIsSuccess } = useCategories();
+  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePosts();
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -108,7 +109,7 @@ const Home: NextPage = () => {
           </HomeTitle>
         </div>
       </Layout.DefaultPadding>
-      {isSuccess && <CategoryCarousel list={categoryData} />}
+      {categoryIsSuccess && <CategoryCarousel list={categoryData} />}
       <Layout.DefaultPadding>
         <CardContainer>
           {posts.map((item) => {
@@ -119,7 +120,7 @@ const Home: NextPage = () => {
             );
           })}
         </CardContainer>
-        {isSuccess && (
+        {postsIsSuccess && (
           <CardContainer>
             {posts.map((item) => {
               return (
@@ -130,7 +131,9 @@ const Home: NextPage = () => {
             })}
           </CardContainer>
         )}
-        <ContainerRef ref={ref}>{isLoading && <Spinner />}</ContainerRef>
+        <ContainerRef ref={ref}>
+          <Spinner />
+        </ContainerRef>
       </Layout.DefaultPadding>
     </Layout.DefaultContainer>
   );
