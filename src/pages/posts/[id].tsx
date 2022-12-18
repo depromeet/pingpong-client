@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
+import BottomFixedBar from '@/components/common/BottomFixedBar';
 import CircleImg from '@/components/common/CircleImg';
+import LikeButton from '@/components/common/LikeButton';
 import Tag from '@/components/common/Tag';
 import PostHeader from '@/components/posts/PostHeader';
 import { Layout, Typography } from '@/components/styles';
@@ -22,9 +24,9 @@ const PostDetail = () => {
   return (
     <>
       <PostHeader imageUrl={mockImage} />
-      <Layout.DetailContainer>
-        {postIsSuccess && (
-          <>
+      {postIsSuccess && (
+        <>
+          <Layout.DetailContainer>
             <Layout.DefaultPadding>
               <ProfileContainer className="mb-16 pb-16">
                 <CircleImg size="small" src={postData.image} />
@@ -82,9 +84,13 @@ const PostDetail = () => {
                 </li>
               </GrayBlock>
             </Layout.DefaultPadding>
-          </>
-        )}
-      </Layout.DetailContainer>
+          </Layout.DetailContainer>
+          <BottomFixedBar>
+            {/* count 임시로 string으로 변경, 백엔드에서 string으로 값 내려올 예정 */}
+            <LikeButton type="VERTICAL" isFilled={postData?.isLike} count={postData.likes.toString()} />
+          </BottomFixedBar>
+        </>
+      )}
     </>
   );
 };
