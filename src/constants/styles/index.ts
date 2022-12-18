@@ -12,6 +12,7 @@ const colors = {
   bgGray: '#FAFAFA',
   bgRed: '#FFF0F0',
   bgBlue: '#EDF1FF',
+  black: '#27292F',
 };
 
 export { colors };
