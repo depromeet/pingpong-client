@@ -45,6 +45,11 @@ const headerAtom = atom<HeaderProps | null>({
   default: null,
 });
 
+const spinnerAtom = atom<boolean>({
+  key: 'spinner',
+  default: false,
+});
+
 const talentRegisterAtom = atom({
   key: 'talentRegister',
   default: {},
@@ -100,6 +105,7 @@ export {
   bottomSheetAtom,
   headerAtom,
   popupAtom,
+  spinnerAtom,
   tabAtomFamily,
   tabKeyAtom,
   talentRegisterAtom,
