@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
@@ -9,6 +10,7 @@ import Tag from '@/components/common/Tag';
 import PostHeader from '@/components/posts/PostHeader';
 import { Layout, Typography } from '@/components/styles';
 import { colors } from '@/constants/styles';
+import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 
 const PostDetail = () => {
@@ -20,6 +22,17 @@ const PostDetail = () => {
     'https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80';
 
   const { data: postData, isSuccess: postIsSuccess } = usePostQuery(postId);
+  const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
+
+  const handleLike = () => {
+    console.log('handleLike');
+    postLikeMutate();
+  };
+
+  useEffect(() => {
+    // postData 업데이트된 값 받아와야됨
+    // usePostQuery 에 가지고있는 값이 stale 하다는걸 알려주는 옵션.. 뭐였더라?
+  }, [postLikeIsSuccess]);
 
   return (
     <>
@@ -87,7 +100,12 @@ const PostDetail = () => {
           </Layout.DetailContainer>
           <BottomFixedBar>
             {/* count 임시로 string으로 변경, 백엔드에서 string으로 값 내려올 예정 */}
-            <LikeButton type="VERTICAL" isFilled={postData?.isLike} count={postData.likes.toString()} />
+            <LikeButton
+              type="VERTICAL"
+              isFilled={postData?.isLike}
+              count={postData.likes.toString()}
+              onClick={handleLike}
+            />
           </BottomFixedBar>
         </>
       )}
