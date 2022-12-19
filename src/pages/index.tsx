@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -14,6 +15,7 @@ import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
+import { spinnerAtom } from '@/store/components';
 
 const Home: NextPage = () => {
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
