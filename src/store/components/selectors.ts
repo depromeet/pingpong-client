@@ -9,6 +9,7 @@ import {
   talentRegisterInputKeyAtom,
   talentRegisterInputLinkKeyAtom,
   talentRegisterMethodAtom,
+  talentRegisterOrderAtom,
 } from './atoms';
 import type { TalentRegisterInfoProps, TalentRegisterInputInfo } from './types';
 
@@ -97,11 +98,13 @@ const talentRegisterResetSelector = selector({
     inputKeys.forEach((inputKey) => {
       set(talentRegisterInputAtomFamily(inputKey), (prev) => ({ ...prev, contents: '' }));
     });
+    set(talentRegisterInputKeyAtom, []);
 
     const inputLinkKeys = get(talentRegisterInputLinkKeyAtom);
     inputLinkKeys.forEach((inputKey) => {
       set(talentRegisterInputAtomFamily(inputKey), (prev) => ({ ...prev, contents: '' }));
     });
+    set(talentRegisterInputLinkKeyAtom, []);
 
     set(tabAtomFamily('subCategoryId'), []);
     set(tabAtomFamily('takenTalentIds'), []);
@@ -112,7 +115,22 @@ const talentRegisterResetSelector = selector({
   },
 });
 
+const talentRegisterCategoryResetSelector = selector({
+  key: 'talentRegisterCategoryReset',
+  get: () => true,
+  set: ({ get, set }, newInput) => {
+    if (!newInput) return;
+    const order = get(talentRegisterOrderAtom);
+    if (order === 1) {
+      set(tabAtomFamily('subCategoryId'), []);
+    } else {
+      set(tabAtomFamily('takenTalentIds'), []);
+    }
+  },
+});
+
 export {
+  talentRegisterCategoryResetSelector,
   talentRegisterInputSelectorFamily,
   talentRegisterLinksSelector,
   talentRegisterResetSelector,
