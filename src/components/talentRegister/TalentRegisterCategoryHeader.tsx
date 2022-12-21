@@ -1,11 +1,12 @@
 import Image from 'next/image';
-import { useRecoilValue } from 'recoil';
+import { useRouter } from 'next/router';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import { talentRegisterOrderAtom } from '@/store/components';
+import { talentRegisterCategoryResetSelector } from '@/store/components/selectors';
 
 import HeaderTitle from '../common/HeaderTitle';
-import IconAnchor from '../common/IconAnchor';
 import Arrow from '../icons/Arrow';
 
 const SHARE = {
@@ -29,13 +30,19 @@ const EXCHANGE = {
 const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) => {
   const { src, alt, href, contents, contents2, textColor } = sort === 'SHARE' ? SHARE : EXCHANGE;
   const order = useRecoilValue(talentRegisterOrderAtom);
+  const router = useRouter();
+  const setCategoryReset = useSetRecoilState(talentRegisterCategoryResetSelector);
+
+  const handleClick = () => {
+    router.push(href);
+    setCategoryReset(true);
+  };
 
   return (
     <div className={`relative w-full ${className}`}>
-      <IconAnchor
-        icon={<Arrow direction="right" width={10} height={15} className="absolute left-[16px] top-[60px]" />}
-        href={href}
-      />
+      <button type="button" onClick={handleClick} className="block">
+        <Arrow direction="right" width={10} height={15} className="absolute left-[16px] top-[60px]" />
+      </button>
       <Image src={src} alt={alt} width={375} height={187} className="w-full z-99" priority />
       <HeaderTitle
         texts={sort === 'EXCHANGE' && order === 2 ? contents2 : contents}
