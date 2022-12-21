@@ -3,6 +3,7 @@ import { useSetRecoilState } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useNextPage from '@/hooks/useNextPage';
+import useTalentRegisterFormDisabled from '@/hooks/useTalentRegisterFormDisabled';
 import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
 import { talentRegisterMethodAtom, talentRegisterOrderAtom } from '@/store/components';
 
@@ -105,6 +106,7 @@ const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
   const { handleOrder: onClick } = useNextPage(talentRegisterOrderAtom);
   const setMethod = useSetRecoilState(talentRegisterMethodAtom);
   const categoryKey = SetTalnetRegisterCategorySelectInputKey();
+  const disabled = useTalentRegisterFormDisabled({ requiredInputNumber: 3, requiredSubCategoryNumber: 1 });
 
   useEffect(() => {
     if (sort === 'SHARE') {
@@ -123,7 +125,7 @@ const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
       <TextInput option={LINK2} />
       <TextInput option={LINK3} />
       <TextInput option={CHAT_LINK} />
-      <Button type="button" onClick={onClick} className="w-full">
+      <Button type="button" onClick={onClick} disabled={disabled} className="w-full">
         다음
       </Button>
     </form>
