@@ -40,6 +40,8 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
   const handleClick = () => {
     setPopup({
       ...POPUP_INFO,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onCancel: () => {},
       onConfirm: () => {
         router.push('/talent/register');
         setReset(true);
@@ -49,7 +51,7 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
 
   return (
     <div className={`relative w-full ${className}`}>
-      <button type="button" onClick={handleClick}>
+      <button type="button" onClick={handleClick} className="block">
         <XIcon className="absolute right-[16px] top-[60px]" />
       </button>
       <Image src={src} alt={alt} width={375} height={187} className="w-full z-99" priority />
