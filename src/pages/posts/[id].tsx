@@ -12,6 +12,7 @@ import { Layout, Typography } from '@/components/styles';
 import { colors } from '@/constants/styles';
 import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
+import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 
 const PostDetail = () => {
   const router = useRouter();
@@ -21,18 +22,17 @@ const PostDetail = () => {
   const mockImage =
     'https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80';
 
-  const { data: postData, isSuccess: postIsSuccess } = usePostQuery(postId);
+  const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
+  const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
 
   const handleLike = () => {
-    console.log('handleLike');
-    postLikeMutate();
+    postData?.isLike ? postUnlikeMutate() : postLikeMutate();
   };
 
   useEffect(() => {
-    // postData 업데이트된 값 받아와야됨
-    // usePostQuery 에 가지고있는 값이 stale 하다는걸 알려주는 옵션.. 뭐였더라?
-  }, [postLikeIsSuccess]);
+    refetch();
+  }, [postLikeIsSuccess, postUnlikeIsSuccess, refetch]);
 
   return (
     <>
