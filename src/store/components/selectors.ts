@@ -4,6 +4,7 @@ import { makeAndRemoveAtomKey } from '@/lib/utils';
 
 import {
   tabAtomFamily,
+  talentRegisterEnvironmnetAtomFamily,
   talentRegisterInputAtomFamily,
   talentRegisterInputKeyAtom,
   talentRegisterInputLinkKeyAtom,
@@ -85,4 +86,35 @@ const talentRegisterSelector = selector({
   },
 });
 
-export { talentRegisterInputSelectorFamily, talentRegisterLinksSelector, talentRegisterSelector };
+// 재능 등록 상태를 Reset하는 로직
+// TODO: 더 좋은 방법으로 상태 초기화 필요
+const talentRegisterResetSelector = selector({
+  key: 'talentRegisterReset',
+  get: () => true,
+  set: ({ get, set }, newInput) => {
+    if (!newInput) return;
+    const inputKeys = get(talentRegisterInputKeyAtom);
+    inputKeys.forEach((inputKey) => {
+      set(talentRegisterInputAtomFamily(inputKey), (prev) => ({ ...prev, contents: '' }));
+    });
+
+    const inputLinkKeys = get(talentRegisterInputLinkKeyAtom);
+    inputLinkKeys.forEach((inputKey) => {
+      set(talentRegisterInputAtomFamily(inputKey), (prev) => ({ ...prev, contents: '' }));
+    });
+
+    set(tabAtomFamily('subCategoryId'), []);
+    set(tabAtomFamily('takenTalentIds'), []);
+
+    set(talentRegisterEnvironmnetAtomFamily('exchangeType'), { key: 'ONLINE', label: '온라인' });
+    set(talentRegisterEnvironmnetAtomFamily('exchangePeriod'), { key: 'A_WEEK', label: '1주 미만' });
+    set(talentRegisterEnvironmnetAtomFamily('exchangeTime'), { key: 'NOON', label: '오전' });
+  },
+});
+
+export {
+  talentRegisterInputSelectorFamily,
+  talentRegisterLinksSelector,
+  talentRegisterResetSelector,
+  talentRegisterSelector,
+};
