@@ -30,12 +30,14 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
           {children}
         </main>
         <footer className="flex w-full text-[15px] items-center justify-center border-t-[1px] border-gray-150">
-          <button
-            className="text-button w-full py-[4%] border-r-[1px] border-gray-150 text-gray-400"
-            onClick={onCancelClicked}
-          >
-            {cancelText ?? '취소'}
-          </button>
+          {onCancel && (
+            <button
+              className="text-button w-full py-[4%] border-r-[1px] border-gray-150 text-gray-400"
+              onClick={onCancelClicked}
+            >
+              {cancelText ?? '취소'}
+            </button>
+          )}
           <button className="text-primary-dark w-full py-[4%] text-button" onClick={onConfirmClicked}>
             {confirmText ?? '확인'}
           </button>
