@@ -1,5 +1,7 @@
 import { atom, atomFamily } from 'recoil';
 
+import type { Radio } from '@/hooks/useRadioGroup';
+
 import type { TabProps, TalentRegisterInputInfo } from './types';
 
 // TODO: tabAtom의 경우 key를 찾기 쉽지 않아 key 관리를 위한 좋은 방법이 필요합니다.
@@ -76,6 +78,22 @@ const talentRegisterMethodAtom = atom({
   default: false,
 });
 
+const talentRegisterEnvironmnetAtomFamily = atomFamily<Radio, string>({
+  key: 'talentRegisterEnvironmentAtom',
+  default: (inputKey) => {
+    switch (inputKey) {
+      case 'exchangeType':
+        return { key: 'ONLINE', label: '온라인' };
+      case 'exchangePeriod':
+        return { key: 'A_WEEK', label: '1주 미만' };
+      case 'exchangeTime':
+        return { key: 'NOON', label: '오전' };
+      default:
+        return { key: '', label: '' };
+    }
+  },
+});
+
 export {
   bottomSheetAtom,
   headerAtom,
@@ -83,6 +101,7 @@ export {
   tabAtomFamily,
   tabKeyAtom,
   talentRegisterAtom,
+  talentRegisterEnvironmnetAtomFamily,
   talentRegisterInputAtomFamily,
   talentRegisterInputKeyAtom,
   talentRegisterInputLinkKeyAtom,
