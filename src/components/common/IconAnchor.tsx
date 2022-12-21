@@ -1,7 +1,7 @@
+import type { LinkProps } from 'next/link';
 import Link from 'next/link';
-import type { AnchorHTMLAttributes } from 'react';
 
-interface IconAnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+interface IconAnchorProps extends LinkProps {
   icon: JSX.Element;
   href: string;
   className?: string;
