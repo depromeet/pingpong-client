@@ -66,3 +66,7 @@ interface PostInfo {
   ranks: string;
   isLike: false;
 }
+interface CategoryProps {
+  id: number;
+  name: string;
+}
