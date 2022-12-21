@@ -1,6 +1,7 @@
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useBackPage from '@/hooks/useBackPage';
 import useNextPage from '@/hooks/useNextPage';
+import useTalentRegisterFormDisabled from '@/hooks/useTalentRegisterFormDisabled';
 import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
 import { talentRegisterOrderAtom } from '@/store/components';
 
@@ -62,6 +63,7 @@ const TalentRegisterFormThree = ({ className, sort }: TalentRegisterProps) => {
   const { handleOrder: onNextClick } = useNextPage(talentRegisterOrderAtom);
   const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
   const categoryKey = SetTalnetRegisterCategorySelectInputKey();
+  const disabled = useTalentRegisterFormDisabled({ requiredTakenCategoryNumber: 1 });
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
@@ -71,7 +73,7 @@ const TalentRegisterFormThree = ({ className, sort }: TalentRegisterProps) => {
         <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
           이전
         </Button>
-        <Button type="button" onClick={onNextClick} className="w-full h-[48px]">
+        <Button type="button" onClick={onNextClick} disabled={disabled} className="w-full h-[48px]">
           다음
         </Button>
       </div>
