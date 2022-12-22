@@ -19,6 +19,7 @@ interface PopupProps {
 interface Header {
   title: string;
   activeButton?: string;
+  className?: string;
 }
 
 interface CardInfo {
