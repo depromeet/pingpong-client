@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
+import BottomSheet from '@/components/common/BottomSheet';
+import BottomSheetOptions from '@/components/common/BottomSheetOptions';
 import Button from '@/components/common/Button';
 import CircleImg from '@/components/common/CircleImg';
 import LikeButton from '@/components/common/LikeButton';
@@ -15,7 +17,13 @@ import { colors } from '@/constants/styles';
 import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
+import useBottomSheet from '@/hooks/useBottomSheet';
 import type { LinkInfo } from '@/typings/common';
+
+const bottomSheetList = [
+  { id: 'edit', label: '게시글 수정' },
+  { id: 'delete', label: '삭제' },
+];
 
 const PostDetail = () => {
   const router = useRouter();
@@ -28,6 +36,7 @@ const PostDetail = () => {
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
+  const { isShowing, setIsShowing } = useBottomSheet();
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
@@ -113,6 +122,9 @@ const PostDetail = () => {
               <Link href={postData.chatLink}>오픈채팅 시작하기</Link>
             </Button>
           </BottomFixedBar>
+          <BottomSheet isShowing={isShowing} onClose={() => setIsShowing(false)}>
+            <BottomSheetOptions list={bottomSheetList} />
+          </BottomSheet>
         </>
       )}
     </>
