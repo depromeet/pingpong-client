@@ -6,16 +6,20 @@ import useBottomSheet from '@/hooks/useBottomSheet';
 import ArrowLeftIcon from '../../../public/icons/arrow-left.svg';
 import MoreIcon from '../../../public/icons/more.svg';
 
-const PostHeaderNav = () => {
+const PostHeaderNav = ({ isMine = false }: { isMine?: boolean }) => {
   const router = useRouter();
   const { setIsShowing } = useBottomSheet();
+  const onClickMore = () => {
+    if (!isMine) return;
+    setIsShowing(true);
+  };
 
   return (
     <HeaderNavContainer>
       <button onClick={() => router.back()}>
         <ArrowLeftIcon />
       </button>
-      <MoreIcon onClick={() => setIsShowing(true)} />
+      <MoreIcon onClick={onClickMore} />
     </HeaderNavContainer>
   );
 };

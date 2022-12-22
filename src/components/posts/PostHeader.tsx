@@ -7,12 +7,13 @@ import PostHeaderNav from './PostHeaderNav';
 
 interface PostHeaderProps {
   imageUrl: string;
+  isMine?: boolean;
 }
 
-const PostHeader = ({ imageUrl }: PostHeaderProps) => {
+const PostHeader = ({ imageUrl, isMine }: PostHeaderProps) => {
   return (
     <HeaderContainer>
-      <PostHeaderNav />
+      <PostHeaderNav isMine={isMine} />
       <ImageWrapper className="relative" width="100%" height="18.7rem">
         <Image
           alt="post-header"
