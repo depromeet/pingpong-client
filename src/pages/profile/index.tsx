@@ -14,9 +14,11 @@ export default function Profile() {
               <Image src={'/icons/modify.svg'} alt="modify" width={100} height={100} />
             </button>
           </Link>
-          <button className="w-[20px] h-[20px]">
-            <Image src={'/icons/setting.svg'} alt="setting" width={100} height={100} />
-          </button>
+          <Link href={'/profile/setting'}>
+            <button className="w-[20px] h-[20px]">
+              <Image src={'/icons/setting.svg'} alt="setting" width={100} height={100} />
+            </button>
+          </Link>
         </article>
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
           <div>

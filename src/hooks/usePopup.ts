@@ -10,12 +10,13 @@ export const usePopup = () => {
   const [popup, setPopup] = useRecoilState<PopupProps | null>(popupAtom);
 
   useEffect(() => {
-    router.beforePopState(() => {
-      if (popup) {
-        setPopup(null);
-      }
-      return false;
-    });
+    popup &&
+      router.beforePopState(() => {
+        if (popup) {
+          setPopup(null);
+        }
+        return false;
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
