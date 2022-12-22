@@ -73,3 +73,16 @@ interface CategoryProps {
   id: number;
   name: string;
 }
+
+interface UserInfo {
+  memberId: number;
+  nickname: string;
+  image: string;
+  introduction: string;
+  ranks: string;
+  ranksImage: string;
+  likeCount: string;
+  profileLink: string;
+  givenTalents: string[];
+  takenTalents: string[];
+}
