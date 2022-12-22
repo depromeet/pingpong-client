@@ -23,5 +23,8 @@ const OptionList = styled.ul`
 
 const OptionItem = styled.li`
   padding: 1.2rem 3rem;
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  letter-spacing: -0.04rem;
   border-bottom: 0.1rem solid #f0f0f0;
 `;
