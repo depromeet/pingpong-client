@@ -1,3 +1,4 @@
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import BottomSheet from '@/components/common/BottomSheet';
@@ -7,11 +8,11 @@ import Carousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
-import useBottomSheet from '@/hooks/useBottomSheet';
-// import useRadioGroup from '@/hooks/useRadioGroup';
+import useRadioGroup from '@/hooks/useRadioGroup';
+import { bottomSheetAtom } from '@/store/components';
 
 const Playground = () => {
-  const { isShowing, setIsShowing } = useBottomSheet();
+  const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
 
   const mockList = [
     { id: 1, label: '하하' },

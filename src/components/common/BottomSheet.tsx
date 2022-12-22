@@ -12,8 +12,10 @@ export interface BottomSheetProps {
 
 export default function BottomSheet({ isShowing, children, onClose }: BottomSheetProps) {
   const handleDelete = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target !== e.currentTarget) return;
-    onClose();
+    if (e.currentTarget) {
+      if (e.target !== e.currentTarget) return;
+      onClose();
+    }
   };
 
   return (

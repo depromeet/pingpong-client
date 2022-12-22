@@ -28,7 +28,7 @@ const bottomSheetList = [
 const PostDetail = () => {
   const router = useRouter();
 
-  const postId = Number(router.query.id);
+  const postId = Number(router.query.id) || 0;
 
   const mockImage =
     'https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80';
