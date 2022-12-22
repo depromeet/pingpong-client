@@ -11,8 +11,8 @@
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier": "prettier --check 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "storybook": "start-storybook -p 6006 -s ./public",
-    "build-storybook": "build-storybook s public",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "react-hook-form": "^7.39.1",
     "react-intersection-observer": "^9.4.1",
     "recoil": "^0.7.6",
+    "storybook-addon-next": "1.7.1",
     "styled-components": "^5.3.6",
     "swiper": "^8.4.4",
     "tailwindcss": "^3.2.4"
