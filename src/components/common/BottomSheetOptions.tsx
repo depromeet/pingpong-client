@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface Option {
-  id: number;
+  id: number | string;
   label: string;
 }
 
