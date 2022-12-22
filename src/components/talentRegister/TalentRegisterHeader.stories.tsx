@@ -22,14 +22,14 @@ export default {
 } as ComponentMeta<typeof TalentRegisterHeader>;
 
 const SHARE = {
-  src: '/images/talentShare.png',
+  src: './images/talentShare.png',
   alt: 'talentShare',
   contents: ['나누고 싶은 재능에 대해', '알려주세요'],
   contents2: ['', ''],
 };
 
 const EXCHANGE = {
-  src: '/images/talentExchange.png',
+  src: './images/talentExchange.png',
   alt: 'talentExchange',
   contents: ['주고 싶은 재능에 대해', '알려주세요'],
   contents2: ['받고 싶은 재능에 대해', '알려주세요'],
