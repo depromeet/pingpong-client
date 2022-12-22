@@ -12,13 +12,10 @@ import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
+import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 
 const Home: NextPage = () => {
-  const userData = {
-    nickname: '말하는감자',
-    image:
-      'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
-  };
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
 
   // TODO: cardData 실제 데이터로 연결 (posts 5개)
   const cardData = {
@@ -80,14 +77,16 @@ const Home: NextPage = () => {
     <Layout.DefaultContainer>
       <Layout.DefaultPadding>
         <div className="mb-28">
-          <HomeHeader>
-            <Typography.Title>
-              <span className="text-primary-blue">{userData.nickname}</span> 님,
-              <br />
-              핑퐁에서 재능을 나눠볼까요?
-            </Typography.Title>
-            <CircleImg size="large" src={userData.image} alt="user-profile-img" />
-          </HomeHeader>
+          {userIsSuccess && (
+            <HomeHeader>
+              <Typography.Title>
+                <span className="text-primary-blue">{userData.nickname}</span> 님,
+                <br />
+                핑퐁에서 재능을 나눠볼까요?
+              </Typography.Title>
+              <CircleImg size="large" src={userData.image} alt="user-profile-img" />
+            </HomeHeader>
+          )}
         </div>
         <div className="mb-12">
           <Typography.Subtitle className="mb-2">핑퐁! 내가 찾던 재능</Typography.Subtitle>
