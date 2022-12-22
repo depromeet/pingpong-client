@@ -1,3 +1,5 @@
+import type { ExchangePeriodLabel, ExchangeTimeLabel, ExchangeTypeLabel } from '@/constants';
+
 interface DefaultProps {
   value?: string;
   disabled?: boolean;
@@ -58,9 +60,9 @@ interface PostInfo {
   likes: number;
   takenContent: string;
   takenTalents: string[];
-  exchangeType: string; // ONLINE | ... type 뭐뭐있는지 알아야됨
-  exchangePeriod: string; // A_WEEK | ... type 뭐뭐있는지 알아야됨
-  exchangeTime: string; // NOON | ... type 뭐뭐있는지 알아야됨
+  exchangeType: keyof typeof ExchangeTypeLabel;
+  exchangePeriod: keyof typeof ExchangePeriodLabel;
+  exchangeTime: keyof typeof ExchangeTimeLabel;
   memberId: number;
   nickname: string;
   image: string;
