@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
+import Button from '@/components/common/Button';
 import CircleImg from '@/components/common/CircleImg';
 import LikeButton from '@/components/common/LikeButton';
 import Tag from '@/components/common/Tag';
@@ -28,6 +29,10 @@ const PostDetail = () => {
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
+  };
+
+  const handleClick = () => {
+    console.log('click');
   };
 
   useEffect(() => {
@@ -106,6 +111,9 @@ const PostDetail = () => {
               count={postData.likes.toString()}
               onClick={handleLike}
             />
+            <Button className="ml-12">
+              <Link href={postData.chatLink}>오픈채팅 시작하기</Link>
+            </Button>
           </BottomFixedBar>
         </>
       )}
