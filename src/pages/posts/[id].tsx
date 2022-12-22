@@ -10,10 +10,12 @@ import LikeButton from '@/components/common/LikeButton';
 import Tag from '@/components/common/Tag';
 import PostHeader from '@/components/posts/PostHeader';
 import { Layout, Typography } from '@/components/styles';
+import { ExchangePeriodLabel, ExchangeTimeLabel, ExchangeTypeLabel } from '@/constants';
 import { colors } from '@/constants/styles';
 import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
+import type { LinkInfo } from '@/typings/common';
 
 const PostDetail = () => {
   const router = useRouter();
@@ -29,10 +31,6 @@ const PostDetail = () => {
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
-  };
-
-  const handleClick = () => {
-    console.log('click');
   };
 
   useEffect(() => {
@@ -77,7 +75,7 @@ const PostDetail = () => {
               <Typography.Content className="mb-24">{postData.content}</Typography.Content>
               <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>
               <PostDetailRow>
-                {postData.links.map((link) => (
+                {postData.links.map((link: LinkInfo) => (
                   <GrayBlock key={`link-${link.id}`}>
                     <li>{link.content}</li>
                   </GrayBlock>
@@ -90,15 +88,15 @@ const PostDetail = () => {
               <GrayBlock className="mb-24">
                 <li>
                   <label>재능 공유 환경</label>
-                  <p>{postData.exchangeType}</p>
+                  <p>{ExchangeTypeLabel[postData.exchangeType]}</p>
                 </li>
                 <li>
                   <label>재능 공유 기간</label>
-                  <p>{postData.exchangePeriod}</p>
+                  <p>{ExchangePeriodLabel[postData.exchangePeriod]}</p>
                 </li>
                 <li>
                   <label>선호하는 시간대</label>
-                  <p>{postData.exchangeTime}</p>
+                  <p>{ExchangeTimeLabel[postData.exchangeTime]}</p>
                 </li>
               </GrayBlock>
             </Layout.DefaultPadding>

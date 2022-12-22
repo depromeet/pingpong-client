@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import type { ServerResponse } from '@/apis';
 import { axiosClient } from '@/apis';
+import type { PostInfo } from '@/typings/common';
 
 const usePostQuery = (id: number) => {
   const fetchPostById = async (id: number) => {
