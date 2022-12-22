@@ -11,59 +11,17 @@ import EmptyCard from '@/components/common/EmptyCard';
 import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
+import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 
 const Home: NextPage = () => {
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
-
-  // TODO: cardData 실제 데이터로 연결 (posts 5개)
-  const cardData = {
-    content: [
-      {
-        id: 12,
-        isShare: false,
-        title: '제목',
-        subCategory: '대1중1소1',
-        likes: 0,
-        memberId: 1,
-        nickname: '감자',
-        image:
-          'https://images.unsplash.com/photo-1670470076011-cd2f6e03ca40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
-        ranks: '루키',
-        takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
-      },
-      {
-        id: 89,
-        isShare: false,
-        title: '주고받고',
-        subCategory: '프론트엔드 개발',
-        likes: 0,
-        memberId: 1,
-        nickname: '감자',
-        image:
-          'https://images.unsplash.com/photo-1670433000581-7b36d9b2fe4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2318&q=80',
-        ranks: '루키',
-        takenTalents: ['대1중1소1', '대1중1소2', '대1중2소1'],
-      },
-      {
-        id: 8,
-        isShare: true,
-        title: '디자인 가르쳐드립니다',
-        subCategory: 'UI/UX',
-        likes: 0,
-        memberId: 1,
-        nickname: '감자',
-        image:
-          'https://images.unsplash.com/photo-1670258880107-e0b02eb0ff14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80',
-        ranks: '루키',
-        takenTalents: [],
-      },
-    ],
-    totalElements: 26,
-    totalPages: 13,
-    hasNextPages: true,
-  };
+  const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
+    subCategoryId: 1,
+    page: 0,
+    size: 5,
+  });
 
   const { data: categoryData, isSuccess: categoryIsSuccess } = useCategoriesQuery();
   const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery();
@@ -92,8 +50,8 @@ const Home: NextPage = () => {
           <Typography.Subtitle className="mb-2">핑퐁! 내가 찾던 재능</Typography.Subtitle>
           <Typography.Desc>내가 가진 재능과 받고 싶은 재능이 일치해요</Typography.Desc>
         </div>
-        {cardData.content.length ? (
-          <CardCarousel list={cardData.content} />
+        {customPostsIsSuccess && customPostsData.content.length ? (
+          <CardCarousel list={customPostsData.content} />
         ) : (
           <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
         )}
