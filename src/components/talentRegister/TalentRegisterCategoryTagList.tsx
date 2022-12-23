@@ -5,6 +5,7 @@ import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegis
 import useGetCategory from '@/hooks/useGetCategory';
 import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
 import { tabAtomFamily } from '@/store/components';
+import type { CategoryProps } from '@/typings/common';
 
 import Button from '../common/Button';
 import ClickTagList from '../common/ClickTagList';
