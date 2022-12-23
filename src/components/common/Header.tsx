@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router';
 
+import type { HeaderProps } from '@/typings/common';
+
 import { ArrowIcon } from '../icons';
 
-const Header = ({ title, activeButton, className }: Header) => {
+const Header = ({ title, activeButton, className }: HeaderProps) => {
   const router = useRouter();
 
   return (
