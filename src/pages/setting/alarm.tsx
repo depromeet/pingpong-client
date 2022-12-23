@@ -1,18 +1,37 @@
+import { useEffect, useState } from 'react';
+
 import Header from '@/components/common/Header';
 import Toggle from '@/components/common/Radio';
 
 export default function SettingAlarm() {
+  const [isAlarmOn, setIsAlarmOn] = useState(false);
+
   const handleAlarmClick = () => {
-    //TODO: native interface
+    window.ReactNativeWebView.postMessage(JSON.stringify({ event: 'setting' }));
   };
+
+  useEffect(() => {
+    const onMessageHandler = ({ data }: { data: 'true' | 'false' }) => {
+      setIsAlarmOn(data === 'true');
+    };
+
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({ event: 'permission' }));
+
+      window.addEventListener('message', onMessageHandler);
+      return () => {
+        window.removeEventListener('message', onMessageHandler);
+      };
+    }
+  }, []);
 
   return (
     <>
       <Header title="알림 설정" className="bg-white border-b border-gray-100" />
       <ul className="mt-4 px-[16px]">
-        <li className="text-b2 text-gray-600 py-[12px] flex justify-between items-center border-b border-gray-100">
+        <li className="text-b2 text-gray-600 py-[12px] flex justify-between items-center border-b border-gray-100 cursor-pointer">
           푸시 알림
-          <Toggle isOn onClick={handleAlarmClick} />
+          <Toggle isOn={isAlarmOn} onClick={handleAlarmClick} />
         </li>
       </ul>
     </>
