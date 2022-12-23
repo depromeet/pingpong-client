@@ -2,6 +2,7 @@ import type { QueryFunctionContext } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { axiosClient } from '@/apis';
+import type { CardInfo } from '@/typings/common';
 
 interface PageParam {
   totalElements: number;

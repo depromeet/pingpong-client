@@ -1,6 +1,7 @@
 import { useSetRecoilState } from 'recoil';
 
 import { popupAtom } from '@/store/components';
+import type { PopupProps } from '@/typings/common';
 
 import Portal from './Portal';
 
