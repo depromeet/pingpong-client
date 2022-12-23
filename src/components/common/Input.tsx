@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import type { DefaultProps } from '@/typings/common';
+
 type Props = DefaultProps & {
   type?: 'text' | 'email' | 'tel' | 'number' | 'password' | 'date' | 'datetime';
   onChange?: (value: string) => void;

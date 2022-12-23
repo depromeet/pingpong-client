@@ -1,6 +1,8 @@
+import type { Header } from 'next/dist/lib/load-custom-routes';
 import { atom, atomFamily } from 'recoil';
 
 import type { Radio } from '@/hooks/useRadioGroup';
+import type { PopupProps } from '@/typings/common';
 
 import type { TabProps, TalentRegisterInputInfo } from './types';
 

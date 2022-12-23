@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { uniqueId } from '@/lib/utils';
+import type { CardInfo } from '@/typings/common';
 
 import Tag from '../common/Tag';
 import { HeartIcon } from '../icons';

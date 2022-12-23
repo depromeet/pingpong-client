@@ -1,3 +1,5 @@
+import type { DefaultProps } from '@/typings/common';
+
 type Props = DefaultProps & {
   onChange?: (value: string) => void;
   placeholder?: string;
