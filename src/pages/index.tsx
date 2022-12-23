@@ -8,6 +8,7 @@ import Card from '@/components/common/Card';
 import CardCarousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
 import EmptyCard from '@/components/common/EmptyCard';
+import NavigationBar from '@/components/common/NavigationBar';
 import CategoryCarousel from '@/components/main/MainCategoryCarousel';
 import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
@@ -94,6 +95,7 @@ const Home: NextPage = () => {
           <Spinner />
         </ContainerRef>
       </Layout.DefaultPadding>
+      <NavigationBar className="fixed bottom-0 left-0" />
     </Layout.DefaultContainer>
   );
 };
