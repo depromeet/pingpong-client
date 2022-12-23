@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import HeaderTitle from '@/components/common/HeaderTitle';
-import NavigationBar from '@/components/common/NavigationBar';
 import TalentRegisterCard from '@/components/talentRegister/TalentRegisterCard';
 import { talentRegisterOrderAtom } from '@/store/components';
 
@@ -20,7 +19,6 @@ const TalentRegister = () => {
       <HeaderTitle texts={TITLE} className="pt-[60px]" />
       <TalentRegisterCard sort="SHARE" className="mt-[48px]" />
       <TalentRegisterCard sort="EXCHANGE" className="mt-[16.5px]" />
-      <NavigationBar className="fixed bottom-0 left-0" />
     </div>
   );
 };
