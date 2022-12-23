@@ -6,6 +6,7 @@ import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { uniqueId } from '@/lib/utils';
+import type { MainCategoryInfo } from '@/typings/common';
 
 import MainCategoryItem from './MainCategoryItem';
 

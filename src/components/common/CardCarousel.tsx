@@ -5,6 +5,7 @@ import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { uniqueId } from '@/lib/utils';
+import type { CardInfo } from '@/typings/common';
 
 import Card from './Card';
 

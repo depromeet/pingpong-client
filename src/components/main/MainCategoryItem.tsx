@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { colors } from '@/constants/styles';
+import type { MainCategoryInfo } from '@/typings/common';
 
 import CircleImg from '../common/CircleImg';
 
