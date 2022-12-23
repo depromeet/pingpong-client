@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import NavigationBar from '@/components/common/NavigationBar';
 import Tag from '@/components/common/Tag';
 import TextBox from '@/components/common/TextBox';
 
@@ -79,6 +80,7 @@ export default function Profile() {
           전체보기
         </button>
       </section>
+      <NavigationBar className="fixed bottom-0 left-0" />
     </main>
   );
 }
