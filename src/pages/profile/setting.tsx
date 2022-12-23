@@ -28,7 +28,7 @@ export default function ProfileSetting() {
           <li
             key={i}
             onClick={list.onClick}
-            className="text-b2 text-gray-600 py-[12px] flex justify-between items-center border-b border-gray-100"
+            className="text-b2 text-gray-600 py-[12px] flex justify-between items-center border-b border-gray-100 cursor-pointer"
           >
             {list.label}
             {list.onClick ? (
