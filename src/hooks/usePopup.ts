@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { popupAtom } from '@/store/components';
+import type { PopupProps } from '@/typings/common';
 
 export const usePopup = () => {
   const router = useRouter();
