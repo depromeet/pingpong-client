@@ -21,11 +21,11 @@ const NAV_LIST_INFO = [
 ];
 
 const NavigationBar = ({ className }: NavigationBarProps) => {
-  const [selected, setSelected] = useState('');
+  const [selectedPath, setSelectedPath] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    setSelected(router.asPath);
+    setSelectedPath(router.asPath);
   }, [router.asPath]);
 
   return (
@@ -34,9 +34,15 @@ const NavigationBar = ({ className }: NavigationBarProps) => {
         {NAV_LIST_INFO.map(({ icon, selectedIcon, href, text }, index) => (
           <li key={index} className="w-max justify-self-center">
             <div className="flex flex-col justify-center items-center pt-[8px]">
-              <IconAnchor icon={selected === href ? selectedIcon : icon} href={href} className="flex justify-center" />
+              <IconAnchor
+                icon={selectedPath === href ? selectedIcon : icon}
+                href={href}
+                className="flex justify-center"
+              />
               <span
-                className={`text-overline w-fit ${selected === href ? 'text-primary-blue' : 'text-gray-400'}  pt-[3px]`}
+                className={`text-overline w-fit ${
+                  selectedPath === href ? 'text-primary-blue' : 'text-gray-400'
+                }  pt-[3px]`}
               >
                 {text}
               </span>
