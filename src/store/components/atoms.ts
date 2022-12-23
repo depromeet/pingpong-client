@@ -2,7 +2,7 @@ import type { Header } from 'next/dist/lib/load-custom-routes';
 import { atom, atomFamily } from 'recoil';
 
 import type { Radio } from '@/hooks/useRadioGroup';
-import type { PopupProps } from '@/typings/common';
+import type { HeaderProps, PopupProps } from '@/typings/common';
 
 import type { TabProps, TalentRegisterInputInfo } from './types';
 
@@ -40,7 +40,7 @@ const popupAtom = atom<PopupProps | null>({
   default: null,
 });
 
-const headerAtom = atom<Header | null>({
+const headerAtom = atom<HeaderProps | null>({
   key: 'header',
   default: null,
 });

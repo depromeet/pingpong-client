@@ -18,7 +18,7 @@ interface PopupProps {
   cancelText?: string;
 }
 
-interface Header {
+interface HeaderProps {
   title: string;
   activeButton?: string;
   className?: string;
