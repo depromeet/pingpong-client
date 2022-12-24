@@ -21,7 +21,7 @@ const tabAtomFamily = atomFamily<TabProps[], string>({
 
 // TODO: 수동으로 받고 있는 tabKeyAtom을 동적으로 변경하는 코드가 필요합니다.
 const tabKeyAtom = atom<string[]>({
-  key: 'talentRegisterInputKey',
+  key: 'tabKey',
   default: ['subCategoryId', 'takenTalentIds'],
 });
 
