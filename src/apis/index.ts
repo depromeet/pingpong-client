@@ -2,8 +2,23 @@ import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 import { formatQueryString } from 'src/lib/utils';
 
-//FIXME: to proxy
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
+axios.defaults.baseURL = '/api/v1/';
+
+const getAuth = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  const cookie = document.cookie;
+  const sessionForDev = sessionStorage.getItem('token');
+
+  if (cookie) {
+    //TODO: get cookie
+    return { ...config, headers: { ...config.headers, Authorization: 'Bearer ' } };
+  }
+
+  if (sessionForDev) {
+    return { ...config, headers: { ...config.headers, Authorization: `Bearer ${sessionForDev}` } };
+  }
+
+  return config;
+};
 
 const handleError = (_: AxiosError) => {
   //TODO: axios error handling
@@ -13,14 +28,12 @@ const handleError = (_: AxiosError) => {
 // only for QUERY
 export const queryFetcher = async (url: string, queries?: Record<string, unknown>) => {
   const newUrl = formatQueryString(url, queries);
-  const config: AxiosRequestConfig = {
+  let config: AxiosRequestConfig = {
     method: 'GET',
     url: newUrl,
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLstZzsmIHqtowiLCJtZW1iZXJJZCI6NSwiZXhwIjoxNjcwNDIyMjEwfQ.VekC3NKcgpQMGVIB6wO6kyTNRRHOESBV1nbfdEih2Dp009EM3OMm8xi-DdpUcAm3W7z8HlGrwA67DSE8t0k28Q',
-    },
   };
+
+  config = getAuth(config);
 
   try {
     const res = await axios(config);
@@ -41,17 +54,19 @@ export const mutateFetcher = async <T>(
   params?: Record<string, unknown>,
 ): Promise<T | null> => {
   try {
-    // FIXME: axios config 관련 리팩토링 필요
-    const res = await axios({
-      url,
+    let config: AxiosRequestConfig = {
       method,
       data,
+      url,
       params,
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TOKEN} `,
         'Content-Type': 'application/json',
       },
-    });
+    };
+
+    config = getAuth(config);
+
+    const res = await axios(config);
 
     return res.data;
   } catch (err) {
@@ -63,7 +78,9 @@ export const mutateFetcher = async <T>(
 
 export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosResponse<T | null>> => {
   try {
-    const res = await axios(req);
+    const config: AxiosRequestConfig = getAuth(req);
+
+    const res = await axios(config);
 
     return res;
   } catch (err) {
@@ -73,6 +90,7 @@ export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosRes
   }
 };
 
+//TODO: remove this
 export interface ServerResponse<T = Record<string, unknown>> {
   data: T;
   message: string;
