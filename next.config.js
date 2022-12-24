@@ -27,6 +27,14 @@ const nextConfig = {
 
     return config;
   },
+  rewrites: async () => {
+    return [
+      {
+        source: '/:path*',
+        destination: `${process.env.NEXT_PUBLIC_SERVER_URL}/:path*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
