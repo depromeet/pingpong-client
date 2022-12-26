@@ -78,7 +78,7 @@ export interface ServerResponse<T = Record<string, unknown>> {
   message: string;
 }
 
-const BASE_URL = 'https://test.pingpongg.shop';
+const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export const axiosClient = axios.create({
   baseURL: BASE_URL,
