@@ -11,14 +11,14 @@ type Tag = {
   label: string;
 };
 
-interface MainCategory {
+export interface MainCategory {
   id: number;
   image: string;
   midCategories: MidCategory[];
   name: string;
 }
 
-interface MidCategory {
+export interface MidCategory {
   id: number;
   name: string;
 }

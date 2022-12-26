@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -9,7 +9,9 @@ import Card from '@/components/common/Card';
 import CardCarousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
 import EmptyCard from '@/components/common/EmptyCard';
-import CategoryCarousel from '@/components/main/MainCategoryCarousel';
+import MainCategoryCarousel from '@/components/main/MainCategoryCarousel';
+import MidCategoryTab from '@/components/main/MidCategoryTab';
+import SubCategoryFilter from '@/components/main/SubCategoryFilter';
 import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
@@ -28,6 +30,12 @@ const Home: NextPage = () => {
   const { data: categoryData, isSuccess: categoryIsSuccess } = useCategoriesQuery();
   const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery();
   const { ref, inView } = useInView();
+
+  const [activeCategoryId, setActiveCategoryId] = useState(0);
+
+  const getActiveCategory = (id: number) => {
+    return categoryData?.find((mainCategory) => mainCategory.id === id) || null;
+  };
 
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -68,7 +76,18 @@ const Home: NextPage = () => {
           </Typography.Title>
         </div>
       </Layout.DefaultPadding>
-      {categoryIsSuccess && <CategoryCarousel list={categoryData} />}
+      {categoryIsSuccess && (
+        <div className="pb-20 mb-12 border-b border-gray-100">
+          <MainCategoryCarousel list={categoryData} activeCategoryId={activeCategoryId} onClick={setActiveCategoryId} />
+        </div>
+      )}
+      {getActiveCategory(activeCategoryId)?.midCategories.length && (
+        <MidCategoryTab
+          mainCategoryName={getActiveCategory(activeCategoryId)?.name || ''}
+          list={getActiveCategory(activeCategoryId)?.midCategories || []}
+        />
+      )}
+      <SubCategoryFilter isSubFilterVisible={activeCategoryId !== 0} />
       <Layout.DefaultPadding>
         <CardContainer>
           {posts.map((item) => {

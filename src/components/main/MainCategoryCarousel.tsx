@@ -10,9 +10,15 @@ import type { MainCategoryInfo } from '@/typings/common';
 
 import MainCategoryItem from './MainCategoryItem';
 
-const CategoryCarousel = ({ list }: { list: MainCategoryInfo[] }) => {
-  const [activeCategoryId, setActiveCategoryId] = useState(0);
-
+const CategoryCarousel = ({
+  list,
+  activeCategoryId,
+  onClick,
+}: {
+  list: MainCategoryInfo[];
+  activeCategoryId: number;
+  onClick: (id: number) => void;
+}) => {
   return (
     <SwiperWrapper>
       <Swiper
@@ -24,7 +30,7 @@ const CategoryCarousel = ({ list }: { list: MainCategoryInfo[] }) => {
         centeredSlidesBounds={true}
       >
         {list.map((item) => (
-          <SwiperSlide key={uniqueId('category-carousel')} onClick={() => setActiveCategoryId(item.id)}>
+          <SwiperSlide key={uniqueId('category-carousel')} onClick={() => onClick(item.id)}>
             <MainCategoryItem category={item} isActive={activeCategoryId === item.id} />
           </SwiperSlide>
         ))}
@@ -37,10 +43,6 @@ export default CategoryCarousel;
 
 const SwiperWrapper = styled.div`
   padding-left: 1rem;
-
-  .swiper {
-    padding-bottom: 3.6rem;
-  }
 
   .swiper-slide {
     /* Center slide text vertically */
