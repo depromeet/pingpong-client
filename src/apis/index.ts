@@ -2,8 +2,6 @@ import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 import { formatQueryString } from 'src/lib/utils';
 
-axios.defaults.baseURL = '/api/v1/';
-
 const getAuth = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const cookie = document.cookie;
   const sessionForDev = sessionStorage.getItem('token');
@@ -96,10 +94,7 @@ export interface ServerResponse<T = Record<string, unknown>> {
   message: string;
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-
 export const axiosClient = axios.create({
-  baseURL: BASE_URL,
   headers: {
     Authorization: `Bearer ${process.env.TOKEN}`,
   },
