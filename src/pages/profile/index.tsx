@@ -14,7 +14,7 @@ export default function Profile() {
               <Image src={'/icons/modify.svg'} alt="modify" width={100} height={100} />
             </button>
           </Link>
-          <Link href={'/profile/setting'}>
+          <Link href={'/setting'}>
             <button className="w-[20px] h-[20px]">
               <Image src={'/icons/setting.svg'} alt="setting" width={100} height={100} />
             </button>
@@ -27,7 +27,7 @@ export default function Profile() {
           <span className="text-h2">{`말하는 감자`}</span>
         </article>
       </section>
-      <section className="border-y border-gray-100 bg-white p-[16px]">
+      {/* <section className="border-y border-gray-100 bg-white p-[16px]">
         <article className="flex gap-5 items-center relative">
           <div className="p-[9px] bg-primary-blue rounded-xl w-[20%]">
             <Image src={'/images/ranking.png'} alt="ranking" width={100} height={100} />
@@ -40,7 +40,7 @@ export default function Profile() {
             등급 알아보기
           </button>
         </article>
-      </section>
+      </section> */}
       <section className="bg-white my-[8px] border-y border-gray-100 flex flex-col gap-[28px] px-[16px] py-[28px]">
         <article>
           <h2 className="text-t3 mb-[8px]">이런 재능을 줄 수 있어요</h2>

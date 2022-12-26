@@ -1,7 +1,7 @@
 import { useIsFetching } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { usePopup } from '@/hooks/usePopup';
@@ -13,13 +13,15 @@ import Popup from './Popup';
 import Spinner from './Spinner';
 import Toast from './Toast';
 
+const hasGnbPath = ['/', '/profile', '/talent/register', '/profile/edit'];
+
 const Layout = ({ children }: PropsWithChildren) => {
   const toastValue = useRecoilValue(toastAtom);
   const popupValue = useRecoilValue(popupAtom);
   const headerValue = useRecoilValue(headerAtom);
   const router = useRouter();
 
-  const GNB_CONDITION = router.asPath === '/' || '/talent/register' || '/profile';
+  const showGnb = useMemo(() => hasGnbPath.includes(router.pathname), [router]);
   const [isSpinnerActive, setIsSpinnerActive] = useRecoilState(spinnerAtom);
 
   usePopup();
@@ -33,10 +35,10 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       {headerValue && <Header {...headerValue} />}
-      {children}
+      <main className="pb-[82px]">{children}</main>
       {popupValue && <Popup {...popupValue} />}
       {toastValue && <Toast value={toastValue} />}
-      {GNB_CONDITION && <NavigationBar className="fixed bottom-0 left-0" />}
+      {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
       <Spinner isShowing={isSpinnerActive} />
     </>
   );
