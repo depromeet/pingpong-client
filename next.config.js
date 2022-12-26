@@ -31,7 +31,7 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        destination: `${process.env.NEXT_PUBLIC_SERVER_URL}/:path*`,
+        destination: `https://${process.env.NEXT_PUBLIC_SERVER_URL}/:path*`,
       },
     ];
   },
