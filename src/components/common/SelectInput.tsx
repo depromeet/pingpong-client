@@ -12,7 +12,7 @@ interface SelectInputProps {
   href: string;
 }
 
-const SelectInput = ({ className, placeholder = '', selectedInputList, href }: SelectInputProps) => {
+const SelectInput = ({ className, placeholder, selectedInputList, href }: SelectInputProps) => {
   return (
     <div className={`w-full text-2xl ${className}`}>
       <Link href={href}>
