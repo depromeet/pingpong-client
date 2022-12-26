@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { axiosClient } from '@/apis';
+import type { MainCategory } from '@/typings/main';
 
 interface ServerResponse<T = Record<string, unknown>> {
   data: T;

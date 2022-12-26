@@ -18,12 +18,12 @@ const Nickname = () => {
         </h1>
         <ul className="mt-[16px]">
           <li className="flex itesm-center gap-3 text-b3 text-gray-500">
-            <Image src="/icons/check.svg" alt="check" width={10} height={10} />
+            <Image src="/icons/check-active.svg" alt="check" width={10} height={10} />
             공백 포함 2자 이상 10자 이하
           </li>
 
           <li className="flex itesm-center gap-3 text-b3 text-gray-500">
-            <Image src="/icons/check.svg" alt="check" width={10} height={10} />
+            <Image src="/icons/check-active.svg" alt="check" width={10} height={10} />
             한글/영어만 사용이 가능해요
           </li>
         </ul>

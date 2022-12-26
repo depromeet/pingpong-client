@@ -7,7 +7,7 @@ import type { TabProps } from '@/store/components/types';
 
 interface UseTabProps {
   key: string;
-  id: number;
+  id: number | 'ALL';
   selectingNumber?: number;
 }
 
