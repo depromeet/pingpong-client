@@ -22,7 +22,7 @@ const useInfinitePostsQuery = () => {
   const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
     const {
       data: { data },
-    } = await axiosClient.get('/api/v1/posts', {
+    } = await axiosClient.get('/posts', {
       params: {
         isShare: false,
         page: pageParam,

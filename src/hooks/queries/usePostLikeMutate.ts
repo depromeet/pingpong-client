@@ -11,7 +11,7 @@ const usePostLikeMutate = (postId: number) => {
   const updatePostLikeByPostId = async (postId: number): Promise<LikeInfo> => {
     const {
       data: { data },
-    } = await axiosClient.post(`api/v1/posts/${postId}/likes`, {});
+    } = await axiosClient.post(`/posts/${postId}/likes`, {});
 
     return data;
   };
