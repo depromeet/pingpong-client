@@ -1,5 +1,5 @@
 interface TabProps {
-  id: number | 'ALL';
+  id: number;
   name: string;
 }
 
