@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+import { getDevEnv, getProdEnv } from './src/firebase/env';
+
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
@@ -29,10 +31,12 @@ const nextConfig = {
     return config;
   },
   rewrites: async () => {
+    const res = process.env.NEXT_PUBLIC_MODE === 'dev' ? await getDevEnv() : await getProdEnv();
+
     return [
       {
         source: '/:path*',
-        destination: `https://${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/:path*`,
+        destination: `https://${res.be}/api/v1/:path*`,
       },
     ];
   },

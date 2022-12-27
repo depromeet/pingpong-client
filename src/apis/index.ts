@@ -2,14 +2,8 @@ import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
 import { formatQueryString } from 'src/lib/utils';
 
-const getAuth = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  const cookie = document.cookie;
+const getAuthForDev = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const sessionForDev = sessionStorage.getItem('token');
-
-  if (cookie) {
-    //TODO: get cookie
-    return { ...config, headers: { ...config.headers, Authorization: 'Bearer ' } };
-  }
 
   if (sessionForDev) {
     return { ...config, headers: { ...config.headers, Authorization: `Bearer ${sessionForDev}` } };
@@ -31,7 +25,7 @@ export const queryFetcher = async (url: string, queries?: Record<string, unknown
     url: newUrl,
   };
 
-  config = getAuth(config);
+  config = getAuthForDev(config);
 
   try {
     const res = await axios(config);
@@ -62,7 +56,7 @@ export const mutateFetcher = async <T>(
       },
     };
 
-    config = getAuth(config);
+    config = getAuthForDev(config);
 
     const res = await axios(config);
 
@@ -76,7 +70,7 @@ export const mutateFetcher = async <T>(
 
 export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosResponse<T | null>> => {
   try {
-    const config: AxiosRequestConfig = getAuth(req);
+    const config: AxiosRequestConfig = getAuthForDev(req);
 
     const res = await axios(config);
 

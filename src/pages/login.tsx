@@ -1,15 +1,19 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+
+import { getDevEnv, getProdEnv } from '@/firebase/env';
 
 import Button from '../components/common/Button';
 
 export default function Login() {
   const router = useRouter();
 
-  const handleLogin = () => {
-    //FIXME: redirect to nickname OR main
-    router.push(`${process.env.NEXT_PUBLIC_REDIRECT_URL}?redirect_uri=${process.env.NEXT_PUBLIC_FE_URL}/nickname`);
+  const handleLogin = async () => {
+    const res = process.env.NEXT_PUBLIC_MODE === 'dev' ? await getDevEnv() : await getProdEnv();
+
+    router.push(`${res?.redirect}?redirect_uri=${res?.fe}/nickname`);
   };
 
   return (
@@ -25,9 +29,9 @@ export default function Login() {
             Apple로 시작하기
           </div>
         </Button>
-        {/* <Button onClick={() => null} className="w-full !bg-primary-blue border !border-white mt-[8px]">
-          로그인 없이 둘러보기
-        </Button> */}
+        <Link href="/">
+          <Button className="w-full !bg-primary-blue border !border-white mt-[8px]">로그인 없이 둘러보기</Button>
+        </Link>
       </section>
     </main>
   );
