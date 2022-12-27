@@ -11,7 +11,7 @@ const useCategoriesQuery = () => {
   const fetchCategories = async () => {
     const {
       data: { data },
-    } = await axiosClient.get<ServerResponse<MainCategory[]>>(`/api/v1/categories/main`);
+    } = await axiosClient.get<ServerResponse<MainCategory[]>>(`/categories/main`);
     return data;
   };
 

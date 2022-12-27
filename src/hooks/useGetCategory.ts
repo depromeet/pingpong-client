@@ -14,7 +14,7 @@ const useGetCategory = ({ sort, query, categoryId }: UseCategoryProps) => {
   // TODO: useQuery type 선언이 필요합니다.
   const results = useQuery({
     queryKey: [`${sort}`, `${query}`, `${categoryId}`],
-    queryFn: () => queryFetcher(`categories/${sort}`, queries),
+    queryFn: () => queryFetcher(`/categories/${sort}`, queries),
   });
 
   return results;

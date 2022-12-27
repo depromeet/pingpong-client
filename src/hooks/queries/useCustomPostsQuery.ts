@@ -18,7 +18,7 @@ const useCustomPostsQuery = (params: CustomPostsQueryParams) => {
   const fetchCustomPosts = async ({ subCategoryId, page, size }: CustomPostsQueryParams) => {
     const {
       data: { data },
-    } = await axiosClient.get<ServerResponse<CustomPostsData>>(`/api/v1/posts/custom`, {
+    } = await axiosClient.get<ServerResponse<CustomPostsData>>(`/posts/custom`, {
       params: {
         subCategoryId,
         page,
