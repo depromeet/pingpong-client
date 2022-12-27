@@ -5,9 +5,10 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { popupAtom, tabAtomFamily } from '@/store/components';
 import type { TabProps } from '@/store/components/types';
 
+// TODO: 해당 카테고리 전체에 해당하는 값을 id=999로 사용함. 이후 전체를 의미하는 값을 따로 가지도록 변경 필요
 interface UseTabProps {
   key: string;
-  id: number | 'ALL';
+  id: number;
   selectingNumber?: number;
 }
 
