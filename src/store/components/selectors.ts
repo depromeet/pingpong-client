@@ -129,7 +129,25 @@ const talentRegisterCategoryResetSelector = selector({
   },
 });
 
+const profileCategoryResetSelector = selector({
+  key: 'profileCategoryResetSelector',
+  get: () => true,
+  set: ({ get, set }, newInput) => {
+    if (!newInput) return;
+    const order = get(talentRegisterOrderAtom);
+    if (order === 1) {
+      set(tabAtomFamily('givenTalents'), []);
+    } else if (order === 2) {
+      set(tabAtomFamily('takenTalents'), []);
+    } else {
+      set(tabAtomFamily('givenTalents'), []);
+      set(tabAtomFamily('takenTalents'), []);
+    }
+  },
+});
+
 export {
+  profileCategoryResetSelector,
   talentRegisterCategoryResetSelector,
   talentRegisterInputSelectorFamily,
   talentRegisterLinksSelector,
