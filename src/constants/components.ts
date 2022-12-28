@@ -3,6 +3,7 @@ export const TagStyleType = {
   LIGHT: 'LIGHT',
   OUTLINE: 'OUTLINE',
   NONE: 'NONE',
+  DISABLED: 'DISABLED',
 } as const;
 
 export const ButtonStyleType = {

@@ -23,6 +23,8 @@ const Tag = ({ styleType = TagStyleType.DARK, color = 'blue', children, classNam
           : 'border border-primary-red bg-white text-primary-red';
       case 'NONE':
         return 'border border-gray-300 bg-white text-gray-500 text-b2 px-[14px]';
+      case 'DISABLED':
+        return 'bg-gray-100 text-b3 text-gray-400';
     }
   };
 
