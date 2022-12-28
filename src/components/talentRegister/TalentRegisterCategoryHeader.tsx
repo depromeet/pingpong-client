@@ -43,7 +43,7 @@ const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) 
       <button type="button" onClick={handleClick} className="block">
         <Arrow direction="right" width={10} height={15} className="absolute left-[16px] top-[60px]" />
       </button>
-      <Image src={src} alt={alt} width={375} height={187} className="w-full z-99" priority />
+      <Image src={src} alt={alt} width={375} height={187} className="w-[100vw] h-[187px] z-99" priority />
       <HeaderTitle
         texts={sort === 'EXCHANGE' && order === 2 ? contents2 : contents}
         textClassName={textColor}

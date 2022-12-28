@@ -33,21 +33,23 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
-      {isSuccess &&
-        data.data.map(({ id, name, subCategories }: MidAndSubCategoriesProps) => {
-          return (
-            <div key={id}>
-              <span className="text-t4 text-gray-600">{name}</span>
-              <ClickTagList
-                key={id}
-                categoryKey={categoryKey}
-                list={subCategories}
-                sort={sort}
-                className={'pt-[8px] pb-[20px]'}
-              />
-            </div>
-          );
-        })}
+      <div className="mt-[229.52px] h-[80vh]">
+        {isSuccess &&
+          data.data.map(({ id, name, subCategories }: MidAndSubCategoriesProps) => {
+            return (
+              <div key={id}>
+                <span className="text-t4 text-gray-600">{name}</span>
+                <ClickTagList
+                  key={id}
+                  categoryKey={categoryKey}
+                  list={subCategories}
+                  sort={sort}
+                  className={'pt-[8px] pb-[20px]'}
+                />
+              </div>
+            );
+          })}
+      </div>
       <TalentRegisterCategoryBottomSheet sort={sort} categoryKey={categoryKey}>
         <Link href={href} className="block">
           <Button type="button" onClick={onClick} disabled={selectedTab.length === 0} className="w-full">
