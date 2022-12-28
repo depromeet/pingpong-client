@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@tanstack/react-query';
 
 import { mutateFetcher } from '@/apis';
-import type { TalentRegisterInfoProps } from '@/store/components/types';
 
 const useRegisterTalentPost = () => {
-  const mutation = useMutation({
-    mutationFn: (talentInfo: TalentRegisterInfoProps) => mutateFetcher('/posts', 'POST', JSON.stringify(talentInfo)),
+  //* TODO: Mutation type 정의 필요
+  const mutation = useMutation<any>({
+    mutationFn: (talentInfo) => mutateFetcher('/posts', 'POST', JSON.stringify(talentInfo)),
   });
   return mutation;
 };
