@@ -69,7 +69,7 @@ const TalentRegisterFormThree = ({ className, sort }: TalentRegisterProps) => {
     <form className={`${className} px-[16px] py-[24.5px]`}>
       <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
       <TextTextarea option={EXPLANATION[sort]} />
-      <div className="grid grid-cols-[0.3fr_1fr] gap-x-[8px]">
+      <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px]">
         <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
           이전
         </Button>
