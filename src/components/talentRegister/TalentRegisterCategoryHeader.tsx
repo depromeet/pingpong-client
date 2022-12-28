@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
-import { talentRegisterOrderAtom } from '@/store/components';
+import { popupAtom, talentRegisterOrderAtom } from '@/store/components';
 import { talentRegisterCategoryResetSelector } from '@/store/components/selectors';
 
 import HeaderTitle from '../common/HeaderTitle';
@@ -27,15 +27,31 @@ const EXCHANGE = {
   textColor: 'text-primary-blue',
 };
 
+//* TODO: POPUP 관련해서 usePopup hook을 사용하는 방식으로 리팩토링 필요.
+const POPUP_INFO = {
+  title: '카테고리 선택을 그만두시겠어요?',
+  content: '지금까지 선택한 카테고리는 저장되지 않아요',
+  confirmText: '그만둘래요',
+  cancelText: '취소',
+};
+
 const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) => {
   const { src, alt, href, contents, contents2, textColor } = sort === 'SHARE' ? SHARE : EXCHANGE;
   const order = useRecoilValue(talentRegisterOrderAtom);
+  const setPopup = useSetRecoilState(popupAtom);
   const router = useRouter();
   const setCategoryReset = useSetRecoilState(talentRegisterCategoryResetSelector);
 
   const handleClick = () => {
-    router.push(href);
-    setCategoryReset(true);
+    setPopup({
+      ...POPUP_INFO,
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      onCancel: () => {},
+      onConfirm: () => {
+        router.push(href);
+        setCategoryReset(true);
+      },
+    });
   };
 
   return (
