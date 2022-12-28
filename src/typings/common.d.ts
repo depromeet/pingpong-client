@@ -105,3 +105,8 @@ export interface Option {
   id: number | string;
   label: string;
 }
+
+export interface Option {
+  id: number | string;
+  label: string;
+}
