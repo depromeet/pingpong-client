@@ -1,7 +1,6 @@
 import type { Header } from 'next/dist/lib/load-custom-routes';
 import { atom, atomFamily, selector } from 'recoil';
 
-import type { Option } from '@/components/common/BottomSheetOptions';
 import type { Radio } from '@/hooks/useRadioGroup';
 import type { HeaderProps, Option, PopupProps } from '@/typings/common';
 
