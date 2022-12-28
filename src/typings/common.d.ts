@@ -100,3 +100,8 @@ interface EditUserInfo {
   givenTalents: number[];
   takenTalents: number[];
 }
+
+export interface Option {
+  id: number | string;
+  label: string;
+}

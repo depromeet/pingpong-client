@@ -1,6 +1,7 @@
+import { useQueryClient } from '@tanstack/react-query';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -18,24 +19,26 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { tabAtomFamily } from '@/store/components';
+import { midCategoryIdSelector, tabAtomFamily } from '@/store/components';
+import type { Option } from '@/typings/common';
 import type { CategoryFilterParams } from '@/typings/main';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
-  const activeMidCategoryList = useRecoilValue(tabAtomFamily('midCategory'));
 
   const [activeMainCategoryId, setActiveCategoryId] = useState(0);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
   const [isShare, handleIsShare] = useState(false);
+  const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
 
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilterParams>({
     isShare,
     mainCategory: activeMainCategoryId,
-    midCategory: activeMidCategoryList[0].id,
+    midCategory: activeMidCategoryId,
     subCategory: activeSubCategoryId,
   });
 
+  const queryClient = useQueryClient();
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
     subCategoryId: 1,
@@ -43,12 +46,15 @@ const Home: NextPage = () => {
     size: 5,
   });
 
-  const { data: categoryData, isSuccess: categoryIsSuccess } = useCategoriesQuery();
+  const {
+    mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
+    subCategoryQuery: { data: subCategoryData, isSuccess: subCategoryIsSuccess },
+  } = useCategoriesQuery(activeMidCategoryId);
   const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery(categoryFilter);
   const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
 
   const getActiveCategory = (id: number) => {
-    return categoryData?.find((mainCategory) => mainCategory.id === id) || null;
+    return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
   };
 
   useEffect(() => {
@@ -59,14 +65,17 @@ const Home: NextPage = () => {
     setIsShowing(true);
   };
 
+  const updateSubCategories = useCallback(() => {
+    setBottomSheetOptions(subCategoryData);
+
+    queryClient.invalidateQueries({
+      queryKey: ['subCategories', activeMidCategoryId],
+    });
+  }, [setBottomSheetOptions, activeMidCategoryId, queryClient, subCategoryData]);
+
   useEffect(() => {
-    // TODO: activeSubCategoryId 가 변할때마다 호출해서 bottomSheetOptions 업데이트
-    // tabAtomFamily 의 midCategoryId -> activeMidCategoryList[0].id
-    setBottomSheetOptions([
-      { id: 1, label: 'ㅗㄷㄱㄷ' },
-      { id: 2, label: 'werwr' },
-    ]);
-  }, [setBottomSheetOptions]);
+    updateSubCategories();
+  }, [updateSubCategories]);
 
   return (
     <Layout.DefaultContainer>
@@ -103,10 +112,10 @@ const Home: NextPage = () => {
           </Typography.Title>
         </div>
       </Layout.DefaultPadding>
-      {categoryIsSuccess && (
+      {mainCategoryIsSuccess && (
         <div className="pb-20 mb-12 border-b border-gray-100">
           <MainCategoryCarousel
-            list={categoryData}
+            list={mainCategoryData}
             activeCategoryId={activeMainCategoryId}
             onClick={setActiveCategoryId}
           />
