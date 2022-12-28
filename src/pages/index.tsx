@@ -20,8 +20,6 @@ import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { midCategoryIdSelector, tabAtomFamily } from '@/store/components';
-import type { Option } from '@/typings/common';
-import type { CategoryFilterParams } from '@/typings/main';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -30,13 +28,6 @@ const Home: NextPage = () => {
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
   const [isShare, handleIsShare] = useState(false);
   const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
-
-  const [categoryFilter, setCategoryFilter] = useState<CategoryFilterParams>({
-    isShare,
-    mainCategory: activeMainCategoryId,
-    midCategory: activeMidCategoryId,
-    subCategory: activeSubCategoryId,
-  });
 
   const queryClient = useQueryClient();
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
@@ -50,8 +41,22 @@ const Home: NextPage = () => {
     mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
     subCategoryQuery: { data: subCategoryData, isSuccess: subCategoryIsSuccess },
   } = useCategoriesQuery(activeMidCategoryId);
-  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery(categoryFilter);
+  const {
+    posts,
+    fetchNextPage,
+    isSuccess: postsIsSuccess,
+    refetch,
+  } = useInfinitePostsQuery({
+    isShare,
+    mainCategory: activeMainCategoryId,
+    midCategory: activeMidCategoryId === 999 ? 0 : activeMidCategoryId,
+    subCategory: activeSubCategoryId,
+  });
   const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
+
+  useEffect(() => {
+    refetch();
+  }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   const getActiveCategory = (id: number) => {
     return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;

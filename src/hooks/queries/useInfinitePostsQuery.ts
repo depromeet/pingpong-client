@@ -12,6 +12,10 @@ interface PageParam {
   pageNumber: number;
 }
 
+interface PostParams extends CategoryFilterParams {
+  pageParam: number;
+}
+
 interface InfinitePost extends PageParam {
   content: CardInfo[];
 }
@@ -20,12 +24,21 @@ const PAGE_SIZE = 3;
 const DEFAULT_PAGE = 0;
 
 const useInfinitePostsQuery = (params: CategoryFilterParams) => {
-  const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
+  const fetchPosts = async ({
+    isShare = false,
+    mainCategory,
+    midCategory,
+    subCategory,
+    pageParam = DEFAULT_PAGE,
+  }: PostParams): Promise<InfinitePost> => {
     const {
       data: { data },
     } = await axiosClient.get('/posts', {
       params: {
-        isShare: false,
+        isShare,
+        mainCategory,
+        midCategory,
+        subCategory,
         page: pageParam,
         size: PAGE_SIZE,
       },
@@ -34,9 +47,9 @@ const useInfinitePostsQuery = (params: CategoryFilterParams) => {
     return data;
   };
 
-  const { data, fetchNextPage, isSuccess, isLoading, isError } = useInfiniteQuery({
+  const { data, fetchNextPage, isSuccess, isLoading, isError, refetch } = useInfiniteQuery({
     queryKey: ['infinitePosts', params],
-    queryFn: fetchPosts,
+    queryFn: ({ pageParam }) => fetchPosts({ ...params, pageParam }),
     getNextPageParam: (lastPage) => {
       if (lastPage.pageNumber >= lastPage.totalPages) return false;
       return lastPage.pageNumber + 1;
@@ -55,6 +68,7 @@ const useInfinitePostsQuery = (params: CategoryFilterParams) => {
     isSuccess,
     isLoading,
     isError,
+    refetch,
   };
 };
 
