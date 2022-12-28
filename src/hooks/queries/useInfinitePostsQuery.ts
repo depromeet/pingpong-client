@@ -3,6 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { axiosClient } from '@/apis';
 import type { CardInfo } from '@/typings/common';
+import type { CategoryFilterParams } from '@/typings/main';
 
 interface PageParam {
   totalElements: number;
@@ -18,7 +19,7 @@ interface InfinitePost extends PageParam {
 const PAGE_SIZE = 3;
 const DEFAULT_PAGE = 0;
 
-const useInfinitePostsQuery = () => {
+const useInfinitePostsQuery = (params: CategoryFilterParams) => {
   const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
     const {
       data: { data },
@@ -34,7 +35,7 @@ const useInfinitePostsQuery = () => {
   };
 
   const { data, fetchNextPage, isSuccess, isLoading, isError } = useInfiniteQuery({
-    queryKey: ['infinitePosts'],
+    queryKey: ['infinitePosts', params],
     queryFn: fetchPosts,
     getNextPageParam: (lastPage) => {
       if (lastPage.pageNumber >= lastPage.totalPages) return false;

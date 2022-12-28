@@ -4,9 +4,12 @@ import type { PropsWithChildren } from 'react';
 import { useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
+import useBottomSheet from '@/hooks/useBottomSheet';
 import { usePopup } from '@/hooks/usePopup';
 import { headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
 
+import BottomSheet from './BottomSheet';
+import BottomSheetOptions from './BottomSheetOptions';
 import Header from './Header';
 import NavigationBar from './NavigationBar';
 import Popup from './Popup';
@@ -23,6 +26,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   const showGnb = useMemo(() => hasGnbPath.includes(router.pathname), [router]);
   const [isSpinnerActive, setIsSpinnerActive] = useRecoilState(spinnerAtom);
+  const { isShowing, setIsShowing, bottomSheetOptions } = useBottomSheet();
 
   usePopup();
 
@@ -40,6 +44,9 @@ const Layout = ({ children }: PropsWithChildren) => {
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
       <Spinner isShowing={isSpinnerActive} />
+      <BottomSheet isShowing={isShowing} onClose={() => setIsShowing(false)}>
+        <BottomSheetOptions list={bottomSheetOptions} />
+      </BottomSheet>
     </>
   );
 };

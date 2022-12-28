@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface Option {
+export interface Option {
   id: number | string;
   label: string;
 }

@@ -3,19 +3,32 @@ import styled from 'styled-components';
 import { colors } from '@/constants/styles';
 
 import ArrowDownIcon from '../../../public/icons/arrow-down.svg';
+import CheckActiveIcon from '../../../public/icons/check-active.svg';
 import CheckInactiveIcon from '../../../public/icons/check-inactive.svg';
 
-const SubCategoryFilter = ({ isSubFilterVisible }: { isSubFilterVisible: boolean }) => {
+interface SubCategoryFilterProps {
+  isSubFilterVisible: boolean;
+  handleSubCategory: () => void;
+  isShare: boolean;
+  handleIsShare: (isShare: boolean) => void;
+}
+
+const SubCategoryFilter = ({
+  isSubFilterVisible,
+  handleSubCategory,
+  isShare,
+  handleIsShare,
+}: SubCategoryFilterProps) => {
   return (
     <FilterContainer>
       {isSubFilterVisible && (
-        <SubFilterDropdown>
+        <SubFilterDropdown onClick={handleSubCategory}>
           소분류
           <ArrowDownIcon />
         </SubFilterDropdown>
       )}
-      <FilterCheckbox>
-        <CheckInactiveIcon />
+      <FilterCheckbox isShare={isShare} onClick={() => handleIsShare(!isShare)}>
+        {isShare ? <CheckActiveIcon /> : <CheckInactiveIcon />}
         재능 나눔만
       </FilterCheckbox>
     </FilterContainer>
@@ -52,8 +65,9 @@ const SubFilterDropdown = styled.button`
   }
 `;
 
-const FilterCheckbox = styled.button`
+const FilterCheckbox = styled.button<{ isShare: boolean }>`
   ${tagFilterStyle};
+  border-color: ${({ isShare }: { isShare: boolean }) => (isShare ? `${colors.black}` : `${colors.gray200}`)};
 
   svg {
     margin-right: 0.8rem;

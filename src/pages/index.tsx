@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -17,9 +17,25 @@ import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
-import { spinnerAtom } from '@/store/components';
+import useBottomSheet from '@/hooks/useBottomSheet';
+import { tabAtomFamily } from '@/store/components';
+import type { CategoryFilterParams } from '@/typings/main';
 
 const Home: NextPage = () => {
+  const { ref, inView } = useInView();
+  const activeMidCategoryList = useRecoilValue(tabAtomFamily('midCategory'));
+
+  const [activeMainCategoryId, setActiveCategoryId] = useState(0);
+  const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
+  const [isShare, handleIsShare] = useState(false);
+
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilterParams>({
+    isShare,
+    mainCategory: activeMainCategoryId,
+    midCategory: activeMidCategoryList[0].id,
+    subCategory: activeSubCategoryId,
+  });
+
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
     subCategoryId: 1,
@@ -28,10 +44,8 @@ const Home: NextPage = () => {
   });
 
   const { data: categoryData, isSuccess: categoryIsSuccess } = useCategoriesQuery();
-  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery();
-  const { ref, inView } = useInView();
-
-  const [activeCategoryId, setActiveCategoryId] = useState(0);
+  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery(categoryFilter);
+  const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
 
   const getActiveCategory = (id: number) => {
     return categoryData?.find((mainCategory) => mainCategory.id === id) || null;
@@ -40,6 +54,19 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (inView) fetchNextPage();
   }, [inView, fetchNextPage]);
+
+  const openSubCategorySheet = () => {
+    setIsShowing(true);
+  };
+
+  useEffect(() => {
+    // TODO: activeSubCategoryId 가 변할때마다 호출해서 bottomSheetOptions 업데이트
+    // tabAtomFamily 의 midCategoryId -> activeMidCategoryList[0].id
+    setBottomSheetOptions([
+      { id: 1, label: 'ㅗㄷㄱㄷ' },
+      { id: 2, label: 'werwr' },
+    ]);
+  }, [setBottomSheetOptions]);
 
   return (
     <Layout.DefaultContainer>
@@ -78,16 +105,25 @@ const Home: NextPage = () => {
       </Layout.DefaultPadding>
       {categoryIsSuccess && (
         <div className="pb-20 mb-12 border-b border-gray-100">
-          <MainCategoryCarousel list={categoryData} activeCategoryId={activeCategoryId} onClick={setActiveCategoryId} />
+          <MainCategoryCarousel
+            list={categoryData}
+            activeCategoryId={activeMainCategoryId}
+            onClick={setActiveCategoryId}
+          />
         </div>
       )}
-      {getActiveCategory(activeCategoryId)?.midCategories.length && (
+      {getActiveCategory(activeMainCategoryId)?.midCategories.length && (
         <MidCategoryTab
-          mainCategoryName={getActiveCategory(activeCategoryId)?.name || ''}
-          list={getActiveCategory(activeCategoryId)?.midCategories || []}
+          mainCategoryName={getActiveCategory(activeMainCategoryId)?.name || ''}
+          list={getActiveCategory(activeMainCategoryId)?.midCategories || []}
         />
       )}
-      <SubCategoryFilter isSubFilterVisible={activeCategoryId !== 0} />
+      <SubCategoryFilter
+        isSubFilterVisible={activeMainCategoryId !== 0}
+        handleSubCategory={openSubCategorySheet}
+        isShare={isShare}
+        handleIsShare={handleIsShare}
+      />
       <Layout.DefaultPadding>
         <CardContainer>
           {posts.map((item) => {
