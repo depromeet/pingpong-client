@@ -110,9 +110,9 @@ const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
 
   useEffect(() => {
     if (sort === 'SHARE') {
-      setMethod(false);
-    } else {
       setMethod(true);
+    } else {
+      setMethod(false);
     }
   }, [setMethod, sort]);
 
