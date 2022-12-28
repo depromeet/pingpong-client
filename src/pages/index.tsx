@@ -20,7 +20,7 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, midCategoryIdSelector, tabAtomFamily } from '@/store/components';
+import { bottomSheetActiveOptionAtom, midCategoryIdSelector } from '@/store/components';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -43,6 +43,7 @@ const Home: NextPage = () => {
     mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
     subCategoryQuery: { data: subCategoryData, isSuccess: subCategoryIsSuccess },
   } = useCategoriesQuery(activeMidCategoryId);
+
   const {
     posts,
     fetchNextPage,
@@ -57,10 +58,6 @@ const Home: NextPage = () => {
 
   const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
 
-  useEffect(() => {
-    refetch();
-  }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
-
   const getActiveCategory = (id: number) => {
     return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
   };
@@ -70,6 +67,10 @@ const Home: NextPage = () => {
 
     setIsShowing(true);
   };
+
+  useEffect(() => {
+    refetch();
+  }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   useEffect(() => {
     setActiveSubCategoryId(activeOption.id);
