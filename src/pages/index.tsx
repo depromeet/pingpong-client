@@ -62,15 +62,21 @@ const Home: NextPage = () => {
   }, [inView, fetchNextPage]);
 
   const openSubCategorySheet = () => {
+    if (activeMidCategoryId === 999) return;
+
     setIsShowing(true);
   };
 
   const updateSubCategories = useCallback(() => {
-    setBottomSheetOptions(subCategoryData);
+    console.log('activeMidCategoryId', activeMidCategoryId);
+
+    if (activeMidCategoryId === 999) return;
 
     queryClient.invalidateQueries({
       queryKey: ['subCategories', activeMidCategoryId],
     });
+
+    setBottomSheetOptions(subCategoryData);
   }, [setBottomSheetOptions, activeMidCategoryId, queryClient, subCategoryData]);
 
   useEffect(() => {
@@ -128,7 +134,7 @@ const Home: NextPage = () => {
         />
       )}
       <SubCategoryFilter
-        isSubFilterVisible={activeMainCategoryId !== 0}
+        isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 999}
         handleSubCategory={openSubCategorySheet}
         isShare={isShare}
         handleIsShare={handleIsShare}
