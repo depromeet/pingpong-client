@@ -16,7 +16,7 @@ import Popup from './Popup';
 import Spinner from './Spinner';
 import Toast from './Toast';
 
-const hasGnbPath = ['/', '/profile', '/talent/register'];
+const hasGnbPath = ['/main', '/profile', '/talent/register'];
 
 const Layout = ({ children }: PropsWithChildren) => {
   const toastValue = useRecoilValue(toastAtom);

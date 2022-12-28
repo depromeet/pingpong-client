@@ -5,6 +5,8 @@ import { axiosClient } from '@/apis';
 import type { CardInfo } from '@/typings/common';
 import type { CategoryFilterParams } from '@/typings/main';
 
+import { useAuth } from '../useAuth';
+
 interface PageParam {
   totalElements: number;
   totalPages: number;
@@ -20,6 +22,8 @@ const PAGE_SIZE = 3;
 const DEFAULT_PAGE = 0;
 
 const useInfinitePostsQuery = (params: CategoryFilterParams) => {
+  const { isLogin } = useAuth();
+
   const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
     const {
       data: { data },
@@ -45,6 +49,7 @@ const useInfinitePostsQuery = (params: CategoryFilterParams) => {
       if (firstPage.pageNumber <= 0) return false;
       return firstPage.pageNumber - 1;
     },
+    enabled: isLogin,
   });
 
   const posts = data?.pages.flatMap((page) => page.content) ?? [];

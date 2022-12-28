@@ -23,7 +23,7 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
   };
 
   return (
-    <Portal isShowing className="absolute w-screen h-screen left-0 top-0 grid place-items-center px-[6%]">
+    <Portal isShowing className="fixed w-screen h-screen left-0 top-0 grid place-items-center px-[6%] z-[100]">
       <div className="rounded-[16px] w-full bg-white z-50">
         <main className="px-5 py-[8%] flex items-center gap-2 flex-col">
           <h1 className="text-t2 text-center text-gray-600">{title}</h1>
