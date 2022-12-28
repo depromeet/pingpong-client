@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { bottomSheetAtom, bottomSheetOptionsAtom } from '@/store/components';
 import type { Option } from '@/typings/common';

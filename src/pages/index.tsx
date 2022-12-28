@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import type { NextPage } from 'next';
 import Link from 'next/link';
+import type { ChangeEvent, MouseEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useRecoilValue } from 'recoil';
@@ -19,7 +20,7 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { midCategoryIdSelector, tabAtomFamily } from '@/store/components';
+import { bottomSheetActiveOptionAtom, midCategoryIdSelector, tabAtomFamily } from '@/store/components';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -28,6 +29,7 @@ const Home: NextPage = () => {
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
   const [isShare, handleIsShare] = useState(false);
   const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
+  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
 
   const queryClient = useQueryClient();
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
@@ -52,6 +54,7 @@ const Home: NextPage = () => {
     midCategory: activeMidCategoryId === 999 ? 0 : activeMidCategoryId,
     subCategory: activeSubCategoryId,
   });
+
   const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
 
   useEffect(() => {
@@ -62,19 +65,21 @@ const Home: NextPage = () => {
     return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
   };
 
-  useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
-
   const openSubCategorySheet = () => {
     if (activeMidCategoryId === 999) return;
 
     setIsShowing(true);
   };
 
-  const updateSubCategories = useCallback(() => {
-    console.log('activeMidCategoryId', activeMidCategoryId);
+  useEffect(() => {
+    setActiveSubCategoryId(activeOption.id);
+  }, [activeMidCategoryId, activeOption]);
 
+  useEffect(() => {
+    setIsShowing(false);
+  }, [activeSubCategoryId, setIsShowing]);
+
+  const updateSubCategories = useCallback(() => {
     if (activeMidCategoryId === 999) return;
 
     queryClient.invalidateQueries({
@@ -87,6 +92,10 @@ const Home: NextPage = () => {
   useEffect(() => {
     updateSubCategories();
   }, [updateSubCategories]);
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView, fetchNextPage]);
 
   return (
     <Layout.DefaultContainer>

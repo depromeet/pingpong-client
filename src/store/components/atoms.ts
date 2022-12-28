@@ -1,4 +1,6 @@
 import type { Header } from 'next/dist/lib/load-custom-routes';
+import type { MouseEventHandler } from 'react';
+import { EventHandler } from 'react';
 import { atom, atomFamily, selector } from 'recoil';
 
 import type { Radio } from '@/hooks/useRadioGroup';
@@ -49,6 +51,11 @@ const bottomSheetAtom = atom({
 const bottomSheetOptionsAtom = atom<Option[]>({
   key: 'bottomSheetOptions',
   default: [],
+});
+
+const bottomSheetActiveOptionAtom = atom<Option>({
+  key: 'bottomSheet',
+  default: { id: 0, label: '' },
 });
 
 const popupAtom = atom<PopupProps | null>({
@@ -118,6 +125,7 @@ const talentRegisterEnvironmnetAtomFamily = atomFamily<Radio, string>({
 });
 
 export {
+  bottomSheetActiveOptionAtom,
   bottomSheetAtom,
   bottomSheetOptionsAtom,
   headerAtom,

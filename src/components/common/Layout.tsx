@@ -6,7 +6,8 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { usePopup } from '@/hooks/usePopup';
-import { headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
+import { bottomSheetAtom, headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
+import type { Option } from '@/typings/common';
 
 import BottomSheet from './BottomSheet';
 import BottomSheetOptions from './BottomSheetOptions';
