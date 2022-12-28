@@ -47,7 +47,7 @@ export const queryFetcher = async (url: string, queries?: Record<string, unknown
 // only for MUTATE
 export const mutateFetcher = async <T>(
   url: string,
-  method: 'POST' | 'PUT' | 'DELETE',
+  method: 'POST' | 'PUT' | 'DELETE' | 'PATCH',
   data?: T,
   params?: Record<string, unknown>,
 ): Promise<T | null> => {

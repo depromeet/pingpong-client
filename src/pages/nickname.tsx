@@ -1,12 +1,44 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/common/Button';
+import CircleCheckbox from '@/components/common/CircleCheckbox';
+import IconAnchor from '@/components/common/IconAnchor';
 import Input from '@/components/common/Input';
+import { ArrowIcon } from '@/components/icons';
+import useNicknameMutate from '@/hooks/queries/useNicknameMutate';
+
+//FIXME: to setting page
+const agreementList = [
+  { label: '(필수) 서비스 이용약관에 동의', href: '/' },
+  { label: '(필수) 개인정보 처리방침에  동의', href: '/' },
+];
 
 const Nickname = () => {
+  const router = useRouter();
+
   const [name, setName] = useState('');
+  const [agreement, setAgreement] = useState([false, false]);
+
+  const { mutate, isSuccess } = useNicknameMutate();
+
+  const buttonDisabled = useMemo(
+    () => name.length < 2 || name.length > 10 || agreement.some((v) => !v),
+    [name, agreement],
+  );
+
+  const handleAgreementClick = (index: number) => {
+    setAgreement(([first, second]) => (index === 0 ? [!first, second] : [first, !second]));
+  };
+
+  const handleComplete = () => {
+    mutate(name);
+  };
+
+  useEffect(() => {
+    isSuccess && router.push('/main');
+  }, [isSuccess, router]);
 
   return (
     <main className="relatvie w-screen h-screen p-[16px]">
@@ -33,12 +65,27 @@ const Nickname = () => {
           onChange={(value) => setName(value.replace(/[0-9]/, ''))}
           placeholder="이름을 입력해주세요."
         />
+        <section className="mt-[20%]">
+          {agreementList.map((item, i) => (
+            <div key={i} className="flex gap-[6px] items-center mt-[17px]">
+              <CircleCheckbox checked={agreement[i]} onClick={() => handleAgreementClick(i)} />
+              <IconAnchor
+                className="flex items-center justify-between w-full pr-[10px]"
+                href={item.href}
+                icon={
+                  <>
+                    <span className="text-gray-500 text-b3">{item.label}</span>
+                    <ArrowIcon color="gray" direction="left" width={10} height={13} />
+                  </>
+                }
+              />
+            </div>
+          ))}
+        </section>
         <div className="absolute left-0 bottom-0 w-full">
-          <Link href="/">
-            <Button className="w-full" onClick={() => null} disabled={name.length < 2 || name.length > 10}>
-              완료
-            </Button>
-          </Link>
+          <Button onClick={handleComplete} className="w-full" disabled={buttonDisabled}>
+            완료
+          </Button>
         </div>
       </div>
     </main>
