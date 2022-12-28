@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
@@ -7,6 +10,7 @@ import { talentRegisterOrderAtom } from '@/store/components';
 import { talentRegisterSelector } from '@/store/components/selectors';
 
 import Button from '../common/Button';
+import Toast from '../common/Toast';
 import TalentRegisterTextRadioButtonGroup from './TalentRegisterTextRadioButtonGroup';
 
 const ENVIRONMENT = {
@@ -131,7 +135,14 @@ const TIME = {
 const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
   const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
   const talentInfo = useRecoilValue(talentRegisterSelector);
-  const { mutate } = useRegisterTalentPost();
+  const { data, mutate, isSuccess, isError } = useRegisterTalentPost();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push(`/posts/${data.data.id}`);
+    }
+  }, [data, isSuccess, router]);
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
@@ -142,10 +153,12 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
         <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
           이전
         </Button>
-        <Button type="button" onClick={() => mutate(talentInfo)} className="w-full h-[48px]">
+        {/**FIXME: Mutation 타입 설정 필요 */}
+        <Button type="button" onClick={() => mutate(talentInfo as any)} className="w-full h-[48px]">
           {sort === 'SHARE' ? '재능 나눔 등록하기' : '재능 교환 등록하기'}
         </Button>
       </div>
+      {isError && <Toast value="재능 등록에 실패헀어요." />}
     </form>
   );
 };
