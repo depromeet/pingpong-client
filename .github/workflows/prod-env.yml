@@ -1,0 +1,19 @@
+name: PROD - Create env file
+'on':
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    name: Make Env
+    steps:
+      - uses: actions/checkout@v2
+      - name: Env
+        run: |
+          touch .env.local
+          echo NEXT_PUBLIC_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_REDIRECT_URL }} >> .env.local
+          echo NEXT_PUBLIC_FE_URL=${{ secrets.NEXT_PUBLIC_FE_URL }} >> .env.local
+          echo NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL }} >> .env.local
+          cat .env.local
