@@ -1,6 +1,7 @@
 import type { Header } from 'next/dist/lib/load-custom-routes';
 import { atom, atomFamily } from 'recoil';
 
+import type { Option } from '@/components/common/BottomSheetOptions';
 import type { Radio } from '@/hooks/useRadioGroup';
 import type { HeaderProps, PopupProps } from '@/typings/common';
 
@@ -13,6 +14,8 @@ const tabAtomFamily = atomFamily<TabProps[], string>({
     switch (inputKey) {
       case 'mainCategory':
         return [{ id: 1, name: '' }];
+      case 'midCategory':
+        return [{ id: 999, name: '전체' }];
       default:
         return [];
     }
@@ -33,6 +36,11 @@ const toastAtom = atom<string | null>({
 const bottomSheetAtom = atom({
   key: 'bottomSheet',
   default: false,
+});
+
+const bottomSheetOptionsAtom = atom<Option[]>({
+  key: 'bottomSheetOptions',
+  default: [],
 });
 
 const popupAtom = atom<PopupProps | null>({
@@ -103,6 +111,7 @@ const talentRegisterEnvironmnetAtomFamily = atomFamily<Radio, string>({
 
 export {
   bottomSheetAtom,
+  bottomSheetOptionsAtom,
   headerAtom,
   popupAtom,
   spinnerAtom,

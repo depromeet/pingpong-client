@@ -20,11 +20,6 @@ import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import type { LinkInfo } from '@/typings/common';
 
-const bottomSheetList = [
-  { id: 'edit', label: '게시글 수정' },
-  { id: 'delete', label: '삭제' },
-];
-
 const PostDetail = () => {
   const router = useRouter();
 
@@ -36,7 +31,7 @@ const PostDetail = () => {
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
-  const { isShowing, setIsShowing } = useBottomSheet();
+  const { setBottomSheetOptions } = useBottomSheet();
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
@@ -45,6 +40,13 @@ const PostDetail = () => {
   useEffect(() => {
     refetch();
   }, [postLikeIsSuccess, postUnlikeIsSuccess, refetch]);
+
+  useEffect(() => {
+    setBottomSheetOptions([
+      { id: 'edit', label: '게시글 수정' },
+      { id: 'delete', label: '삭제' },
+    ]);
+  }, [setBottomSheetOptions]);
 
   return (
     <>
@@ -122,9 +124,6 @@ const PostDetail = () => {
               <Link href={postData.chatLink}>오픈채팅 시작하기</Link>
             </Button>
           </BottomFixedBar>
-          <BottomSheet isShowing={isShowing} onClose={() => setIsShowing(false)}>
-            <BottomSheetOptions list={bottomSheetList} />
-          </BottomSheet>
         </>
       )}
     </>

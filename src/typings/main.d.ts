@@ -22,3 +22,10 @@ export interface MidCategory {
   id: number;
   name: string;
 }
+
+export interface CategoryFilterParams {
+  isShare: boolean;
+  mainCategory: number;
+  midCategory: number;
+  subCategory: number;
+}
