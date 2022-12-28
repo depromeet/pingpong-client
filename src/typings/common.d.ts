@@ -107,6 +107,6 @@ export interface Option {
 }
 
 export interface Option {
-  id: number | string;
+  id: number;
   label: string;
 }
