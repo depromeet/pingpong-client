@@ -166,17 +166,6 @@ const Home: NextPage = () => {
             );
           })}
         </CardContainer>
-        {postsIsSuccess && (
-          <CardContainer>
-            {posts.map((item) => {
-              return (
-                <li key={item.id}>
-                  <Card {...item} />
-                </li>
-              );
-            })}
-          </CardContainer>
-        )}
         <ContainerRef ref={ref}>
           <Spinner />
         </ContainerRef>
