@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 
-import type { Option } from '@/components/common/BottomSheetOptions';
 import { bottomSheetAtom, bottomSheetOptionsAtom } from '@/store/components';
+import type { Option } from '@/typings/common';
 
 const useBottomSheet = () => {
   const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
