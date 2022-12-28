@@ -16,6 +16,10 @@ export default function Login() {
   //   router.push('/main');
   // };
 
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView, fetchNextPage]);
+
   return (
     <main className="w-screen h-screen bg-primary-blue p-[16px] flex flex-col items-center">
       <section className="flex flex-col items-center gap-[16px] mt-[50%]">
