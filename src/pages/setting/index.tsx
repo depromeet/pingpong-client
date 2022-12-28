@@ -22,7 +22,7 @@ export default function ProfileSetting() {
 
   return (
     <>
-      <Header title="설정" className="bg-white border-b border-gray-100" />
+      <Header title="설정" className="bg-white border-b border-gray-100" onClick={() => router.back()} />
       <ul className="mt-4 px-[16px]">
         {settingList.map((list, i) => (
           <li
