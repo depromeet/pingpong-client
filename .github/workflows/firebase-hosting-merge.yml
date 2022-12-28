@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: |
+          touch .env
+          echo "NEXT_PUBLIC_REDIRECT_URL=${{ secrets.NEXT_PUBLIC_REDIRECT_URL }}" >> .env
+          echo "NEXT_PUBLIC_FE_URL=${{ secrets.NEXT_PUBLIC_FE_URL }}" >> .env
+          echo "NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_SERVER_URL }}" >> .env
+          cat .env
       - run: yarn install && yarn run build:prd
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
