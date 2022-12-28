@@ -20,6 +20,7 @@ interface PopupProps {
 
 interface HeaderProps {
   title: string;
+  onClick?: () => void;
   activeButton?: string;
   className?: string;
 }
@@ -74,6 +75,11 @@ interface CategoryProps {
   name: string;
 }
 
+interface TalentProps {
+  id: number;
+  content: string;
+}
+
 interface UserInfo {
   memberId: number;
   nickname: string;
@@ -83,6 +89,14 @@ interface UserInfo {
   ranksImage: string;
   likeCount: string;
   profileLink: string;
-  givenTalents: string[];
-  takenTalents: string[];
+  givenTalents: TalentProps[];
+  takenTalents: TalentProps[];
+}
+
+interface EditUserInfo {
+  nickname: string;
+  introduction: string;
+  profileLink: string;
+  givenTalents: number[];
+  takenTalents: number[];
 }
