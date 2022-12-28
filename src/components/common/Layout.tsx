@@ -35,7 +35,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       {headerValue && <Header {...headerValue} />}
-      <main className="pb-[82px]">{children}</main>
+      <main className={showGnb ? `pb-[82px]` : ''}>{children}</main>
       {popupValue && <Popup {...popupValue} />}
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}

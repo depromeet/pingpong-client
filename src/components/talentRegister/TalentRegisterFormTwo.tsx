@@ -149,7 +149,7 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
       <TalentRegisterTextRadioButtonGroup options={ENVIRONMENT[sort]} />
       <TalentRegisterTextRadioButtonGroup options={PERIOD[sort]} />
       <TalentRegisterTextRadioButtonGroup options={TIME} />
-      <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px]">
+      <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px] mt-[100px]">
         <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
           이전
         </Button>
