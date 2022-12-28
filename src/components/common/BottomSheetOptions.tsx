@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-export interface Option {
-  id: number | string;
-  label: string;
-}
+import type { Option } from '@/typings/common';
 
 const BottomSheetOptions = ({ list }: { list: Option[] }) => {
   return (

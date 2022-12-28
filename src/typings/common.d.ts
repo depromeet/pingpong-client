@@ -86,3 +86,8 @@ interface UserInfo {
   givenTalents: string[];
   takenTalents: string[];
 }
+
+export interface Option {
+  id: number | string;
+  label: string;
+}

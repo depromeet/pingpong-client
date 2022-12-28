@@ -23,6 +23,11 @@ export interface MidCategory {
   name: string;
 }
 
+export interface SubCategory {
+  id: number;
+  name: string;
+}
+
 export interface CategoryFilterParams {
   isShare: boolean;
   mainCategory: number;

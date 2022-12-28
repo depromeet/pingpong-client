@@ -1,9 +1,8 @@
 import type { Header } from 'next/dist/lib/load-custom-routes';
-import { atom, atomFamily } from 'recoil';
+import { atom, atomFamily, selector } from 'recoil';
 
-import type { Option } from '@/components/common/BottomSheetOptions';
 import type { Radio } from '@/hooks/useRadioGroup';
-import type { HeaderProps, PopupProps } from '@/typings/common';
+import type { HeaderProps, Option, PopupProps } from '@/typings/common';
 
 import type { TabProps, TalentRegisterInputInfo } from './types';
 
@@ -19,6 +18,15 @@ const tabAtomFamily = atomFamily<TabProps[], string>({
       default:
         return [];
     }
+  },
+});
+
+const midCategoryIdSelector = selector<number>({
+  key: 'activeMidCategoryId',
+  get: ({ get }) => {
+    const midCategoryList = get(tabAtomFamily('midCategory'));
+
+    return midCategoryList[0].id;
   },
 });
 
@@ -113,6 +121,7 @@ export {
   bottomSheetAtom,
   bottomSheetOptionsAtom,
   headerAtom,
+  midCategoryIdSelector,
   popupAtom,
   spinnerAtom,
   tabAtomFamily,
