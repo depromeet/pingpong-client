@@ -37,6 +37,7 @@ interface CardInfo {
   ranks: string;
   takenTalents: string[];
   hideTakenTalents?: boolean;
+  hideProfile?: boolean;
 }
 
 interface MainCategoryInfo {
