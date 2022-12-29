@@ -10,7 +10,7 @@ interface TabListProps {
 
 const TabList = ({ categoryKey, list, mainCategoryName }: TabListProps) => {
   return (
-    <ul className="flex min-w-[375px] overflow-x-scroll border-b-[1px] pl-8 mb-12">
+    <ul className="flex min-w-[375px] overflow-x-scroll border-b-[1px] pl-8 mb-12 bg-white">
       {mainCategoryName && (
         <li key="ALL" className="px-[10px] w-fit">
           {<Tab categoryKey={categoryKey} id={999} name={`${mainCategoryName} 전체`} />}
