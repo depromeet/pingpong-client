@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
@@ -27,7 +27,7 @@ const PostDetail = () => {
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
-  const { addBottomSheetOptions } = useBottomSheet();
+  const [isMyPost, setIsMyPost] = useState(false);
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
@@ -40,15 +40,13 @@ const PostDetail = () => {
   }, [postLikeIsSuccess, postUnlikeIsSuccess, postIsSuccess, refetch]);
 
   useEffect(() => {
-    addBottomSheetOptions([
-      { id: 'edit', label: '게시글 수정' },
-      { id: 'delete', label: '삭제' },
-    ]);
-  }, [addBottomSheetOptions]);
+    const isMine = router.asPath.includes('isMine');
+    setIsMyPost(isMine);
+  }, [router]);
 
   return (
     <>
-      <PostHeader imageUrl={mockImage} />
+      <PostHeader isMine={isMyPost} imageUrl={mockImage} />
       {postIsSuccess && (
         <>
           <Layout.DetailContainer>
@@ -119,7 +117,9 @@ const PostDetail = () => {
               onClick={handleLike}
             />
             <Button className="ml-12">
-              <Link href={postData.chatLink}>오픈채팅 시작하기</Link>
+              <a href={postData.chatLink} target="_blank" rel="noreferrer">
+                오픈채팅 시작하기
+              </a>
             </Button>
           </BottomFixedBar>
         </>
