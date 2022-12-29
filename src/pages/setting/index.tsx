@@ -1,10 +1,19 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
+import { useAuth } from '@/hooks/useAuth';
 import useHeader from '@/hooks/useHeader';
+import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 
 export default function ProfileSetting() {
   const router = useRouter();
+
+  const { logout } = useAuth();
+  const { setPopup } = usePopupWithBlock();
+
+  const handleMoveToLink = (path: string) => {
+    router.push(path);
+  };
 
   const settingList = [
     { label: '알림 설정', onClick: () => handleMoveToLink('/setting/alarm') },
@@ -12,13 +21,20 @@ export default function ProfileSetting() {
     { label: '오픈소스 라이센스', onClick: () => handleMoveToLink('/setting/license') },
     { label: '이용약관', onClick: () => handleMoveToLink('/setting/terms') },
     { label: '개인정보 처리방침', onClick: () => handleMoveToLink('/setting/privacy') },
-    { label: '로그아웃', onClick: () => null }, //FIXME: open modal
+    {
+      label: '로그아웃',
+      onClick: () => {
+        setPopup({
+          title: '정말 로그아웃 하시겠어요?',
+          cancelText: '취소',
+          confirmText: '로그아웃',
+          onCancel: () => null,
+          onConfirm: () => logout(),
+        });
+      },
+    },
     { label: '탈퇴하기', onClick: () => null },
   ];
-
-  const handleMoveToLink = (path: string) => {
-    router.push(path);
-  };
 
   useHeader({
     title: '설정',
