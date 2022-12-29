@@ -9,7 +9,7 @@ export default function DevPage() {
   const onClick = () => {
     //TODO: remove logout
     sessionStorage.setItem('token', token);
-    router.push('/');
+    router.push('/main');
   };
 
   return (
