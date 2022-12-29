@@ -9,10 +9,9 @@ import Input from '@/components/common/Input';
 import { ArrowIcon } from '@/components/icons';
 import useNicknameMutate from '@/hooks/queries/useNicknameMutate';
 
-//FIXME: to setting page
 const agreementList = [
-  { label: '(필수) 서비스 이용약관에 동의', href: '/' },
-  { label: '(필수) 개인정보 처리방침에  동의', href: '/' },
+  { label: '(필수) 서비스 이용약관에 동의', href: '/setting/terms' },
+  { label: '(필수) 개인정보 처리방침에  동의', href: '/setting/privacy' },
 ];
 
 const Nickname = () => {
