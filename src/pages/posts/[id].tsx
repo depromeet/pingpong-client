@@ -31,7 +31,7 @@ const PostDetail = () => {
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
-  const { setBottomSheetOptions } = useBottomSheet();
+  const { addBottomSheetOptions } = useBottomSheet();
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
@@ -42,11 +42,11 @@ const PostDetail = () => {
   }, [postLikeIsSuccess, postUnlikeIsSuccess, refetch]);
 
   useEffect(() => {
-    setBottomSheetOptions([
+    addBottomSheetOptions([
       { id: 'edit', label: '게시글 수정' },
       { id: 'delete', label: '삭제' },
     ]);
-  }, [setBottomSheetOptions]);
+  }, [addBottomSheetOptions]);
 
   return (
     <>
