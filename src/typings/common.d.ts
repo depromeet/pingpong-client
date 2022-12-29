@@ -20,9 +20,10 @@ interface PopupProps {
 
 interface HeaderProps {
   title: string;
-  onClick?: () => void;
   activeButton?: string;
   className?: string;
+  onArrowClick?: () => void;
+  onActiveButtonClick?: () => void;
 }
 
 interface CardInfo {

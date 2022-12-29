@@ -1,10 +1,19 @@
+import { useRouter } from 'next/router';
+
 import type { HeaderProps } from '@/typings/common';
 
 import { ArrowIcon } from '../icons';
 
-const Header = ({ title, onClick, activeButton, className }: HeaderProps) => {
-  const handleClick = () => {
-    onClick && onClick();
+const Header = ({ title, onArrowClick, activeButton, className, onActiveButtonClick }: HeaderProps) => {
+  const router = useRouter();
+
+  const handleArrowClick = () => {
+    router.back();
+    onArrowClick && onArrowClick();
+  };
+
+  const handleActiveButtonClick = () => {
+    onActiveButtonClick && onActiveButtonClick();
   };
 
   return (
@@ -13,11 +22,15 @@ const Header = ({ title, onClick, activeButton, className }: HeaderProps) => {
         activeButton ? 'justify-between' : ''
       } ${className}`}
     >
-      <button className={`w-[20px] h-[20px] ${activeButton ? 'left-0' : 'absolute'}`} onClick={handleClick}>
+      <button className={`w-[20px] h-[20px] ${activeButton ? 'left-0' : 'absolute'}`} onClick={handleArrowClick}>
         <ArrowIcon color="black" direction="right" className="w-[9px] h-[18px]" />
       </button>
       <h1 className={`text-t3 ${activeButton ? '' : 'w-full text-center'}`}>{title}</h1>
-      {activeButton && <span className="text-primary-blue text-button">{activeButton}</span>}
+      {activeButton && (
+        <span onClick={handleActiveButtonClick} className="text-primary-blue text-button">
+          {activeButton}
+        </span>
+      )}
     </header>
   );
 };

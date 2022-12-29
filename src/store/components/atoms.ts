@@ -1,6 +1,3 @@
-import type { Header } from 'next/dist/lib/load-custom-routes';
-import type { MouseEventHandler } from 'react';
-import { EventHandler } from 'react';
 import { atom, atomFamily, selector } from 'recoil';
 
 import type { Radio } from '@/hooks/useRadioGroup';
