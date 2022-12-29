@@ -19,7 +19,12 @@ const BottomSheetOptions = () => {
   return (
     <OptionList>
       {bottomSheetOptions.map((item) => (
-        <OptionItem key={item.id} value={item.id} isActive={activeOption.id === item.id} onClick={onClickOption}>
+        <OptionItem
+          key={item.id}
+          value={item.id}
+          isActive={activeOption.id === item.id}
+          onClick={() => onClickOption(item)}
+        >
           {item.label}
         </OptionItem>
       ))}

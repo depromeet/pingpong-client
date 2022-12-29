@@ -7,12 +7,10 @@ const useBottomSheet = () => {
   const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
 
   const openBottomSheet = () => {
-    console.log('openBottomSheet');
     setIsShowing(true);
   };
 
   const closeBottomSheet = () => {
-    console.log('closeBottomSheet');
     setIsShowing(false);
   };
 
