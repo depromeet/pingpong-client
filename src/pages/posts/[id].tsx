@@ -1,11 +1,10 @@
+import type { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
-import BottomSheet from '@/components/common/BottomSheet';
-import BottomSheetOptions from '@/components/common/BottomSheetOptions';
 import Button from '@/components/common/Button';
 import CircleImg from '@/components/common/CircleImg';
 import LikeButton from '@/components/common/LikeButton';
@@ -18,13 +17,23 @@ import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import type { LinkInfo } from '@/typings/common';
+import type { LinkInfo, PostInfo } from '@/typings/common';
 
-const PostDetail = () => {
+export const getStaticProps: GetStaticProps<{ postTest: PostInfo }> = async (context) => {
+  const res = await fetch(`https://localhost:3000/posts/8`);
+  const postTest: PostInfo = await res.json();
+
+  return {
+    props: {
+      postTest,
+    },
+  };
+};
+
+const PostDetail = ({ postTest }: { postTest: PostInfo }) => {
   const router = useRouter();
-
   const postId = Number(router.query.id) || 0;
-
+  console.log('postTest', postTest);
   const mockImage =
     'https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80';
 
@@ -39,7 +48,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     refetch();
-  }, [postLikeIsSuccess, postUnlikeIsSuccess, refetch]);
+  }, [postLikeIsSuccess, postUnlikeIsSuccess, refetch, postTest]);
 
   useEffect(() => {
     addBottomSheetOptions([
