@@ -5,10 +5,10 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
-import Toast from '@/components/common/Toast';
 import { ArrowIcon } from '@/components/icons';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
+import { useToast } from '@/hooks/useToast';
 import { popupAtom, tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 import { profileCategoryResetSelector } from '@/store/components/selectors';
 
@@ -20,18 +20,32 @@ const POPUP_INFO = {
 };
 
 const ProfileEdit = () => {
+  const router = useRouter();
+
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
+
   const [name, setName] = useState('');
   const [nameError] = useState('');
-  const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
-  const [takenTalents, setTakenTalents] = useRecoilState(tabAtomFamily('takenTalents'));
-  const setReset = useSetRecoilState(profileCategoryResetSelector);
   const [introduction, setIntroduction] = useState('');
   const [link, setLink] = useState('');
-  const router = useRouter();
+
+  const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
+  const [takenTalents, setTakenTalents] = useRecoilState(tabAtomFamily('takenTalents'));
+
+  const setReset = useSetRecoilState(profileCategoryResetSelector);
   const setOrder = useSetRecoilState(talentRegisterOrderAtom);
   const setPopup = useSetRecoilState(popupAtom);
+
   const { mutate, isSuccess, isError } = useEditProfile();
+  const { setToast } = useToast();
+
+  useEffect(() => {
+    isSuccess && setToast('프로필이 저장되었어요.');
+  }, [isSuccess, setToast]);
+
+  useEffect(() => {
+    isError && setToast('프로필 저장에 실패했어요.');
+  }, [isError, setToast]);
 
   useEffect(() => {
     setOrder(0);
@@ -164,8 +178,6 @@ const ProfileEdit = () => {
           />
         </section>
       </main>
-      {isError && <Toast value="프로필 저장에 실패했어요." />}
-      {isSuccess && <Toast value="프로필이 저장되었어요." />}
     </>
   );
 };

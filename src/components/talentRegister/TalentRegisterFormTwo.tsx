@@ -6,11 +6,11 @@ import { useRecoilValue } from 'recoil';
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useBackPage from '@/hooks/useBackPage';
 import useRegisterTalentPost from '@/hooks/useRegisterTalentPost';
+import { useToast } from '@/hooks/useToast';
 import { talentRegisterOrderAtom } from '@/store/components';
 import { talentRegisterSelector } from '@/store/components/selectors';
 
 import Button from '../common/Button';
-import Toast from '../common/Toast';
 import TalentRegisterTextRadioButtonGroup from './TalentRegisterTextRadioButtonGroup';
 
 const ENVIRONMENT = {
@@ -133,16 +133,22 @@ const TIME = {
 };
 
 const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
-  const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
-  const talentInfo = useRecoilValue(talentRegisterSelector);
-  const { data, mutate, isSuccess, isError } = useRegisterTalentPost();
   const router = useRouter();
+  const talentInfo = useRecoilValue(talentRegisterSelector);
+
+  const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
+  const { data, mutate, isSuccess, isError } = useRegisterTalentPost();
+  const { setToast } = useToast();
 
   useEffect(() => {
     if (isSuccess) {
       router.push(`/posts/${data.data.id}`);
     }
   }, [data, isSuccess, router]);
+
+  useEffect(() => {
+    setToast('재능 등록에 실패했어요.');
+  }, [isError, setToast]);
 
   return (
     <form className={`${className} px-[16px] py-[24.5px]`}>
@@ -158,7 +164,6 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
           {sort === 'SHARE' ? '재능 나눔 등록하기' : '재능 교환 등록하기'}
         </Button>
       </div>
-      {isError && <Toast value="재능 등록에 실패헀어요." />}
     </form>
   );
 };
