@@ -1,10 +1,9 @@
 import { useQueryClient } from '@tanstack/react-query';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import type { ChangeEvent, MouseEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -20,8 +19,7 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, bottomSheetOptionsAtom, midCategoryIdSelector } from '@/store/components';
-import type { Option } from '@/typings/common';
+import { bottomSheetActiveOptionAtom, midCategoryIdSelector } from '@/store/components';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -57,8 +55,7 @@ const Home: NextPage = () => {
     subCategory: activeSubCategoryId,
   });
 
-  const { openBottomSheet } = useBottomSheet();
-  const [bottomSheetOptions, setBottomSheetOptions] = useRecoilState<Option[]>(bottomSheetOptionsAtom);
+  const { openBottomSheet, addBottomSheetOptions } = useBottomSheet();
 
   const getActiveCategory = (id: number) => {
     return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
@@ -88,8 +85,8 @@ const Home: NextPage = () => {
       queryKey: ['subCategories', activeMidCategoryId],
     });
 
-    setBottomSheetOptions(subCategoryData);
-  }, [setBottomSheetOptions, activeMidCategoryId, queryClient, subCategoryData]);
+    addBottomSheetOptions(subCategoryData);
+  }, [addBottomSheetOptions, activeMidCategoryId, queryClient, subCategoryData]);
 
   useEffect(() => {
     updateSubCategories();

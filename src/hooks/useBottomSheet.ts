@@ -1,25 +1,29 @@
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { bottomSheetAtom, bottomSheetOptionsAtom } from '@/store/components';
 import type { Option } from '@/typings/common';
 
 const useBottomSheet = () => {
-  const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useRecoilState(bottomSheetAtom);
+  const setBottomSheetOptions = useSetRecoilState<Option[]>(bottomSheetOptionsAtom);
 
   const openBottomSheet = () => {
-    setIsShowing(true);
+    setIsBottomSheetOpen(true);
   };
 
   const closeBottomSheet = () => {
-    setIsShowing(false);
+    setIsBottomSheetOpen(false);
+  };
+
+  const addBottomSheetOptions = (value: Option[]) => {
+    setBottomSheetOptions(value);
   };
 
   return {
-    isShowing,
+    isBottomSheetOpen,
     openBottomSheet,
     closeBottomSheet,
-    // bottomSheetOptions,
-    // setBottomSheetOptions,
+    addBottomSheetOptions,
   };
 };
 

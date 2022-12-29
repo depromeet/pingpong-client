@@ -1,4 +1,4 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import useBottomSheet from '@/hooks/useBottomSheet';
@@ -7,7 +7,7 @@ import type { Option } from '@/typings/common';
 
 const BottomSheetOptions = () => {
   const [activeOption, setActiveOption] = useRecoilState(bottomSheetActiveOptionAtom);
-  const [bottomSheetOptions, setBottomSheetOptions] = useRecoilState<Option[]>(bottomSheetOptionsAtom);
+  const bottomSheetOptions = useRecoilValue<Option[]>(bottomSheetOptionsAtom);
 
   const { closeBottomSheet } = useBottomSheet();
 
