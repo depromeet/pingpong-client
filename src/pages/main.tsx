@@ -19,8 +19,7 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { midCategoryIdSelector } from '@/store/components';
-import type { CategoryFilterParams } from '@/typings/main';
+import { bottomSheetActiveOptionAtom, midCategoryIdSelector } from '@/store/components';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -29,13 +28,7 @@ const Home: NextPage = () => {
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
   const [isShare, handleIsShare] = useState(false);
   const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
-
-  const [categoryFilter, setCategoryFilter] = useState<CategoryFilterParams>({
-    isShare,
-    mainCategory: activeMainCategoryId,
-    midCategory: activeMidCategoryId,
-    subCategory: activeSubCategoryId,
-  });
+  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
 
   const queryClient = useQueryClient();
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
@@ -49,32 +42,59 @@ const Home: NextPage = () => {
     mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
     subCategoryQuery: { data: subCategoryData, isSuccess: subCategoryIsSuccess },
   } = useCategoriesQuery(activeMidCategoryId);
-  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useInfinitePostsQuery(categoryFilter);
-  const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
+
+  const {
+    posts,
+    fetchNextPage,
+    isSuccess: postsIsSuccess,
+    refetch,
+  } = useInfinitePostsQuery({
+    isShare,
+    mainCategory: activeMainCategoryId,
+    midCategory: activeMidCategoryId === 999 ? 0 : activeMidCategoryId,
+    subCategory: activeSubCategoryId,
+  });
+
+  const { openBottomSheet, addBottomSheetOptions } = useBottomSheet();
 
   const getActiveCategory = (id: number) => {
     return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
   };
 
-  useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
-
   const openSubCategorySheet = () => {
-    setIsShowing(true);
+    if (activeMidCategoryId === 999) return;
+
+    openBottomSheet();
   };
 
+  useEffect(() => {
+    refetch();
+  }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
+
+  useEffect(() => {
+    const { id } = activeOption;
+    if (typeof id === 'string') return;
+
+    setActiveSubCategoryId(id);
+  }, [activeOption]);
+
   const updateSubCategories = useCallback(() => {
-    setBottomSheetOptions(subCategoryData);
+    if (activeMidCategoryId === 999) return;
 
     queryClient.invalidateQueries({
       queryKey: ['subCategories', activeMidCategoryId],
     });
-  }, [setBottomSheetOptions, activeMidCategoryId, queryClient, subCategoryData]);
+
+    addBottomSheetOptions(subCategoryData);
+  }, [addBottomSheetOptions, activeMidCategoryId, queryClient, subCategoryData]);
 
   useEffect(() => {
     updateSubCategories();
   }, [updateSubCategories]);
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [inView, fetchNextPage]);
 
   return (
     <Layout.DefaultContainer>
@@ -127,7 +147,7 @@ const Home: NextPage = () => {
         />
       )}
       <SubCategoryFilter
-        isSubFilterVisible={activeMainCategoryId !== 0}
+        isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 999}
         handleSubCategory={openSubCategorySheet}
         isShare={isShare}
         handleIsShare={handleIsShare}
@@ -144,17 +164,6 @@ const Home: NextPage = () => {
             );
           })}
         </CardContainer>
-        {postsIsSuccess && (
-          <CardContainer>
-            {posts.map((item) => {
-              return (
-                <li key={item.id}>
-                  <Card {...item} />
-                </li>
-              );
-            })}
-          </CardContainer>
-        )}
         <ContainerRef ref={ref}>
           <Spinner />
         </ContainerRef>
