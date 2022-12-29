@@ -40,7 +40,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       {popupValue && <Popup {...popupValue} />}
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
-      <Spinner isShowing={isSpinnerActive} />
+      <Spinner isDimmed={isSpinnerActive} />
       <BottomSheet isShowing={isBottomSheetOpen} onClose={closeBottomSheet}>
         <BottomSheetOptions />
       </BottomSheet>

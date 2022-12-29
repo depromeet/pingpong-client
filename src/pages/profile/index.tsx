@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
 import EmptyCard from '@/components/common/EmptyCard';
+import Spinner from '@/components/common/Spinner';
 import Tag from '@/components/common/Tag';
 import TextBox from '@/components/common/TextBox';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
@@ -141,14 +142,6 @@ export default function Profile() {
 const ContainerRef = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-// TODO: Spinner Image 실제로 대체 필요
-const Spinner = styled.div`
-  content: '';
-  width: 5rem;
-  height: 3rem;
-  background-color: black;
 `;
 
 const CardContainer = styled.ul`
