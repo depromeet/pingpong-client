@@ -12,7 +12,7 @@ const useUserInfoQuery = () => {
   const fetchUserInfo = async () => {
     const {
       data: { data },
-    } = await axiosClient.get<ServerResponse<UserInfo>>(`/members/1`);
+    } = await axiosClient.get<ServerResponse<UserInfo>>(`/.api/members/1`);
     return data;
   };
 
