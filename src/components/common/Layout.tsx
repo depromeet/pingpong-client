@@ -6,8 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { usePopup } from '@/hooks/usePopup';
-import { bottomSheetAtom, headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
-import type { Option } from '@/typings/common';
+import { headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
 
 import BottomSheet from './BottomSheet';
 import BottomSheetOptions from './BottomSheetOptions';
@@ -27,7 +26,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   const showGnb = useMemo(() => hasGnbPath.includes(router.pathname), [router]);
   const [isSpinnerActive, setIsSpinnerActive] = useRecoilState(spinnerAtom);
-  const { isShowing, closeBottomSheet } = useBottomSheet();
+  const { isBottomSheetOpen, closeBottomSheet } = useBottomSheet();
 
   usePopup();
 
@@ -45,7 +44,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
       <Spinner isShowing={isSpinnerActive} />
-      <BottomSheet isShowing={isShowing} onClose={closeBottomSheet}>
+      <BottomSheet isShowing={isBottomSheetOpen} onClose={closeBottomSheet}>
         <BottomSheetOptions />
       </BottomSheet>
     </>
