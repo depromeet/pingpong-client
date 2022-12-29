@@ -4,6 +4,8 @@ import type { ServerResponse } from '@/apis';
 import { axiosClient } from '@/apis';
 import type { CardInfo } from '@/typings/common';
 
+import { useAuth } from '../useAuth';
+
 interface CustomPostsQueryParams {
   subCategoryId: number;
   page: number;
@@ -15,6 +17,8 @@ interface CustomPostsData {
 }
 
 const useCustomPostsQuery = (params: CustomPostsQueryParams) => {
+  const { isLogin } = useAuth();
+
   const fetchCustomPosts = async ({ subCategoryId, page, size }: CustomPostsQueryParams) => {
     const {
       data: { data },
@@ -28,7 +32,7 @@ const useCustomPostsQuery = (params: CustomPostsQueryParams) => {
     return data;
   };
 
-  return useQuery({ queryKey: ['user', params], queryFn: () => fetchCustomPosts({ ...params }) });
+  return useQuery({ queryKey: ['user', params], queryFn: () => fetchCustomPosts({ ...params }), enabled: isLogin });
 };
 
 export default useCustomPostsQuery;

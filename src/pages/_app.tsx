@@ -11,24 +11,21 @@ import { useEffect } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import Layout from '@/components/common/Layout';
+import { useAuth } from '@/hooks/useAuth';
 
-const noNeedAccessPath = ['/login', '/dev'];
+const noNeedAccessPath = ['/', '/dev'];
 
 function MyApp({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   const router = useRouter();
 
-  useEffect(() => {
-    const cookie = document.cookie;
-    const sessionForDev = sessionStorage.getItem('token');
+  const { isLogin } = useAuth();
 
-    if (!cookie && !sessionForDev && !noNeedAccessPath.includes(router.pathname)) {
-      router.push('/login');
+  useEffect(() => {
+    if (isLogin && noNeedAccessPath.includes(router.pathname)) {
+      router.push('/main');
     }
-    if ((cookie || sessionForDev) && noNeedAccessPath.includes(router.pathname)) {
-      router.push('/');
-    }
-  }, [router]);
+  }, [router, isLogin]);
 
   return (
     <RecoilRoot>

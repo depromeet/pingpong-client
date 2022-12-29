@@ -4,7 +4,11 @@ import type { ServerResponse } from '@/apis';
 import { axiosClient } from '@/apis';
 import type { UserInfo } from '@/typings/common';
 
+import { useAuth } from '../useAuth';
+
 const useUserInfoQuery = () => {
+  const { isLogin } = useAuth();
+
   const fetchUserInfo = async () => {
     const {
       data: { data },
@@ -12,7 +16,7 @@ const useUserInfoQuery = () => {
     return data;
   };
 
-  return useQuery({ queryKey: ['user'], queryFn: fetchUserInfo });
+  return useQuery({ queryKey: ['user'], queryFn: fetchUserInfo, enabled: isLogin });
 };
 
 export default useUserInfoQuery;
