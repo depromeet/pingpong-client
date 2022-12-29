@@ -4,6 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
+import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
 import { useHeader } from '@/hooks/useHeader';
@@ -12,7 +13,8 @@ import { useToast } from '@/hooks/useToast';
 import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
 const ProfileEdit = () => {
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
+  const { myInfo } = useMyInfo();
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId); //FIXME: another user profile
 
   const [name, setName] = useState('');
   const [nameError] = useState('');
