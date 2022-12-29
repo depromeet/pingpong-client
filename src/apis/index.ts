@@ -94,8 +94,4 @@ export interface ServerResponse<T = Record<string, unknown>> {
   message: string;
 }
 
-export const axiosClient = axios.create({
-  headers: {
-    Authorization: `Bearer ${process.env.TOKEN}`,
-  },
-});
+export const axiosClient = axios.create({});

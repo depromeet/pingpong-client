@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
@@ -12,10 +13,12 @@ import PostHeader from '@/components/posts/PostHeader';
 import { Layout, Typography } from '@/components/styles';
 import { ExchangePeriodLabel, ExchangeTimeLabel, ExchangeTypeLabel } from '@/constants';
 import { colors } from '@/constants/styles';
+import usePostDeleteMutate from '@/hooks/queries/usePostDeleteMutate';
 import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
-import useBottomSheet from '@/hooks/useBottomSheet';
+import useReportPostMutate from '@/hooks/queries/useReportPostMutate';
+import { bottomSheetActiveOptionAtom } from '@/store/components';
 import type { LinkInfo } from '@/typings/common';
 
 const PostDetail = () => {
@@ -27,7 +30,11 @@ const PostDetail = () => {
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
+  const { mutate: postDeleteMutate, isSuccess: postDeleteIsSuccess } = usePostDeleteMutate(postId);
+  const { mutate: reportPostMutate, isSuccess: reportPostIsSuccess } = useReportPostMutate(postId);
+
   const [isMyPost, setIsMyPost] = useState(false);
+  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
@@ -43,6 +50,11 @@ const PostDetail = () => {
     const isMine = router.asPath.includes('isMine');
     setIsMyPost(isMine);
   }, [router]);
+
+  useEffect(() => {
+    if (activeOption.id === 'DELETE') postDeleteMutate();
+    if (activeOption.id === 'REPORT') reportPostMutate();
+  }, [activeOption, postDeleteMutate, reportPostMutate]);
 
   return (
     <>
