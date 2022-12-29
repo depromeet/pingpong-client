@@ -7,7 +7,7 @@ import Textarea from '@/components/common/Textarea';
 import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
-import { useHeader } from '@/hooks/useHeader';
+import useHeader from '@/hooks/useHeader';
 import { useToast } from '@/hooks/useToast';
 import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 

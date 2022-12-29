@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import { useHeader } from '@/hooks/useHeader';
+import useHeader from '@/hooks/useHeader';
 
 export default function ProfileSetting() {
   const router = useRouter();
