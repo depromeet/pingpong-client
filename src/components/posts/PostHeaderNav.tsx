@@ -8,10 +8,12 @@ import MoreIcon from '../../../public/icons/more.svg';
 
 const PostHeaderNav = ({ isMine = false }: { isMine?: boolean }) => {
   const router = useRouter();
-  const { openBottomSheet } = useBottomSheet();
+  const { openBottomSheet, addBottomSheetOptions } = useBottomSheet();
 
   const onClickMore = () => {
-    if (!isMine) return;
+    isMine
+      ? addBottomSheetOptions([{ id: 'DELETE', label: '게시글 삭제' }])
+      : addBottomSheetOptions([{ id: 'REPORT', label: '사용자 신고하기' }]);
     openBottomSheet();
   };
 
