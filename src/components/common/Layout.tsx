@@ -30,7 +30,13 @@ const Layout = ({ children }: PropsWithChildren) => {
   const isFetching = useIsFetching();
 
   useEffect(() => {
-    isFetching ? setIsSpinnerActive(true) : setIsSpinnerActive(false);
+    if (isFetching) {
+      setIsSpinnerActive(true);
+
+      setTimeout(() => {
+        setIsSpinnerActive(false);
+      }, 1500);
+    }
   }, [isFetching, setIsSpinnerActive]);
 
   return (
