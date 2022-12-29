@@ -1,22 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { ServerResponse } from '@/apis';
-import { axiosClient } from '@/apis';
+import { queryFetcher } from '@/apis';
 import type { UserInfo } from '@/typings/common';
 
 import { useAuth } from '../useAuth';
 
-const useUserInfoQuery = () => {
+const useUserInfoQuery = (memberId?: number) => {
   const { isLogin } = useAuth();
 
-  const fetchUserInfo = async () => {
-    const {
-      data: { data },
-    } = await axiosClient.get<ServerResponse<UserInfo>>(`/members/1`);
-    return data;
-  };
-
-  return useQuery({ queryKey: ['user'], queryFn: fetchUserInfo, enabled: isLogin });
+  return useQuery<UserInfo>(['members'], () => queryFetcher(`/members/${memberId}`), {
+    enabled: isLogin && memberId !== undefined,
+  });
 };
-
 export default useUserInfoQuery;

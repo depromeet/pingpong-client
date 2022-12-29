@@ -18,12 +18,15 @@ import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
+import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { bottomSheetActiveOptionAtom, midCategoryIdSelector } from '@/store/components';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
+
+  const { myInfo } = useMyInfo();
 
   const [activeMainCategoryId, setActiveCategoryId] = useState(0);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
@@ -32,7 +35,7 @@ const Home: NextPage = () => {
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
 
   const queryClient = useQueryClient();
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
     subCategoryId: 1,
     page: 0,

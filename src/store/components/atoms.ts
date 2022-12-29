@@ -1,7 +1,7 @@
 import { atom, atomFamily, selector } from 'recoil';
 
 import type { Radio } from '@/hooks/useRadioGroup';
-import type { HeaderProps, Option, PopupProps } from '@/typings/common';
+import type { HeaderProps, Option, PopupProps, UserInfo } from '@/typings/common';
 
 import type { TabProps, TalentRegisterInputInfo } from './types';
 
@@ -121,12 +121,18 @@ const talentRegisterEnvironmnetAtomFamily = atomFamily<Radio, string>({
   },
 });
 
+const myInfoAtom = atom<UserInfo | null>({
+  key: 'myInfoAtom',
+  default: null,
+});
+
 export {
   bottomSheetActiveOptionAtom,
   bottomSheetAtom,
   bottomSheetOptionsAtom,
   headerAtom,
   midCategoryIdSelector,
+  myInfoAtom,
   popupAtom,
   spinnerAtom,
   tabAtomFamily,
