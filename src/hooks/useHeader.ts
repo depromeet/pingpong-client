@@ -9,8 +9,7 @@ export const useHeader = (props: HeaderProps) => {
 
   useEffect(() => {
     setHeader(props);
+    return () => setHeader(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
-
-export default useHeader;

@@ -5,7 +5,6 @@ import { useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { usePopup } from '@/hooks/usePopup';
 import { headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
 
 import BottomSheet from './BottomSheet';
@@ -27,8 +26,6 @@ const Layout = ({ children }: PropsWithChildren) => {
   const showGnb = useMemo(() => hasGnbPath.includes(router.pathname), [router]);
   const [isSpinnerActive, setIsSpinnerActive] = useRecoilState(spinnerAtom);
   const { isBottomSheetOpen, closeBottomSheet } = useBottomSheet();
-
-  usePopup();
 
   const isFetching = useIsFetching();
 

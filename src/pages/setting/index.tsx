@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
-import Header from '@/components/common/Header';
+import { useHeader } from '@/hooks/useHeader';
 
 export default function ProfileSetting() {
   const router = useRouter();
@@ -20,9 +20,13 @@ export default function ProfileSetting() {
     router.push(path);
   };
 
+  useHeader({
+    title: '설정',
+    className: 'bg-white border-b border-gray-100',
+  });
+
   return (
     <>
-      <Header title="설정" className="bg-white border-b border-gray-100" onClick={() => router.back()} />
       <ul className="mt-4 px-[16px]">
         {settingList.map((list, i) => (
           <li
