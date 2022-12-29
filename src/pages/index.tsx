@@ -73,7 +73,11 @@ const Home: NextPage = () => {
   }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   useEffect(() => {
-    setActiveSubCategoryId(activeOption.id);
+    const { id } = activeOption;
+
+    if (typeof id === 'string') return;
+
+    setActiveSubCategoryId(id);
   }, [activeMidCategoryId, activeOption]);
 
   useEffect(() => {
