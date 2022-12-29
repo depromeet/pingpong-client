@@ -17,6 +17,7 @@ const Card = ({
   ranks,
   takenTalents,
   hideTakenTalents = false,
+  hideProfile = false,
 }: CardInfo) => {
   return (
     <CardWrapper>
@@ -39,7 +40,7 @@ const Card = ({
           <section className="overflow-hidden">
             <h4 className="text-t2 overflow-hidden w-full whitespace-nowrap text-ellipsis">{title}</h4>
           </section>
-          {
+          {!hideProfile && (
             <section className="bg-white rounded-xl flex items-center gap-3 px-5 py-3">
               <article className="rounded-full">
                 <CircleImg size="small" alt="profile" src={image} />
@@ -51,7 +52,7 @@ const Card = ({
                 <span className="text-gray-400 text-b5">{ranks}</span>
               </article>
             </section>
-          }
+          )}
         </div>
         {!isShare && !hideTakenTalents && takenTalents.length && (
           <section className=" bg-white p-5">

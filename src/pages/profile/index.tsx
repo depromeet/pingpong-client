@@ -115,7 +115,7 @@ export default function Profile() {
             {posts.map((item) => {
               return (
                 <li key={item.id}>
-                  <Card {...item} />
+                  <Card hideProfile {...item} />
                 </li>
               );
             })}
