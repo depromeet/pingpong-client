@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import Toggle from '@/components/common/Radio';
-import { useHeader } from '@/hooks/useHeader';
+import useHeader from '@/hooks/useHeader';
 
 export default function SettingAlarm() {
   const [isAlarmOn, setIsAlarmOn] = useState(false);

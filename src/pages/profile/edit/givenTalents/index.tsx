@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import ProfileCategoryTagList from '@/components/profile/ProfileCategoryTagList';
 import TalentRegisterCategoryTabList from '@/components/talentRegister/TalentRegisterCategoryTabList';
-import { useHeader } from '@/hooks/useHeader';
+import useHeader from '@/hooks/useHeader';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { talentRegisterOrderAtom } from '@/store/components';
 import { profileCategoryResetSelector } from '@/store/components/selectors';
