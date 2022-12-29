@@ -44,7 +44,7 @@ const Home: NextPage = () => {
   } = useCategoriesQuery(activeMidCategoryId);
 
   const {
-    posts,
+    posts: postList,
     fetchNextPage,
     isSuccess: postsIsSuccess,
     refetch,
@@ -154,7 +154,7 @@ const Home: NextPage = () => {
       />
       <Layout.DefaultPadding>
         <CardContainer>
-          {posts.map((item) => {
+          {postList.map((item) => {
             return (
               <li key={item.id}>
                 <Link href={`/posts/${item.id}`}>

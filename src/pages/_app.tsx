@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(router.query);
     const cookie = document.cookie;
     const sessionForDev = sessionStorage.getItem('token');
 

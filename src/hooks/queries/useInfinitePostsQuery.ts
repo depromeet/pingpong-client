@@ -33,7 +33,7 @@ const useInfinitePostsQuery = (params: CategoryFilterParams) => {
   }: PostParams): Promise<InfinitePost> => {
     const {
       data: { data },
-    } = await axiosClient.get('/posts', {
+    } = await axiosClient.get('/.api/posts', {
       params: {
         isShare,
         mainCategory,

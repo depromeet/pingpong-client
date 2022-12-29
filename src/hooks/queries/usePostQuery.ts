@@ -8,7 +8,7 @@ const usePostQuery = (id: number) => {
   const fetchPostById = async (id: number) => {
     const {
       data: { data },
-    } = await axiosClient.get<ServerResponse<PostInfo>>(`/posts/${id}`);
+    } = await axiosClient.get<ServerResponse<PostInfo>>(`/.api/posts/${id}`);
     return data;
   };
 
