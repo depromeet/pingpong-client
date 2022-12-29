@@ -8,7 +8,6 @@ import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
 import { useHeader } from '@/hooks/useHeader';
-import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { useToast } from '@/hooks/useToast';
 import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
@@ -28,13 +27,6 @@ const ProfileEdit = () => {
 
   const { mutate, isSuccess, isError } = useEditProfile();
   const { setToast } = useToast();
-
-  usePopupWithBlock({
-    title: '프로필 편집을 그만두시겠어요?',
-    content: '지금까지 작성한 내용은 저장되지 않아요',
-    confirmText: '그만둘래요',
-    cancelText: '취소',
-  });
 
   useEffect(() => {
     isSuccess && setToast('프로필이 저장되었어요.');
@@ -93,7 +85,6 @@ const ProfileEdit = () => {
     title: '프로필 편집',
     activeButton: '저장',
     className: 'bg-white border-b border-gray-100',
-    onActiveButtonClick: handleSaveButton,
   });
 
   return (
