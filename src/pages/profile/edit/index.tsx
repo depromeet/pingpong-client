@@ -1,27 +1,16 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import Header from '@/components/common/Header';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
-import { ArrowIcon } from '@/components/icons';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
 import { useToast } from '@/hooks/useToast';
-import { popupAtom, tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
-import { profileCategoryResetSelector } from '@/store/components/selectors';
-
-const POPUP_INFO = {
-  title: '프로필 편집을 그만두시겠어요?',
-  content: '지금까지 작성한 내용은 저장되지 않아요',
-  confirmText: '그만둘래요',
-  cancelText: '취소',
-};
+import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
 const ProfileEdit = () => {
-  const router = useRouter();
-
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
 
   const [name, setName] = useState('');
@@ -32,9 +21,7 @@ const ProfileEdit = () => {
   const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
   const [takenTalents, setTakenTalents] = useRecoilState(tabAtomFamily('takenTalents'));
 
-  const setReset = useSetRecoilState(profileCategoryResetSelector);
   const setOrder = useSetRecoilState(talentRegisterOrderAtom);
-  const setPopup = useSetRecoilState(popupAtom);
 
   const { mutate, isSuccess, isError } = useEditProfile();
   const { setToast } = useToast();
@@ -80,18 +67,6 @@ const ProfileEdit = () => {
     }
   }, [userData, userIsSuccess]);
 
-  const handleBackButton = () => {
-    setPopup({
-      ...POPUP_INFO,
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      onCancel: () => {},
-      onConfirm: () => {
-        router.push('/profile');
-        setReset(true);
-      },
-    });
-  };
-
   const handleSaveButton = () => {
     const profileInfo = {
       nickname: name,
@@ -106,15 +81,12 @@ const ProfileEdit = () => {
 
   return (
     <>
-      <header className="flex gap-7 items-center w-full px-7 sticky top-0 py-[5%] bg-bg-gray z-30 justify-between">
-        <button className="w-[20px] h-[20px] left-0" onClick={handleBackButton}>
-          <ArrowIcon color="black" direction="right" className="w-[9px] h-[18px]" />
-        </button>
-        <h1 className="text-t3">프로필 편집</h1>
-        <span className="text-primary-blue text-button" onClick={handleSaveButton}>
-          저장
-        </span>
-      </header>
+      <Header
+        title="프로필 편집"
+        activeButton="저장"
+        className="bg-white border-b border-gray-100"
+        onClick={handleSaveButton}
+      />
       <main className="px-[16px]">
         <section className="mt-[26px]">
           <label htmlFor="name" className="text-t3">

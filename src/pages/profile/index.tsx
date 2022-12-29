@@ -37,8 +37,8 @@ export default function Profile() {
           </Link>
         </article>
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
-          <div>
-            <Image src={`${userData?.image}`} alt="profile" width={100} height={100} />
+          <div className="relative w-[88px] h-[88px] rounded-full overflow-hidden">
+            <Image src={`${userData?.image}`} alt="profile" fill />
           </div>
           <span className="text-h2">{`${userData?.nickname}`}</span>
         </article>
