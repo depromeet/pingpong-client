@@ -1,28 +1,23 @@
-import { useLottie } from 'lottie-react';
+import Lottie from 'lottie-react';
 import React from 'react';
 import styled from 'styled-components';
 
 import spinnerAnimation from '../../../public/spinner.json';
 import Portal from './Portal';
 
-const Spinner = ({ isShowing }: { isShowing: boolean }) => {
-  const options = {
-    animationData: spinnerAnimation,
-    loop: true,
-  };
+interface Props {
+  isDimmed?: boolean;
+}
 
-  const style = {
-    height: 200,
-  };
-
-  const { View } = useLottie(options, style);
-
-  return (
-    <Portal isShowing={isShowing}>
+const Spinner = ({ isDimmed }: Props) => {
+  return isDimmed ? (
+    <Portal isShowing={true}>
       <DimmedBackdrop>
-        <SpinnerWrapper>{View}</SpinnerWrapper>
+        <Lottie animationData={spinnerAnimation} loop={true} style={{ width: '70%' }} />
       </DimmedBackdrop>
     </Portal>
+  ) : (
+    <Lottie animationData={spinnerAnimation} loop={true} style={{ width: '100px', margin: 'auto' }} />
   );
 };
 
@@ -34,15 +29,11 @@ const DimmedBackdrop = styled.div`
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
+  overflow: hidden;
 
   background-color: rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const SpinnerWrapper = styled.div`
-  padding: 0;
+  display: grid;
+  place-items: center;
 `;

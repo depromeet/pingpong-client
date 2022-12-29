@@ -10,6 +10,7 @@ import Card from '@/components/common/Card';
 import CardCarousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
 import EmptyCard from '@/components/common/EmptyCard';
+import Spinner from '@/components/common/Spinner';
 import MainCategoryCarousel from '@/components/main/MainCategoryCarousel';
 import MidCategoryTab from '@/components/main/MidCategoryTab';
 import SubCategoryFilter from '@/components/main/SubCategoryFilter';
@@ -163,10 +164,10 @@ const Home: NextPage = () => {
               </li>
             );
           })}
+          <ContainerRef ref={ref}>
+            <Spinner />
+          </ContainerRef>
         </CardContainer>
-        <ContainerRef ref={ref}>
-          <Spinner />
-        </ContainerRef>
       </Layout.DefaultPadding>
     </Layout.DefaultContainer>
   );
@@ -177,14 +178,6 @@ export default Home;
 const ContainerRef = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-// TODO: Spinner Image 실제로 대체 필요
-const Spinner = styled.div`
-  content: '';
-  width: 5rem;
-  height: 3rem;
-  background-color: black;
 `;
 
 const HomeHeader = styled.div`
