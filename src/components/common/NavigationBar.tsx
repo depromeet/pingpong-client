@@ -10,7 +10,7 @@ interface NavigationBarProps {
 }
 
 const NAV_LIST_INFO = [
-  { icon: <TalentSearchIcon />, selectedIcon: <TalentSearchIcon color="#4D77FF" />, href: '/', text: '재능 탐색' },
+  { icon: <TalentSearchIcon />, selectedIcon: <TalentSearchIcon color="#4D77FF" />, href: '/main', text: '재능 탐색' },
   {
     icon: <TalentRegisterIcon />,
     selectedIcon: <TalentRegisterIcon color="#4D77FF" />,
