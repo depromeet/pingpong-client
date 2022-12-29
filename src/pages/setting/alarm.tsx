@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import Toggle from '@/components/common/Radio';
+import Toggle from '@/components/common/Toggle';
 import useHeader from '@/hooks/useHeader';
 
 export default function SettingAlarm() {
