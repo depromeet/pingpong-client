@@ -12,14 +12,14 @@ const useCategoriesQuery = (midCategoryId?: number) => {
   const fetchMainMidCategories = async () => {
     const {
       data: { data },
-    } = await axiosClient.get<ServerResponse<MainCategory[]>>(`/.api/categories/main`);
+    } = await axiosClient.get<ServerResponse<MainCategory[]>>(`/categories/main`);
     return data;
   };
 
   const fetchSubCategoriesByMidCategoryId = async () => {
     const {
       data: { data },
-    } = await axiosClient.get<ServerResponse<SubCategory[]>>(`/.api/categories/sub`, {
+    } = await axiosClient.get<ServerResponse<SubCategory[]>>(`/categories/sub`, {
       params: {
         midCategoryId,
       },
