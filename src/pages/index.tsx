@@ -71,21 +71,17 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect - 1');
-
     refetch();
   }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   useEffect(() => {
     const { id } = activeOption;
-    console.log('here-- id', id);
     if (typeof id === 'string') return;
 
     setActiveSubCategoryId(id);
   }, [activeOption]);
 
   const updateSubCategories = useCallback(() => {
-    console.log('updateSubCategories');
     if (activeMidCategoryId === 999) return;
 
     queryClient.invalidateQueries({
