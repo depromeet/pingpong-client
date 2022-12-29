@@ -54,7 +54,7 @@ const bottomSheetOptionsAtom = atom<Option[]>({
 });
 
 const bottomSheetActiveOptionAtom = atom<Option>({
-  key: 'bottomSheet',
+  key: 'bottomSheetActiveOption',
   default: { id: 0, label: '' },
 });
 

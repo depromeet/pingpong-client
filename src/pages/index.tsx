@@ -4,7 +4,7 @@ import Link from 'next/link';
 import type { ChangeEvent, MouseEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -20,7 +20,8 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, midCategoryIdSelector } from '@/store/components';
+import { bottomSheetActiveOptionAtom, bottomSheetOptionsAtom, midCategoryIdSelector } from '@/store/components';
+import type { Option } from '@/typings/common';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -56,7 +57,8 @@ const Home: NextPage = () => {
     subCategory: activeSubCategoryId,
   });
 
-  const { setIsShowing, setBottomSheetOptions } = useBottomSheet();
+  const { openBottomSheet } = useBottomSheet();
+  const [bottomSheetOptions, setBottomSheetOptions] = useRecoilState<Option[]>(bottomSheetOptionsAtom);
 
   const getActiveCategory = (id: number) => {
     return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
@@ -65,26 +67,25 @@ const Home: NextPage = () => {
   const openSubCategorySheet = () => {
     if (activeMidCategoryId === 999) return;
 
-    setIsShowing(true);
+    openBottomSheet();
   };
 
   useEffect(() => {
+    console.log('useEffect - 1');
+
     refetch();
   }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   useEffect(() => {
     const { id } = activeOption;
-
+    console.log('here-- id', id);
     if (typeof id === 'string') return;
 
     setActiveSubCategoryId(id);
-  }, [activeMidCategoryId, activeOption]);
-
-  useEffect(() => {
-    setIsShowing(false);
-  }, [activeSubCategoryId, setIsShowing]);
+  }, [activeOption]);
 
   const updateSubCategories = useCallback(() => {
+    console.log('updateSubCategories');
     if (activeMidCategoryId === 999) return;
 
     queryClient.invalidateQueries({
