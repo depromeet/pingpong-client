@@ -1,21 +1,25 @@
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-import { bottomSheetActiveOptionAtom } from '@/store/components';
+import useBottomSheet from '@/hooks/useBottomSheet';
+import { bottomSheetActiveOptionAtom, bottomSheetOptionsAtom } from '@/store/components';
 import type { Option } from '@/typings/common';
 
-const BottomSheetOptions = ({ list }: { list: Option[] }) => {
+const BottomSheetOptions = () => {
   const [activeOption, setActiveOption] = useRecoilState(bottomSheetActiveOptionAtom);
+  const [bottomSheetOptions, setBottomSheetOptions] = useRecoilState<Option[]>(bottomSheetOptionsAtom);
+
+  const { closeBottomSheet } = useBottomSheet();
+
+  const onClickOption = (item: Option) => {
+    setActiveOption(item);
+    closeBottomSheet();
+  };
 
   return (
     <OptionList>
-      {list.map((item) => (
-        <OptionItem
-          key={item.id}
-          value={item.id}
-          isActive={activeOption.id === item.id}
-          onClick={() => setActiveOption(item)}
-        >
+      {bottomSheetOptions.map((item) => (
+        <OptionItem key={item.id} value={item.id} isActive={activeOption.id === item.id} onClick={onClickOption}>
           {item.label}
         </OptionItem>
       ))}

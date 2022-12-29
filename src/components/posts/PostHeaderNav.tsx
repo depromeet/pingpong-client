@@ -8,10 +8,11 @@ import MoreIcon from '../../../public/icons/more.svg';
 
 const PostHeaderNav = ({ isMine = false }: { isMine?: boolean }) => {
   const router = useRouter();
-  const { setIsShowing } = useBottomSheet();
+  const { openBottomSheet } = useBottomSheet();
+
   const onClickMore = () => {
     if (!isMine) return;
-    setIsShowing(true);
+    openBottomSheet();
   };
 
   return (

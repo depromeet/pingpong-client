@@ -5,13 +5,23 @@ import type { Option } from '@/typings/common';
 
 const useBottomSheet = () => {
   const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
-  const [bottomSheetOptions, setBottomSheetOptions] = useRecoilState<Option[]>(bottomSheetOptionsAtom);
+
+  const openBottomSheet = () => {
+    console.log('openBottomSheet');
+    setIsShowing(true);
+  };
+
+  const closeBottomSheet = () => {
+    console.log('closeBottomSheet');
+    setIsShowing(false);
+  };
 
   return {
     isShowing,
-    setIsShowing,
-    bottomSheetOptions,
-    setBottomSheetOptions,
+    openBottomSheet,
+    closeBottomSheet,
+    // bottomSheetOptions,
+    // setBottomSheetOptions,
   };
 };
 

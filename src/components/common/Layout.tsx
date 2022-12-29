@@ -27,7 +27,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   const showGnb = useMemo(() => hasGnbPath.includes(router.pathname), [router]);
   const [isSpinnerActive, setIsSpinnerActive] = useRecoilState(spinnerAtom);
-  const { isShowing, setIsShowing, bottomSheetOptions } = useBottomSheet();
+  const { isShowing, closeBottomSheet } = useBottomSheet();
 
   usePopup();
 
@@ -45,8 +45,8 @@ const Layout = ({ children }: PropsWithChildren) => {
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
       <Spinner isShowing={isSpinnerActive} />
-      <BottomSheet isShowing={isShowing} onClose={() => setIsShowing(false)}>
-        <BottomSheetOptions list={bottomSheetOptions} />
+      <BottomSheet isShowing={isShowing} onClose={closeBottomSheet}>
+        <BottomSheetOptions />
       </BottomSheet>
     </>
   );
