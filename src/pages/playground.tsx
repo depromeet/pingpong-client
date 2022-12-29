@@ -8,11 +8,12 @@ import Carousel from '@/components/common/CardCarousel';
 import CircleImg from '@/components/common/CircleImg';
 import RadioButtonGroup from '@/components/common/RadioButtonGroup';
 import RadioGroup from '@/components/common/RadioGroup';
+import useBottomSheet from '@/hooks/useBottomSheet';
 import useRadioGroup from '@/hooks/useRadioGroup';
 import { bottomSheetAtom } from '@/store/components';
 
 const Playground = () => {
-  const [isShowing, setIsShowing] = useRecoilState(bottomSheetAtom);
+  const { openBottomSheet } = useBottomSheet();
 
   const mockList = [
     { id: 1, label: '하하' },
@@ -168,10 +169,7 @@ const Playground = () => {
     <PlaygroundContainer>
       <PlaygroundBlock>
         <PlaygroundTitle>Bottom Sheet</PlaygroundTitle>
-        <BottomSheet isShowing={isShowing} onClose={() => setIsShowing(false)}>
-          <BottomSheetOptions list={mockList} />
-        </BottomSheet>
-        <TestButton onClick={() => setIsShowing(true)}>바텀시트 열기</TestButton>
+        <TestButton onClick={openBottomSheet}>바텀시트 열기</TestButton>
       </PlaygroundBlock>
       <PlaygroundBlock>
         <PlaygroundTitle>Radio (Group)</PlaygroundTitle>
