@@ -5,9 +5,8 @@ export const useAuth = () => {
 
   useEffect(() => {
     const cookie = document.cookie.includes('access_token');
-    const sessionForDev = sessionStorage.getItem('token');
 
-    setIsLogin(cookie || sessionForDev ? true : false);
+    setIsLogin(cookie ? true : false);
   }, []);
 
   return { isLogin };
