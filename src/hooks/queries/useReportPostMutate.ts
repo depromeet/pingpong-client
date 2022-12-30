@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { axiosClient } from '@/apis';
 
-const useReportPostMutate = ({ postId, content }: { postId: number; content: string }) => {
+const useReportPostMutate = () => {
   const createReportByPostId = async ({ postId, content }: { postId: number; content: string }) => {
     const {
       data: { data },
@@ -14,7 +14,7 @@ const useReportPostMutate = ({ postId, content }: { postId: number; content: str
   };
 
   return useMutation({
-    mutationFn: () => createReportByPostId({ postId, content }),
+    mutationFn: ({ postId, content }: { postId: number; content: string }) => createReportByPostId({ postId, content }),
   });
 };
 

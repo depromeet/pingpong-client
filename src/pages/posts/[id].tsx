@@ -37,10 +37,7 @@ const PostDetail = () => {
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
   const { mutate: postDeleteMutate, isSuccess: postDeleteIsSuccess } = usePostDeleteMutate(postId);
-  const { mutate: reportPostMutate, isSuccess: reportPostIsSuccess } = useReportPostMutate({
-    postId,
-    content: reportReason,
-  });
+  const { mutate: reportPostMutate, isSuccess: reportPostIsSuccess } = useReportPostMutate();
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
@@ -49,12 +46,16 @@ const PostDetail = () => {
   const handleReportPopup = useCallback(() => {
     setPopup({
       title: '사용자 신고하기',
-      children: <PostReportRadioGroup />,
-      onConfirm: () => reportPostMutate(),
+      children: <PostReportRadioGroup setReportReason={setReportReason} />,
+      onConfirm: () =>
+        reportPostMutate({
+          postId,
+          content: reportReason,
+        }),
       confirmText: '선택 완료',
       cancelText: '취소',
     });
-  }, [setPopup, reportPostMutate]);
+  }, [setPopup, reportPostMutate, postId, reportReason]);
 
   useEffect(() => {
     if (!postIsSuccess) return;
