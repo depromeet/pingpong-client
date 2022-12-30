@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useCallback, useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
@@ -10,6 +10,7 @@ import CircleImg from '@/components/common/CircleImg';
 import LikeButton from '@/components/common/LikeButton';
 import Tag from '@/components/common/Tag';
 import PostHeader from '@/components/posts/PostHeader';
+import PostReportRadioGroup from '@/components/posts/PostReportRadioGroup';
 import { Layout, Typography } from '@/components/styles';
 import { ExchangePeriodLabel, ExchangeTimeLabel, ExchangeTypeLabel } from '@/constants';
 import { colors } from '@/constants/styles';
@@ -18,8 +19,8 @@ import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useReportPostMutate from '@/hooks/queries/useReportPostMutate';
-import { bottomSheetActiveOptionAtom } from '@/store/components';
-import type { LinkInfo } from '@/typings/common';
+import { bottomSheetActiveOptionAtom, popupAtom } from '@/store/components';
+import type { LinkInfo, PopupProps } from '@/typings/common';
 
 const PostDetail = () => {
   const router = useRouter();
@@ -27,18 +28,33 @@ const PostDetail = () => {
   const mockImage =
     'https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80';
 
+  const [popup, setPopup] = useRecoilState<PopupProps | null>(popupAtom);
+  const [reportReason, setReportReason] = useState<string>('');
+  const [isMyPost, setIsMyPost] = useState(false);
+  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
   const { mutate: postDeleteMutate, isSuccess: postDeleteIsSuccess } = usePostDeleteMutate(postId);
-  const { mutate: reportPostMutate, isSuccess: reportPostIsSuccess } = useReportPostMutate(postId);
-
-  const [isMyPost, setIsMyPost] = useState(false);
-  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+  const { mutate: reportPostMutate, isSuccess: reportPostIsSuccess } = useReportPostMutate({
+    postId,
+    content: reportReason,
+  });
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
   };
+
+  const handleReportPopup = useCallback(() => {
+    setPopup({
+      title: '사용자 신고하기',
+      children: <PostReportRadioGroup />,
+      onConfirm: () => reportPostMutate(),
+      confirmText: '선택 완료',
+      cancelText: '취소',
+    });
+  }, [setPopup, reportPostMutate]);
 
   useEffect(() => {
     if (!postIsSuccess) return;
@@ -53,8 +69,10 @@ const PostDetail = () => {
 
   useEffect(() => {
     if (activeOption.id === 'DELETE') postDeleteMutate();
-    if (activeOption.id === 'REPORT') reportPostMutate();
-  }, [activeOption, postDeleteMutate, reportPostMutate]);
+    if (activeOption.id === 'REPORT') {
+      handleReportPopup();
+    }
+  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup]);
 
   return (
     <>

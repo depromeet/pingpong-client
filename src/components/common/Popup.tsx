@@ -29,7 +29,7 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
           {children}
         </main>
         <footer className="flex w-full text-[15px] items-center justify-center border-t-[1px] border-gray-150">
-          {onCancel && (
+          {cancelText && (
             <button
               className="text-button w-full py-[4%] border-r-[1px] border-gray-150 text-gray-400"
               onClick={onCancelClicked}
