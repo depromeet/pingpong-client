@@ -6,7 +6,7 @@ const usePostDeleteMutate = (postId: number) => {
   const deletePost = async (postId: number) => {
     const {
       data: { data },
-    } = await axiosClient.delete(`/.api/posts/${postId}`);
+    } = await axiosClient.delete(`/posts/${postId}`);
 
     return data;
   };

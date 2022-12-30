@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
+import type { Radio } from '@/hooks/useRadioGroup';
 import { talentRegisterInputSelectorFamily } from '@/store/components/selectors';
 
 import type { RadioButtonGroupProps } from './RadioButtonGroup';

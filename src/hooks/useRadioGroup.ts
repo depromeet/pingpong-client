@@ -1,7 +1,6 @@
-import { useRecoilState } from 'recoil';
+import { useState } from 'react';
 
 import type { RadioUI } from '@/components/common/RadioButtonGroup';
-import { talentRegisterEnvironmnetAtomFamily } from '@/store/components';
 
 export interface Radio {
   key: string;
@@ -9,12 +8,12 @@ export interface Radio {
 }
 
 interface UseRadioGroupProps {
-  inputKey: string;
   list: RadioUI[] | Radio[];
+  initialValue?: Radio | null;
 }
 
-const useRadioGroup = ({ list, inputKey }: UseRadioGroupProps) => {
-  const [currentSelected, setCurrentSelected] = useRecoilState(talentRegisterEnvironmnetAtomFamily(inputKey));
+const useRadioGroup = ({ list, initialValue = null }: UseRadioGroupProps) => {
+  const [currentSelected, setCurrentSelected] = useState<Radio | null>(initialValue);
 
   const onChange = ({ key, label }: Radio) => {
     setCurrentSelected(() => ({
