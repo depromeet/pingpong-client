@@ -32,6 +32,9 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
     title: '게시글 작성을 그만두시겠어요?',
     content: '지금까지 작성한 내용은 저장되지 않아요',
     confirmText: '그만둘래요',
+    onConfirm() {
+      router.push('/talent/register');
+    },
     cancelText: '취소',
   });
 
