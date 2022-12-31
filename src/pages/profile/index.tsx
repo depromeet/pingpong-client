@@ -116,7 +116,9 @@ export default function Profile() {
             {posts.map((item) => {
               return (
                 <li key={item.id}>
-                  <Card hideProfile {...item} />
+                  <Link href={`/posts/${item.id}?isMyPost=true`}>
+                    <Card hideProfile {...item} />
+                  </Link>
                 </li>
               );
             })}

@@ -6,12 +6,12 @@ import useBottomSheet from '@/hooks/useBottomSheet';
 import ArrowLeftIcon from '../../../public/icons/arrow-left.svg';
 import MoreIcon from '../../../public/icons/more.svg';
 
-const PostHeaderNav = ({ isMine = false }: { isMine?: boolean }) => {
+const PostHeaderNav = ({ isMyPost = false }: { isMyPost?: boolean }) => {
   const router = useRouter();
   const { openBottomSheet, addBottomSheetOptions } = useBottomSheet();
 
   const onClickMore = () => {
-    isMine
+    isMyPost
       ? addBottomSheetOptions([{ id: 'DELETE', label: '게시글 삭제' }])
       : addBottomSheetOptions([{ id: 'REPORT', label: '사용자 신고하기' }]);
     openBottomSheet();
