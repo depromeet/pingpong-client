@@ -9,12 +9,15 @@ import EmptyCard from '@/components/common/EmptyCard';
 import Spinner from '@/components/common/Spinner';
 import Tag from '@/components/common/Tag';
 import TextBox from '@/components/common/TextBox';
+import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useGetMemberPosts from '@/hooks/useGetMemberPosts';
 
 export default function Profile() {
+  const { myInfo } = useMyInfo();
+
   const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
-  const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useGetMemberPosts(1);
+  const { posts, fetchNextPage, isSuccess: postsIsSuccess, hasNextPage } = useGetMemberPosts(myInfo?.memberId);
   const [isShowAllPosts, setIsShowAllPosts] = useState(false);
   const { ref, inView } = useInView();
 
@@ -122,11 +125,13 @@ export default function Profile() {
                 </li>
               );
             })}
-            <ContainerRef ref={ref}>
-              <Spinner />
-            </ContainerRef>
+            {hasNextPage && isShowAllPosts && (
+              <ContainerRef ref={ref}>
+                <Spinner />
+              </ContainerRef>
+            )}
             <button
-              className={`w-full border border-gray-200 rounded-[8px] p-[16px] text-gray-500 text-[15px] ${
+              className={`mt-[8px] w-full border border-gray-200 rounded-[8px] p-[16px] text-gray-500 text-[15px] ${
                 isShowAllPosts && 'hidden'
               }`}
               onClick={() => setIsShowAllPosts(true)}

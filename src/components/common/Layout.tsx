@@ -30,13 +30,19 @@ const Layout = ({ children }: PropsWithChildren) => {
   const isFetching = useIsFetching();
 
   useEffect(() => {
-    if (isFetching) {
-      setIsSpinnerActive(true);
+    let timer = null;
 
-      setTimeout(() => {
+    if (isFetching) {
+      if (timer) {
         setIsSpinnerActive(false);
-      }, 1500);
+      }
+      timer = setTimeout(() => {
+        if (isSpinnerActive) {
+          setIsSpinnerActive(true);
+        }
+      }, 1000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, setIsSpinnerActive]);
 
   return (
@@ -46,7 +52,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       {popupValue && <Popup {...popupValue} />}
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
-      <Spinner isDimmed={isSpinnerActive} />
+      {isSpinnerActive && <Spinner isDimmed={isSpinnerActive} />}
       <BottomSheet isShowing={isBottomSheetOpen} onClose={closeBottomSheet}>
         <BottomSheetOptions />
       </BottomSheet>
