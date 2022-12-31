@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
+import CircleImg from '@/components/common/CircleImg';
 import EmptyCard from '@/components/common/EmptyCard';
 import Spinner from '@/components/common/Spinner';
 import Tag from '@/components/common/Tag';
@@ -41,9 +42,7 @@ export default function Profile() {
           </Link>
         </article>
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
-          <div className="relative w-[88px] h-[88px] rounded-full overflow-hidden">
-            <Image src={`${userData?.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
-          </div>
+          <CircleImg size="xxlarge" src={`${userData?.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
           <span className="text-h2">{`${userData?.nickname}`}</span>
         </article>
       </section>
