@@ -164,15 +164,19 @@ const Home: NextPage = () => {
       />
       <Layout.DefaultPadding>
         <CardContainer>
-          {posts.map((item) => {
-            return (
-              <li key={item.id}>
-                <Link href={`/posts/${item.id}`}>
-                  <Card {...item} />
-                </Link>
-              </li>
-            );
-          })}
+          {posts.length ? (
+            posts.map((item) => {
+              return (
+                <li key={item.id}>
+                  <Link href={`/posts/${item.id}`}>
+                    <Card {...item} />
+                  </Link>
+                </li>
+              );
+            })
+          ) : (
+            <EmptyCard>조건에 맞는 재능이 없어요</EmptyCard>
+          )}
           <ContainerRef ref={ref}>
             <Spinner />
           </ContainerRef>
