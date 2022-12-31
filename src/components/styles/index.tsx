@@ -62,7 +62,7 @@ const FixedBottom = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 0 2rem 3.4rem 2rem;
+  padding: 0.8rem 1.6rem 3.4rem 1.6rem;
   background-color: white;
 `;
 
