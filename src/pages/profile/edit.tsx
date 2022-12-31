@@ -1,6 +1,9 @@
+import Image from 'next/image';
+import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { updateUserProfile } from '@/apis/user-profile';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
@@ -13,8 +16,12 @@ import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
 const ProfileEdit = () => {
   const { myInfo } = useMyInfo();
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId); //FIXME: another user profile
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
 
+  const [profile, setProfile] = useState<{ file: File | null; preview: string }>({
+    file: null,
+    preview: '/images/empty-profile.png',
+  });
   const [name, setName] = useState('');
   const [nameError] = useState('');
   const [introduction, setIntroduction] = useState('');
@@ -42,7 +49,11 @@ const ProfileEdit = () => {
   }, []);
 
   useEffect(() => {
-    if (userIsSuccess) {
+    if (userIsSuccess && userData) {
+      setProfile({ preview: userData.image, file: null });
+      setName(userData.nickname);
+      setIntroduction(userData.introduction);
+      setLink(userData.profileLink);
       setGivenTalents((prev) => {
         return prev.length > 0
           ? prev
@@ -59,17 +70,9 @@ const ProfileEdit = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userIsSuccess]);
-
-  useEffect(() => {
-    if (userIsSuccess) {
-      setName(userData.nickname);
-      setIntroduction(userData.introduction);
-      setLink(userData.profileLink);
-    }
   }, [userData, userIsSuccess]);
 
-  const handleSaveButton = () => {
+  const handleSaveButton = async () => {
     const profileInfo = {
       nickname: name,
       introduction: introduction,
@@ -79,16 +82,45 @@ const ProfileEdit = () => {
     };
 
     mutate(profileInfo);
+    profile.file && (await updateUserProfile(profile.file));
+  };
+  const handleProfileUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.item(0);
+
+    if (!file) {
+      return;
+    }
+
+    setProfile({ file: file, preview: URL.createObjectURL(file) });
   };
 
   useHeader({
     title: '프로필 편집',
     activeButton: '저장',
     className: 'bg-white border-b border-gray-100',
+    onActiveButtonClick: handleSaveButton,
   });
 
   return (
     <>
+      <section className="pt-[15px] flex items-center justify-center gap-5 flex-col bg-gray-100">
+        <div className="relative w-[88px] h-[88px] rounded-full overflow-hidden">
+          <Image
+            src={profile.preview}
+            alt="profile"
+            className="w-[88px] aspect-square rounded-full bg-gray-100"
+            width={10}
+            height={10}
+          />
+        </div>
+        <label
+          htmlFor="file-upload"
+          className="px-[12px] py-[6px] border border-gray-200 bg-white rounded-[20px] text-b4 mb-[18px]"
+        >
+          사진 변경하기
+          <input type="file" className="hidden" id="file-upload" onChange={handleProfileUpdate} />
+        </label>
+      </section>
       <main className="px-[16px]">
         <section className="mt-[26px]">
           <label htmlFor="name" className="text-t3">
