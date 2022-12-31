@@ -16,10 +16,10 @@ export const usePopupWithBlock = (blockPopupProps?: PopupProps) => {
       ...blockPopupProps,
       onCancel: () => null,
       onConfirm: () => {
+        isBlockBack.current = undefined;
         if (blockPopupProps?.onConfirm) {
           blockPopupProps.onConfirm();
         } else {
-          isBlockBack.current = undefined;
           router.back();
         }
       },
