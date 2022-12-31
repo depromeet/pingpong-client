@@ -122,7 +122,13 @@ const Home: NextPage = () => {
         {customPostsIsSuccess && customPostsData.content.length ? (
           <CardCarousel list={customPostsData.content} />
         ) : (
-          <EmptyCard>아직 나와 매칭된 재능이 없어요.</EmptyCard>
+          <EmptyCard>
+            <p>
+              아직 나와 매칭된 재능이 없어요.
+              <br />
+              프로필 탭에서 받고 싶은 재능을 선택해주세요.
+            </p>
+          </EmptyCard>
         )}
       </Layout.DefaultPadding>
       <Layout.Divider className="mt-32 mb-40" />

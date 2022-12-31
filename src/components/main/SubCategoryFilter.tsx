@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '@/constants/styles';
 
 import ArrowDownIcon from '../../../public/icons/arrow-down.svg';
-import CheckActiveIcon from '../../../public/icons/check-active.svg';
+import CheckBlackIcon from '../../../public/icons/check-black.svg';
 import CheckInactiveIcon from '../../../public/icons/check-inactive.svg';
 
 interface SubCategoryFilterProps {
@@ -28,7 +28,7 @@ const SubCategoryFilter = ({
         </SubFilterDropdown>
       )}
       <FilterCheckbox isShare={isShare} onClick={() => handleIsShare(!isShare)}>
-        {isShare ? <CheckActiveIcon /> : <CheckInactiveIcon />}
+        {isShare ? <CheckBlackIcon /> : <CheckInactiveIcon />}
         재능 나눔만
       </FilterCheckbox>
     </FilterContainer>
