@@ -11,6 +11,7 @@ import { talentRegisterOrderAtom } from '@/store/components';
 import { talentRegisterSelector } from '@/store/components/selectors';
 
 import Button from '../common/Button';
+import { Layout } from '../styles';
 import TalentRegisterTextRadioButtonGroup from './TalentRegisterTextRadioButtonGroup';
 
 const ENVIRONMENT = {
@@ -151,19 +152,21 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
   }, [isError, setToast]);
 
   return (
-    <form className={`${className} px-[16px] py-[24.5px]`}>
+    <form className={`${className} px-[16px] pt-[24.5px] h-screen`}>
       <TalentRegisterTextRadioButtonGroup options={ENVIRONMENT[sort]} />
       <TalentRegisterTextRadioButtonGroup options={PERIOD[sort]} />
       <TalentRegisterTextRadioButtonGroup options={TIME} />
-      <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px] mt-[100px]">
-        <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
-          이전
-        </Button>
-        {/**FIXME: Mutation 타입 설정 필요 */}
-        <Button type="button" onClick={() => mutate(talentInfo as any)} className="w-full h-[48px]">
-          {sort === 'SHARE' ? '재능 나눔 등록하기' : '재능 교환 등록하기'}
-        </Button>
-      </div>
+      <Layout.FixedBottom>
+        <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px]">
+          <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
+            이전
+          </Button>
+          {/**FIXME: Mutation 타입 설정 필요 */}
+          <Button type="button" onClick={() => mutate(talentInfo as any)} className="w-full h-[48px]">
+            {sort === 'SHARE' ? '재능 나눔 등록하기' : '재능 교환 등록하기'}
+          </Button>
+        </div>
+      </Layout.FixedBottom>
     </form>
   );
 };
