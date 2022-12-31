@@ -1,18 +1,24 @@
 import Image from 'next/image';
 import type { ChangeEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { updateUserProfile } from '@/apis/user-profile';
+import Header from '@/components/common/Header';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
 import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
-import useHeader from '@/hooks/useHeader';
 import { useToast } from '@/hooks/useToast';
 import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
+
+const headerArgs = {
+  title: '프로필 편집',
+  activeButton: '저장',
+  className: 'bg-white border-b border-gray-100',
+};
 
 const ProfileEdit = () => {
   const { myInfo } = useMyInfo();
@@ -23,9 +29,11 @@ const ProfileEdit = () => {
     preview: '/images/empty-profile.png',
   });
   const [name, setName] = useState('');
-  const [nameError] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [link, setLink] = useState('');
+
+  const [nameError, setNameError] = useState('');
+  const [introductionError, setIntroductionError] = useState('');
 
   const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
   const [takenTalents, setTakenTalents] = useRecoilState(tabAtomFamily('takenTalents'));
@@ -34,6 +42,10 @@ const ProfileEdit = () => {
 
   const { mutate, isSuccess, isError } = useEditProfile();
   const { setToast } = useToast();
+
+  const handleNameChange = useCallback((v: string) => {
+    setName(v);
+  }, []);
 
   useEffect(() => {
     isSuccess && setToast('프로필이 저장되었어요.');
@@ -73,6 +85,12 @@ const ProfileEdit = () => {
   }, [userData, userIsSuccess]);
 
   const handleSaveButton = async () => {
+    if (name.length === 0 || introduction.length === 0) {
+      setNameError(name.length === 0 ? '이름을 작성해주세요' : '');
+      setIntroductionError(introduction.length === 0 ? '자기소개를 작성해주세요' : '');
+      return;
+    }
+
     const profileInfo = {
       nickname: name,
       introduction: introduction,
@@ -81,9 +99,13 @@ const ProfileEdit = () => {
       takenTalents: takenTalents.map((takenTalent) => takenTalent.id),
     };
 
+    setNameError('');
+    setIntroductionError('');
+
     mutate(profileInfo);
     profile.file && (await updateUserProfile(profile.file));
   };
+
   const handleProfileUpdate = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.item(0);
 
@@ -94,15 +116,9 @@ const ProfileEdit = () => {
     setProfile({ file: file, preview: URL.createObjectURL(file) });
   };
 
-  useHeader({
-    title: '프로필 편집',
-    activeButton: '저장',
-    className: 'bg-white border-b border-gray-100',
-    onActiveButtonClick: handleSaveButton,
-  });
-
   return (
     <>
+      <Header {...headerArgs} onActiveButtonClick={handleSaveButton} />
       <section className="pt-[15px] flex items-center justify-center gap-5 flex-col bg-gray-100">
         <div className="relative w-[88px] h-[88px] rounded-full overflow-hidden">
           <Image
@@ -132,7 +148,7 @@ const ProfileEdit = () => {
             placeholder="이름을 입력해주세요"
             maxLength={10}
             value={name}
-            onChange={(v) => setName(v)}
+            onChange={handleNameChange}
             error={nameError}
           />
         </section>
@@ -165,6 +181,7 @@ const ProfileEdit = () => {
             maxLength={300}
             className="mt-[8px]"
             placeholder="소개 글을 작성해 주세요."
+            error={introductionError}
             onChange={(v) => setIntroduction(v)}
           />
         </section>
