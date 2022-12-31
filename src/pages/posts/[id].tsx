@@ -77,9 +77,9 @@ const PostDetail = () => {
 
   return (
     <>
-      <PostHeader isMine={isMyPost} imageUrl={mockImage} />
       {postIsSuccess && (
         <>
+          <PostHeader isMine={isMyPost} imageUrl={postData.backgroundImage} />
           <Layout.DetailContainer>
             <Layout.DefaultPadding>
               <ProfileContainer className="mb-16 pb-16">
