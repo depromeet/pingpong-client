@@ -25,8 +25,6 @@ import type { LinkInfo, PopupProps } from '@/typings/common';
 const PostDetail = () => {
   const router = useRouter();
   const postId = Number(router.query.id) || 0;
-  const mockImage =
-    'https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80';
 
   const [popup, setPopup] = useRecoilState<PopupProps | null>(popupAtom);
   const [reportReason, setReportReason] = useState<string>('');
@@ -64,8 +62,8 @@ const PostDetail = () => {
   }, [postLikeIsSuccess, postUnlikeIsSuccess, postIsSuccess, refetch]);
 
   useEffect(() => {
-    const isMine = router.asPath.includes('isMine');
-    setIsMyPost(isMine);
+    const pathHasIsMyPost = router.asPath.includes('isMyPost');
+    setIsMyPost(pathHasIsMyPost);
   }, [router]);
 
   useEffect(() => {
@@ -79,7 +77,7 @@ const PostDetail = () => {
     <>
       {postIsSuccess && (
         <>
-          <PostHeader isMine={isMyPost} imageUrl={postData.backgroundImage} />
+          <PostHeader isMyPost={isMyPost} imageUrl={postData.backgroundImage} />
           <Layout.DetailContainer>
             <Layout.DefaultPadding>
               <ProfileContainer className="mb-16 pb-16">
@@ -89,9 +87,11 @@ const PostDetail = () => {
                   <aside>{postData.ranks}</aside>
                 </ProfileInfo>
                 <Link href={`/profile/${postData.memberId}`}>
-                  <ProfileLinkButton>
-                    <Typography.Desc>프로필보기</Typography.Desc>
-                  </ProfileLinkButton>
+                  {!isMyPost && (
+                    <ProfileLinkButton>
+                      <Typography.Desc>프로필보기</Typography.Desc>
+                    </ProfileLinkButton>
+                  )}
                 </Link>
               </ProfileContainer>
               {postData.isShare ? (
