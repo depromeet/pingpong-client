@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { queryFetcher } from '@/apis';
-import { myInfoAtom } from '@/store/components';
+import { myInfoAtom } from '@/store/components/atoms';
 import type { UserInfo } from '@/typings/common';
 
 export const useMyInfoQuery = () => {
