@@ -66,6 +66,7 @@ interface PostInfo {
   exchangeType: keyof typeof ExchangeTypeLabel;
   exchangePeriod: keyof typeof ExchangePeriodLabel;
   exchangeTime: keyof typeof ExchangeTimeLabel;
+  backgroundImage: string;
   memberId: number;
   nickname: string;
   image: string;
