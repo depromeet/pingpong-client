@@ -8,6 +8,7 @@ import { talentRegisterOrderAtom } from '@/store/components';
 import Button from '../common/Button';
 import TextSelectInput from '../common/TextSelectInput';
 import TextTextarea from '../common/TextTextarea';
+import { Layout } from '../styles';
 
 const CATEGORY = {
   SHARE: {
@@ -69,14 +70,16 @@ const TalentRegisterFormThree = ({ className, sort }: TalentRegisterProps) => {
     <form className={`${className} px-[16px] py-[24.5px]`}>
       <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
       <TextTextarea option={EXPLANATION[sort]} />
-      <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px] mt-[180px]">
-        <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
-          이전
-        </Button>
-        <Button type="button" onClick={onNextClick} disabled={disabled} className="w-full h-[48px]">
-          다음
-        </Button>
-      </div>
+      <Layout.FixedBottom>
+        <div className="grid grid-cols-[0.32fr_1fr] gap-x-[8px]">
+          <Button buttonStyle="SECONDARY" type="button" onClick={onBackClick} className="w-full h-[48px]">
+            이전
+          </Button>
+          <Button type="button" onClick={onNextClick} disabled={disabled} className="w-full h-[48px]">
+            다음
+          </Button>
+        </div>
+      </Layout.FixedBottom>
     </form>
   );
 };

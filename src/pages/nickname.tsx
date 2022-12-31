@@ -7,6 +7,7 @@ import CircleCheckbox from '@/components/common/CircleCheckbox';
 import IconAnchor from '@/components/common/IconAnchor';
 import Input from '@/components/common/Input';
 import { ArrowIcon } from '@/components/icons';
+import { Layout } from '@/components/styles';
 import useNicknameMutate from '@/hooks/queries/useNicknameMutate';
 
 const agreementList = [
@@ -81,11 +82,13 @@ const Nickname = () => {
             </div>
           ))}
         </section>
-        <div className="absolute left-0 bottom-0 w-full">
-          <Button onClick={handleComplete} className="w-full" disabled={buttonDisabled}>
-            완료
-          </Button>
-        </div>
+        <Layout.FixedBottom>
+          <div className="absolute left-0 bottom-0 w-full">
+            <Button onClick={handleComplete} className="w-full" disabled={buttonDisabled}>
+              완료
+            </Button>
+          </div>
+        </Layout.FixedBottom>
       </div>
     </main>
   );

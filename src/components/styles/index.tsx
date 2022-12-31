@@ -57,9 +57,19 @@ const Divider = styled.div`
   padding: -6rem;
 `;
 
+const FixedBottom = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 2rem 3.4rem 2rem;
+  background-color: white;
+`;
+
 export const Layout = {
   DefaultContainer,
   DefaultPadding,
   DetailContainer,
   Divider,
+  FixedBottom,
 };

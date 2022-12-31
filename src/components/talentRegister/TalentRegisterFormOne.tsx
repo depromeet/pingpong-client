@@ -11,6 +11,7 @@ import Button from '../common/Button';
 import TextInput from '../common/TextInput';
 import TextSelectInput from '../common/TextSelectInput';
 import TextTextarea from '../common/TextTextarea';
+import { Layout } from '../styles';
 
 const CATEGORY = {
   SHARE: {
@@ -117,7 +118,7 @@ const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
   }, [setMethod, sort]);
 
   return (
-    <form className={`${className} px-[16px] py-[24.5px]`}>
+    <form className={`${className} px-[16px] pt-[24.5px]`}>
       <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
       <TextInput option={TITLE} />
       <TextTextarea option={EXPLANATION[sort]} />
@@ -125,9 +126,11 @@ const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
       <TextInput option={LINK2} />
       <TextInput option={LINK3} />
       <TextInput option={CHAT_LINK} />
-      <Button type="button" onClick={onClick} disabled={disabled} className="w-full">
-        다음
-      </Button>
+      <Layout.FixedBottom>
+        <Button type="button" onClick={onClick} disabled={disabled} className="w-full">
+          다음
+        </Button>
+      </Layout.FixedBottom>
     </form>
   );
 };
