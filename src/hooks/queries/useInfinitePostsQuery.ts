@@ -51,7 +51,7 @@ const useInfinitePostsQuery = (params: CategoryFilterParams) => {
     return data;
   };
 
-  const { data, fetchNextPage, isSuccess, isLoading, isError, refetch } = useInfiniteQuery({
+  const { data, fetchNextPage, isSuccess, isLoading, isError, refetch, hasNextPage } = useInfiniteQuery({
     queryKey: ['infinitePosts', params],
     queryFn: ({ pageParam }) => fetchPosts({ ...params, pageParam }),
     getNextPageParam: (lastPage) => {
@@ -74,6 +74,7 @@ const useInfinitePostsQuery = (params: CategoryFilterParams) => {
     isLoading,
     isError,
     refetch,
+    hasNextPage,
   };
 };
 

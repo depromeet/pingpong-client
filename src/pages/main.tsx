@@ -44,15 +44,10 @@ const Home: NextPage = () => {
 
   const {
     mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
-    subCategoryQuery: { data: subCategoryData, isSuccess: subCategoryIsSuccess },
+    subCategoryQuery: { data: subCategoryData },
   } = useCategoriesQuery(activeMidCategoryId);
 
-  const {
-    posts,
-    fetchNextPage,
-    isSuccess: postsIsSuccess,
-    refetch,
-  } = useInfinitePostsQuery({
+  const { posts, fetchNextPage, refetch, hasNextPage } = useInfinitePostsQuery({
     isShare,
     mainCategory: activeMainCategoryId,
     midCategory: activeMidCategoryId === 999 ? 0 : activeMidCategoryId,
@@ -177,9 +172,11 @@ const Home: NextPage = () => {
           ) : (
             <EmptyCard>조건에 맞는 재능이 없어요</EmptyCard>
           )}
-          <ContainerRef ref={ref}>
-            <Spinner />
-          </ContainerRef>
+          {hasNextPage && (
+            <ContainerRef ref={ref}>
+              <Spinner />
+            </ContainerRef>
+          )}
         </CardContainer>
       </Layout.DefaultPadding>
     </Layout.DefaultContainer>
