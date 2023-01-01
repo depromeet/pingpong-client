@@ -5,7 +5,6 @@ import Header from '@/components/common/Header';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
-import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { useToast } from '@/hooks/useToast';

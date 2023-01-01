@@ -18,7 +18,7 @@ interface InfinitePost extends PageParam {
 const PAGE_SIZE = 3;
 const DEFAULT_PAGE = 0;
 
-const useGetMemberPosts = (memberId?: number) => {
+const useGetMemberPosts = (memberId = 0) => {
   const fetchPosts = async ({ pageParam = DEFAULT_PAGE }: QueryFunctionContext): Promise<InfinitePost> => {
     const {
       data: { data },

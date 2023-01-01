@@ -8,7 +8,6 @@ import IconAnchor from '@/components/common/IconAnchor';
 import Input from '@/components/common/Input';
 import { ArrowIcon } from '@/components/icons';
 import { Layout } from '@/components/styles';
-import useMyInfoQuery from '@/hooks/queries/useMyInfoQuery';
 import useNicknameMutate from '@/hooks/queries/useNicknameMutate';
 
 const agreementList = [
