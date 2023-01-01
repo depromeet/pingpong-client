@@ -25,11 +25,6 @@ export default function Profile() {
     if (inView && isShowAllPosts) fetchNextPage();
   }, [inView, fetchNextPage, isShowAllPosts]);
 
-  // TODO: profile 페이지 새로고침 시 myInfo 가 null 로 초기화되는 이슈가 있음
-  // useEffect(() => {
-  //   console.log('myInfo', myInfo);
-  // }, [myInfo]);
-
   return (
     <main className="bg-bg-gray">
       {myInfo && (

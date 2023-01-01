@@ -2,10 +2,12 @@ import { useIsFetching } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useMemo } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
+import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { headerAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
+import { headerAtom, myInfoAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
+import type { UserInfo } from '@/typings/common';
 
 import BottomSheet from './BottomSheet';
 import BottomSheetOptions from './BottomSheetOptions';
@@ -28,6 +30,15 @@ const Layout = ({ children }: PropsWithChildren) => {
   const { isBottomSheetOpen, closeBottomSheet } = useBottomSheet();
 
   const isFetching = useIsFetching();
+
+  const { data: userData, isSuccess: userDataIsSuccess } = useUserInfoQuery();
+  const setMyInfo = useSetRecoilState<UserInfo | null>(myInfoAtom);
+
+  useEffect(() => {
+    if (!userDataIsSuccess) return;
+
+    setMyInfo(userData);
+  }, [userDataIsSuccess, userData, setMyInfo]);
 
   useEffect(() => {
     let timer = null;
