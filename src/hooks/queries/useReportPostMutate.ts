@@ -19,7 +19,7 @@ const useReportPostMutate = () => {
 
   return useMutation({
     mutationFn: ({ postId, content }: { postId: number; content: string }) => createReportByPostId({ postId, content }),
-    onSuccess: () => setToast('신고 처리가 완료되었어요. 😢'),
+    onSuccess: () => setToast('신고 처리가 완료되었어요.'),
     onError: () => setToast('신고 처리에 실패했어요.'),
   });
 };
