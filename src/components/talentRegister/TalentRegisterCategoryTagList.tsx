@@ -32,8 +32,8 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
   };
 
   return (
-    <form className={`${className} px-[16px] py-[24.5px]`}>
-      <div className="mt-[229.52px] h-[80vh]">
+    <form className={`${className} px-[16px]`}>
+      <div>
         {isSuccess &&
           data.data.map(({ id, name, subCategories }: MidAndSubCategoriesProps) => {
             return (

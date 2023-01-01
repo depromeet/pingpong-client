@@ -8,10 +8,8 @@ const sort = 'EXCHANGE';
 const TalentRegisterExchangeCategory = () => {
   return (
     <>
-      <div className="fixed top-0">
-        <TalentRegisterCategotyHeader sort={sort} />
-        <TalentRegisterCategoryTabList />
-      </div>
+      <TalentRegisterCategotyHeader sort={sort} />
+      <TalentRegisterCategoryTabList />
       <TalentRegisterCategoryTagList sort={sort} />
     </>
   );
