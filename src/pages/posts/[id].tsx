@@ -27,7 +27,6 @@ const PostDetail = () => {
   const router = useRouter();
   const postId = Number(router.query.id) || 0;
 
-  const [popup, setPopup] = useRecoilState<PopupProps | null>(popupAtom);
   const [reportReason, setReportReason] = useState<string>('');
   const [isMyPost, setIsMyPost] = useState(false);
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
@@ -37,6 +36,7 @@ const PostDetail = () => {
   const { mutate: postUnlikeMutate, isSuccess: postUnlikeIsSuccess } = usePostUnlikeMutate(postId);
   const { mutate: postDeleteMutate, isSuccess: postDeleteIsSuccess } = usePostDeleteMutate(postId);
   const { mutate: reportPostMutate, isSuccess: reportPostIsSuccess } = useReportPostMutate();
+  const { setPopup } = usePopupWithBlock();
 
   const handleLike = () => {
     postData?.isLike ? postUnlikeMutate() : postLikeMutate();
