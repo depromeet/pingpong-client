@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
 
+import DeleteAccountRadioGroup from '@/components/setting/DeleteAccountRadioGroup';
+import useDeleteAccountMutate from '@/hooks/queries/useDeleteAccountMutate';
 import { useAuth } from '@/hooks/useAuth';
 import useHeader from '@/hooks/useHeader';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
@@ -14,6 +17,19 @@ export default function ProfileSetting() {
   const handleMoveToLink = (path: string) => {
     router.push(path);
   };
+
+  const [deleteReason, setDeleteReason] = useState('');
+  const { mutate: deleteAccountMutate } = useDeleteAccountMutate();
+
+  const hanldeDeletePopup = useCallback(() => {
+    setPopup({
+      title: 'Ping-Pong 서비스 탈퇴하기',
+      children: <DeleteAccountRadioGroup setDeleteReason={setDeleteReason} />,
+      onConfirm: () => deleteAccountMutate({ content: deleteReason }),
+      confirmText: '선택 완료',
+      cancelText: '취소',
+    });
+  }, [setDeleteReason, setPopup, deleteAccountMutate, deleteReason]);
 
   const settingList = [
     { label: '알림 설정', onClick: () => handleMoveToLink('/setting/alarm') },
@@ -33,8 +49,15 @@ export default function ProfileSetting() {
         });
       },
     },
-    { label: '탈퇴하기', onClick: () => null },
+    {
+      label: '탈퇴하기',
+      onClick: hanldeDeletePopup,
+    },
   ];
+
+  useEffect(() => {
+    hanldeDeletePopup();
+  }, [deleteReason, hanldeDeletePopup]);
 
   useHeader({
     title: '설정',

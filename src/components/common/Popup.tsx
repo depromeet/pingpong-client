@@ -15,6 +15,7 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
   };
 
   const onConfirmClicked = () => {
+    console.log('onConfirmClicked');
     onConfirm && onConfirm();
 
     setPopup(null);
