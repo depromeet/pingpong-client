@@ -14,7 +14,7 @@ jobs:
           echo "NEXT_PUBLIC_FE_URL=${{ secrets.NEXT_PUBLIC_DEV_FE_URL }}" >> .env
           echo "NEXT_PUBLIC_SERVER_URL=${{ secrets.NEXT_PUBLIC_DEV_SERVER_URL }}" >> .env
           cat .env
-      - run: yarn install && yarn run build
+      - run: yarn install && yarn run build && yarn run gen-firebase-rewrites
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

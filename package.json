@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "gen-firebase-rewrites": "node ./src/gen-firebase-rewrite.mjs",
     "build": "next build && next export -o dist/dev",
     "build:prd": "next build && next export -o dist/main",
     "start": "next start",

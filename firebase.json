@@ -3,8 +3,92 @@
     {
       "target": "main",
       "public": "dist/main",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "rewrites": [
+        {
+          "destination": "/posts/[id]/index.html",
+          "regex": "^/posts/([^/]+?)(?:/)?$"
+        },
+        {
+          "source": "/",
+          "destination": "//index.html"
+        },
+        {
+          "source": "/dev",
+          "destination": "/dev/index.html"
+        },
+        {
+          "source": "/main",
+          "destination": "/main/index.html"
+        },
+        {
+          "source": "/nickname",
+          "destination": "/nickname/index.html"
+        },
+        {
+          "source": "/playground",
+          "destination": "/playground/index.html"
+        },
+        {
+          "source": "/profile",
+          "destination": "/profile/index.html"
+        },
+        {
+          "source": "/profile/edit",
+          "destination": "/profile/edit/index.html"
+        },
+        {
+          "source": "/profile/edit/givenTalents",
+          "destination": "/profile/edit/givenTalents/index.html"
+        },
+        {
+          "source": "/profile/edit/takenTalents",
+          "destination": "/profile/edit/takenTalents/index.html"
+        },
+        {
+          "source": "/setting",
+          "destination": "/setting/index.html"
+        },
+        {
+          "source": "/setting/alarm",
+          "destination": "/setting/alarm/index.html"
+        },
+        {
+          "source": "/setting/license",
+          "destination": "/setting/license/index.html"
+        },
+        {
+          "source": "/setting/privacy",
+          "destination": "/setting/privacy/index.html"
+        },
+        {
+          "source": "/setting/terms",
+          "destination": "/setting/terms/index.html"
+        },
+        {
+          "source": "/talent/register",
+          "destination": "/talent/register/index.html"
+        },
+        {
+          "source": "/talent/register/exchange",
+          "destination": "/talent/register/exchange/index.html"
+        },
+        {
+          "source": "/talent/register/exchange/category",
+          "destination": "/talent/register/exchange/category/index.html"
+        },
+        {
+          "source": "/talent/register/share",
+          "destination": "/talent/register/share/index.html"
+        },
+        {
+          "source": "/talent/register/share/category",
+          "destination": "/talent/register/share/category/index.html"
+        },
         {
           "source": "**",
           "destination": "/index.html"
@@ -14,8 +98,92 @@
     {
       "target": "dev",
       "public": "dist/dev",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "rewrites": [
+        {
+          "destination": "/posts/[id]/index.html",
+          "regex": "^/posts/([^/]+?)(?:/)?$"
+        },
+        {
+          "source": "/",
+          "destination": "//index.html"
+        },
+        {
+          "source": "/dev",
+          "destination": "/dev/index.html"
+        },
+        {
+          "source": "/main",
+          "destination": "/main/index.html"
+        },
+        {
+          "source": "/nickname",
+          "destination": "/nickname/index.html"
+        },
+        {
+          "source": "/playground",
+          "destination": "/playground/index.html"
+        },
+        {
+          "source": "/profile",
+          "destination": "/profile/index.html"
+        },
+        {
+          "source": "/profile/edit",
+          "destination": "/profile/edit/index.html"
+        },
+        {
+          "source": "/profile/edit/givenTalents",
+          "destination": "/profile/edit/givenTalents/index.html"
+        },
+        {
+          "source": "/profile/edit/takenTalents",
+          "destination": "/profile/edit/takenTalents/index.html"
+        },
+        {
+          "source": "/setting",
+          "destination": "/setting/index.html"
+        },
+        {
+          "source": "/setting/alarm",
+          "destination": "/setting/alarm/index.html"
+        },
+        {
+          "source": "/setting/license",
+          "destination": "/setting/license/index.html"
+        },
+        {
+          "source": "/setting/privacy",
+          "destination": "/setting/privacy/index.html"
+        },
+        {
+          "source": "/setting/terms",
+          "destination": "/setting/terms/index.html"
+        },
+        {
+          "source": "/talent/register",
+          "destination": "/talent/register/index.html"
+        },
+        {
+          "source": "/talent/register/exchange",
+          "destination": "/talent/register/exchange/index.html"
+        },
+        {
+          "source": "/talent/register/exchange/category",
+          "destination": "/talent/register/exchange/category/index.html"
+        },
+        {
+          "source": "/talent/register/share",
+          "destination": "/talent/register/share/index.html"
+        },
+        {
+          "source": "/talent/register/share/category",
+          "destination": "/talent/register/share/category/index.html"
+        },
         {
           "source": "**",
           "destination": "/index.html"
