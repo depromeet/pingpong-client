@@ -13,7 +13,10 @@ const PostReportRadioGroup = ({ setReportReason }: { setReportReason: (value: st
     { key: 'POST_REPORT_4', label: '욕설이나 비방이 포함되어 있어요.' },
     { key: 'POST_REPORT_5', label: '외설적인 내용이 포함되어 있어요.' },
   ];
-  const { list, currentSelected, onChange } = useRadioGroup({ list: reportReasonList });
+  const { list, currentSelected, onChange } = useRadioGroup({
+    list: reportReasonList,
+    initialValue: reportReasonList[0],
+  });
 
   useEffect(() => {
     if (!currentSelected) return;

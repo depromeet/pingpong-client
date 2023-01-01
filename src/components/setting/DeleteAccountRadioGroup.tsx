@@ -13,11 +13,14 @@ const DeleteAccountRadioGroup = ({ setDeleteReason }: { setDeleteReason: (value:
     { key: 'DELETE_ACCOUNT_4', label: '불쾌감을 주는 사용자를 만났어요.' },
     { key: 'DELETE_ACCOUNT_5', label: '새로운 계정으로 가입하고 싶어요.' },
   ];
-  const { list, currentSelected, onChange } = useRadioGroup({ list: deleteReasonList });
+  const { list, currentSelected, onChange } = useRadioGroup({
+    list: deleteReasonList,
+    initialValue: deleteReasonList[0],
+  });
 
   useEffect(() => {
     if (!currentSelected) return;
-    console.log('setDeleteReason');
+
     setDeleteReason(currentSelected.label);
   }, [currentSelected, setDeleteReason]);
 
