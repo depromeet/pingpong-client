@@ -4,7 +4,6 @@ import { axiosClient } from '@/apis';
 
 const useDeleteAccountMutate = () => {
   const deleteAccount = async ({ content }: { content: string }) => {
-    console.log('deleteAccount');
     const {
       data: { data },
     } = await axiosClient.delete(`/members/me`, {
