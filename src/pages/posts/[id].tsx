@@ -148,7 +148,7 @@ const PostDetail = () => {
               onClick={handleLike}
             />
             <Button className="ml-12">
-              <a href={postData.chatLink} target="_blank" rel="noreferrer">
+              <a href={`//${postData.chatLink}`} target="_blank" rel="noreferrer">
                 오픈채팅 시작하기
               </a>
             </Button>
