@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -19,17 +19,21 @@ import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom } from '@/store/components';
+import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom, tabAtomFamily } from '@/store/components';
+import type { MidCategory } from '@/typings/main';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
   const myInfo = useRecoilValue(myInfoAtom);
 
   const [activeMainCategoryId, setActiveCategoryId] = useState(0);
+  const [activeMidCategoryList, setActiveMidCategoryList] = useState<MidCategory[]>([]);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
-  const [isShare, handleIsShare] = useState(false);
+
+  const setActiveMidCategory = useSetRecoilState(tabAtomFamily('midCategory'));
   const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+  const [isShare, handleIsShare] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -53,15 +57,27 @@ const Home: NextPage = () => {
 
   const { openBottomSheet, addBottomSheetOptions } = useBottomSheet();
 
-  const getActiveCategory = (id: number) => {
-    return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
-  };
-
   const openSubCategorySheet = () => {
     if (activeMidCategoryId === 0) return;
 
     openBottomSheet();
   };
+
+  const getActiveCategory = useCallback(
+    (id: number) => {
+      return mainCategoryData?.find((mainCategory) => mainCategory.id === id) || null;
+    },
+    [mainCategoryData],
+  );
+
+  useEffect(() => {
+    if (!activeMainCategoryId) return;
+    setActiveMidCategory([{ id: 0, name: '전체' }]);
+
+    const list = getActiveCategory(activeMainCategoryId)?.midCategories;
+
+    list?.length && setActiveMidCategoryList(list);
+  }, [activeMainCategoryId, setActiveMidCategoryList, getActiveCategory, setActiveMidCategory]);
 
   useEffect(() => {
     refetch();
@@ -142,10 +158,10 @@ const Home: NextPage = () => {
           />
         </div>
       )}
-      {getActiveCategory(activeMainCategoryId)?.midCategories.length && (
+      {activeMidCategoryList.length && (
         <MidCategoryTab
           mainCategoryName={getActiveCategory(activeMainCategoryId)?.name || ''}
-          list={getActiveCategory(activeMainCategoryId)?.midCategories || []}
+          list={activeMidCategoryList || []}
         />
       )}
       <SubCategoryFilter
