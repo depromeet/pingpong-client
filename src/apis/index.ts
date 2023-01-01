@@ -3,13 +3,13 @@ import axios from 'axios';
 import { formatQueryString } from 'src/lib/utils';
 
 axios.defaults.baseURL = `https://${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/`;
+axios.defaults.withCredentials = true;
 
 const getAuth = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const cookie = document.cookie;
   const sessionForDev = sessionStorage.getItem('token');
 
   if (cookie) {
-    //TODO: get cookie
     return {
       ...config,
       headers: {
