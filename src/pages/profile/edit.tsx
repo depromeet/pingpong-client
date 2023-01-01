@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import type { ChangeEvent } from 'react';
 import { useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -13,7 +15,7 @@ import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
 const ProfileEdit = () => {
   const { myInfo } = useMyInfo();
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId); //FIXME: another user profile
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
 
   const [name, setName] = useState('');
   const [nameError] = useState('');
@@ -42,7 +44,10 @@ const ProfileEdit = () => {
   }, []);
 
   useEffect(() => {
-    if (userIsSuccess) {
+    if (userIsSuccess && userData) {
+      setName(userData.nickname);
+      setIntroduction(userData.introduction);
+      setLink(userData.profileLink);
       setGivenTalents((prev) => {
         return prev.length > 0
           ? prev
@@ -59,17 +64,9 @@ const ProfileEdit = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userIsSuccess]);
-
-  useEffect(() => {
-    if (userIsSuccess) {
-      setName(userData.nickname);
-      setIntroduction(userData.introduction);
-      setLink(userData.profileLink);
-    }
   }, [userData, userIsSuccess]);
 
-  const handleSaveButton = () => {
+  const handleSaveButton = async () => {
     const profileInfo = {
       nickname: name,
       introduction: introduction,
@@ -85,6 +82,7 @@ const ProfileEdit = () => {
     title: '프로필 편집',
     activeButton: '저장',
     className: 'bg-white border-b border-gray-100',
+    onActiveButtonClick: handleSaveButton,
   });
 
   return (
