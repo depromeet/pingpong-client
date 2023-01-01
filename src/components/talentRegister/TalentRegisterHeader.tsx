@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { talentRegisterOrderAtom } from '@/store/components';
+import { talentRegisterResetSelector } from '@/store/components/selectors';
 
 import HeaderTitle from '../common/HeaderTitle';
 import { XIcon } from '../icons/XIcon';
@@ -26,6 +27,7 @@ const EXCHANGE = {
 const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
   const { src, alt, contents, contents2 } = sort === 'SHARE' ? SHARE : EXCHANGE;
   const order = useRecoilValue(talentRegisterOrderAtom);
+  const setReset = useSetRecoilState(talentRegisterResetSelector);
   const router = useRouter();
 
   usePopupWithBlock({
@@ -34,6 +36,7 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
     confirmText: '그만둘래요',
     onConfirm() {
       router.push('/talent/register');
+      setReset(true);
     },
     cancelText: '취소',
   });
