@@ -18,16 +18,12 @@ import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
-import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom } from '@/store/components';
-import type { UserInfo } from '@/typings/common';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
-
-  const { data: userData, isSuccess: userDataIsSuccess } = useUserInfoQuery();
-  const [myInfo, setMyInfo] = useRecoilState<UserInfo | null>(myInfoAtom);
+  const myInfo = useRecoilValue(myInfoAtom);
 
   const [activeMainCategoryId, setActiveCategoryId] = useState(0);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
@@ -72,12 +68,6 @@ const Home: NextPage = () => {
   }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   useEffect(() => {
-    if (!userDataIsSuccess) return;
-
-    setMyInfo(userData);
-  }, [userDataIsSuccess, userData, setMyInfo]);
-
-  useEffect(() => {
     const { id } = activeOption;
     if (typeof id === 'string') return;
 
@@ -106,7 +96,7 @@ const Home: NextPage = () => {
     <Layout.DefaultContainer>
       <Layout.DefaultPadding>
         <div className="mb-28">
-          {userDataIsSuccess && (
+          {myInfo && (
             <HomeHeader>
               <Typography.Title>
                 <span className="text-primary-blue">{myInfo?.nickname}</span> 님,
