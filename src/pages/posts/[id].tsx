@@ -19,6 +19,7 @@ import usePostLikeMutate from '@/hooks/queries/usePostLikeMutate';
 import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useReportPostMutate from '@/hooks/queries/useReportPostMutate';
+import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { bottomSheetActiveOptionAtom, popupAtom } from '@/store/components';
 import type { LinkInfo, PopupProps } from '@/typings/common';
 
@@ -72,6 +73,8 @@ const PostDetail = () => {
       handleReportPopup();
     }
   }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup]);
+
+  usePopupWithBlock();
 
   return (
     <>
