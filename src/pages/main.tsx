@@ -18,7 +18,7 @@ import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
-import useMyInfoQuery from '@/hooks/queries/useMyInfoQuery';
+import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom } from '@/store/components';
 import type { UserInfo } from '@/typings/common';
@@ -26,7 +26,7 @@ import type { UserInfo } from '@/typings/common';
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
 
-  const { data: userData, isSuccess: userDataIsSuccess } = useMyInfoQuery();
+  const { data: userData, isSuccess: userDataIsSuccess } = useUserInfoQuery();
   const [myInfo, setMyInfo] = useRecoilState<UserInfo | null>(myInfoAtom);
 
   const [activeMainCategoryId, setActiveCategoryId] = useState(0);
@@ -36,6 +36,13 @@ const Home: NextPage = () => {
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
 
   const queryClient = useQueryClient();
+
+  // XXX: 이후 삭제 필요
+  useEffect(() => {
+    if (!document) return;
+
+    document.cookie = `access_token=eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzI1NzQ2OTQsInN1YiI6IuuChOuChOu5oOu5oCDsnpjtlZjripQg64yA64KY66y0IO2XrOumrOy9pe2EsCIsIm1lbWJlcklkIjoyOCwiZXhwIjoxNjcyNjYxMDk0fQ.ADCBdKCK_Rp_04t2dWJ9lPeClAkGloPtZs00CRwL3DUxrbvnPYlyY3KmA1KARvZvWQbm2Au3r-U6Z_3NKGvTpA`;
+  }, []);
 
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
     subCategoryId: 1,
