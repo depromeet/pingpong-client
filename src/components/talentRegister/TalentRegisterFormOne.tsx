@@ -119,13 +119,15 @@ const TalentRegisterFormOne = ({ className, sort }: TalentRegisterProps) => {
 
   return (
     <form className={`${className} px-[16px] pt-[24.5px]`}>
-      <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
-      <TextInput option={TITLE} />
-      <TextTextarea option={EXPLANATION[sort]} />
-      <TextInput option={LINK1} />
-      <TextInput option={LINK2} />
-      <TextInput option={LINK3} />
-      <TextInput option={CHAT_LINK} />
+      <div className="pb-[80px]">
+        <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
+        <TextInput option={TITLE} />
+        <TextTextarea option={EXPLANATION[sort]} />
+        <TextInput option={LINK1} />
+        <TextInput option={LINK2} />
+        <TextInput option={LINK3} />
+        <TextInput option={CHAT_LINK} />
+      </div>
       <Layout.FixedBottom>
         <Button type="button" onClick={onClick} disabled={disabled} className="w-full">
           다음
