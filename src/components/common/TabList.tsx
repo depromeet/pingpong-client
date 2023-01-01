@@ -13,7 +13,7 @@ const TabList = ({ categoryKey, list, mainCategoryName }: TabListProps) => {
     <ul className="flex min-w-[375px] overflow-x-scroll border-b-[1px] pl-8 mb-12 bg-white">
       {mainCategoryName && (
         <li key="ALL" className="px-[10px] w-fit">
-          {<Tab categoryKey={categoryKey} id={999} name={`${mainCategoryName} 전체`} />}
+          {<Tab categoryKey={categoryKey} id={0} name={`${mainCategoryName} 전체`} />}
         </li>
       )}
       {list.map(({ id, name }) => {

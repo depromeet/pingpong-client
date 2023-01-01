@@ -13,7 +13,7 @@ const tabAtomFamily = atomFamily<TabProps[], string>({
       case 'mainCategory':
         return [{ id: 1, name: '' }];
       case 'midCategory':
-        return [{ id: 999, name: '전체' }];
+        return [{ id: 0, name: '전체' }];
       default:
         return [];
     }

@@ -47,7 +47,7 @@ const Home: NextPage = () => {
   const { posts, fetchNextPage, refetch, hasNextPage } = useInfinitePostsQuery({
     isShare,
     mainCategory: activeMainCategoryId,
-    midCategory: activeMidCategoryId === 999 ? 0 : activeMidCategoryId,
+    midCategory: activeMidCategoryId,
     subCategory: activeSubCategoryId,
   });
 
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
   };
 
   const openSubCategorySheet = () => {
-    if (activeMidCategoryId === 999) return;
+    if (activeMidCategoryId === 0) return;
 
     openBottomSheet();
   };
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
   }, [activeOption]);
 
   const updateSubCategories = useCallback(() => {
-    if (activeMidCategoryId === 999) return;
+    if (activeMidCategoryId === 0) return;
 
     queryClient.invalidateQueries({
       queryKey: ['subCategories', activeMidCategoryId],
@@ -149,7 +149,7 @@ const Home: NextPage = () => {
         />
       )}
       <SubCategoryFilter
-        isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 999}
+        isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 0}
         handleSubCategory={openSubCategorySheet}
         isShare={isShare}
         handleIsShare={handleIsShare}
