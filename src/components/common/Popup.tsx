@@ -15,7 +15,6 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
   };
 
   const onConfirmClicked = () => {
-    console.log('onConfirmClicked');
     onConfirm && onConfirm();
 
     setPopup(null);
@@ -25,8 +24,10 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
     <Portal isShowing className="fixed w-screen h-screen left-0 top-0 grid place-items-center px-[6%] z-[100]">
       <div className="rounded-[16px] w-full bg-white z-50">
         <main className="px-5 py-[8%] flex items-center gap-2 flex-col">
-          <h1 className="text-t2 text-center text-gray-600">{title}</h1>
-          {content && <p className="text-gray-400 text-center text-b2" dangerouslySetInnerHTML={{ __html: content }} />}
+          <h1 className="text-t1 text-center text-gray-600">{title}</h1>
+          {content && (
+            <p className="text-gray-400 text-center text-b3 mt-4" dangerouslySetInnerHTML={{ __html: content }} />
+          )}
           {children}
         </main>
         <footer className="flex w-full text-[15px] items-center justify-center border-t-[1px] border-gray-150">
