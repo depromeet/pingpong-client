@@ -118,14 +118,14 @@ const PostDetail = () => {
                 )}
               </ProfileContainer>
               {postData.isShare ? (
-                <>
-                  <Tag styleType="DARK" color="red">
+                <div className="flex">
+                  <Tag styleType="DARK" color="red" className="mr-[4px]">
                     {postData.subCategory}
                   </Tag>
                   <Tag styleType="OUTLINE" color="red">
                     재능나눔
                   </Tag>
-                </>
+                </div>
               ) : (
                 <Tag styleType="DARK" color="blue">
                   {postData.subCategory}
