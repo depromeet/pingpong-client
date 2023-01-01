@@ -1,24 +1,39 @@
-import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import type { ChangeEvent } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
+import { updateUserProfile } from '@/apis/user-profile';
+import Header from '@/components/common/Header';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
 import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
-import useHeader from '@/hooks/useHeader';
 import { useToast } from '@/hooks/useToast';
 import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
+const headerArgs = {
+  title: '프로필 편집',
+  activeButton: '저장',
+  className: 'bg-white border-b border-gray-100',
+};
+
 const ProfileEdit = () => {
   const { myInfo } = useMyInfo();
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId); //FIXME: another user profile
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
 
+  const [profile, setProfile] = useState<{ file: File | null; preview: string }>({
+    file: null,
+    preview: '/images/empty-profile.png',
+  });
   const [name, setName] = useState('');
-  const [nameError] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [link, setLink] = useState('');
+
+  const [nameError, setNameError] = useState('');
+  const [introductionError, setIntroductionError] = useState('');
 
   const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
   const [takenTalents, setTakenTalents] = useRecoilState(tabAtomFamily('takenTalents'));
@@ -27,6 +42,10 @@ const ProfileEdit = () => {
 
   const { mutate, isSuccess, isError } = useEditProfile();
   const { setToast } = useToast();
+
+  const handleNameChange = useCallback((v: string) => {
+    setName(v);
+  }, []);
 
   useEffect(() => {
     isSuccess && setToast('프로필이 저장되었어요.');
@@ -42,7 +61,11 @@ const ProfileEdit = () => {
   }, []);
 
   useEffect(() => {
-    if (userIsSuccess) {
+    if (userIsSuccess && userData) {
+      setProfile({ preview: userData.image, file: null });
+      setName(userData.nickname);
+      setIntroduction(userData.introduction);
+      setLink(userData.profileLink);
       setGivenTalents((prev) => {
         return prev.length > 0
           ? prev
@@ -59,17 +82,15 @@ const ProfileEdit = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userIsSuccess]);
-
-  useEffect(() => {
-    if (userIsSuccess) {
-      setName(userData.nickname);
-      setIntroduction(userData.introduction);
-      setLink(userData.profileLink);
-    }
   }, [userData, userIsSuccess]);
 
-  const handleSaveButton = () => {
+  const handleSaveButton = async () => {
+    if (name.length === 0 || introduction.length === 0) {
+      setNameError(name.length === 0 ? '이름을 작성해주세요' : '');
+      setIntroductionError(introduction.length === 0 ? '자기소개를 작성해주세요' : '');
+      return;
+    }
+
     const profileInfo = {
       nickname: name,
       introduction: introduction,
@@ -78,17 +99,44 @@ const ProfileEdit = () => {
       takenTalents: takenTalents.map((takenTalent) => takenTalent.id),
     };
 
+    setNameError('');
+    setIntroductionError('');
+
     mutate(profileInfo);
+    profile.file && (await updateUserProfile(profile.file));
   };
 
-  useHeader({
-    title: '프로필 편집',
-    activeButton: '저장',
-    className: 'bg-white border-b border-gray-100',
-  });
+  const handleProfileUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.item(0);
+
+    if (!file) {
+      return;
+    }
+
+    setProfile({ file: file, preview: URL.createObjectURL(file) });
+  };
 
   return (
     <>
+      <Header {...headerArgs} onActiveButtonClick={handleSaveButton} />
+      <section className="pt-[15px] flex items-center justify-center gap-5 flex-col bg-gray-100">
+        <div className="relative w-[88px] h-[88px] rounded-full overflow-hidden">
+          <Image
+            src={profile.preview}
+            alt="profile"
+            className="w-[88px] aspect-square rounded-full bg-gray-100"
+            width={10}
+            height={10}
+          />
+        </div>
+        <label
+          htmlFor="file-upload"
+          className="px-[12px] py-[6px] border border-gray-200 bg-white rounded-[20px] text-b4 mb-[18px]"
+        >
+          사진 변경하기
+          <input type="file" className="hidden" id="file-upload" onChange={handleProfileUpdate} />
+        </label>
+      </section>
       <main className="px-[16px]">
         <section className="mt-[26px]">
           <label htmlFor="name" className="text-t3">
@@ -100,7 +148,7 @@ const ProfileEdit = () => {
             placeholder="이름을 입력해주세요"
             maxLength={10}
             value={name}
-            onChange={(v) => setName(v)}
+            onChange={handleNameChange}
             error={nameError}
           />
         </section>
@@ -133,6 +181,7 @@ const ProfileEdit = () => {
             maxLength={300}
             className="mt-[8px]"
             placeholder="소개 글을 작성해 주세요."
+            error={introductionError}
             onChange={(v) => setIntroduction(v)}
           />
         </section>

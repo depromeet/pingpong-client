@@ -9,11 +9,14 @@ import EmptyCard from '@/components/common/EmptyCard';
 import Spinner from '@/components/common/Spinner';
 import Tag from '@/components/common/Tag';
 import TextBox from '@/components/common/TextBox';
+import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useGetMemberPosts from '@/hooks/useGetMemberPosts';
 
 export default function Profile() {
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery();
+  const { myInfo } = useMyInfo();
+
+  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
   const { posts, fetchNextPage, isSuccess: postsIsSuccess } = useGetMemberPosts(1);
   const [isShowAllPosts, setIsShowAllPosts] = useState(false);
   const { ref, inView } = useInView();
@@ -39,7 +42,7 @@ export default function Profile() {
         </article>
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
           <div className="relative w-[88px] h-[88px] rounded-full overflow-hidden">
-            <Image src={`${userData?.image}`} alt="profile" fill />
+            <Image src={`${userData?.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
           </div>
           <span className="text-h2">{`${userData?.nickname}`}</span>
         </article>
@@ -63,7 +66,7 @@ export default function Profile() {
           <h2 className="text-t3 mb-[8px]">이런 재능을 줄 수 있어요</h2>
           <div className="flex gap-3 flex-wrap">
             {userIsSuccess ? (
-              userData.givenTalents.map((talent, i) => (
+              userData?.givenTalents.map((talent, i) => (
                 <Tag styleType="LIGHT" key={i}>
                   {talent.content}
                 </Tag>
@@ -77,7 +80,7 @@ export default function Profile() {
           <h2 className="text-t3 mb-[8px]">이런 재능을 받고 싶어요</h2>
           <div className="flex gap-3 flex-wrap">
             {userIsSuccess ? (
-              userData.takenTalents.map((talent, i) => (
+              userData?.takenTalents.map((talent, i) => (
                 <Tag styleType="LIGHT" key={i}>
                   {talent.content}
                 </Tag>
@@ -90,7 +93,7 @@ export default function Profile() {
         <article>
           <h2 className="text-t3 mb-[8px]">자기소개</h2>
           {userIsSuccess ? (
-            <TextBox>{userData.introduction}</TextBox>
+            <TextBox>{userData?.introduction}</TextBox>
           ) : (
             <TextBox disabled={true}>
               <div className="flex flex-col">
