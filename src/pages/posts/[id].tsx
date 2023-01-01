@@ -86,13 +86,13 @@ const PostDetail = () => {
                   <h5>{postData.nickname}</h5>
                   <aside>{postData.ranks}</aside>
                 </ProfileInfo>
-                <Link href={`/profile/${postData.memberId}`}>
-                  {!isMyPost && (
+                {!isMyPost && (
+                  <Link href={`/profile/${postData.memberId}`}>
                     <ProfileLinkButton>
                       <Typography.Desc>프로필보기</Typography.Desc>
                     </ProfileLinkButton>
-                  )}
-                </Link>
+                  </Link>
+                )}
               </ProfileContainer>
               {postData.isShare ? (
                 <>
