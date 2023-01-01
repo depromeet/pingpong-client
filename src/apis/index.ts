@@ -10,7 +10,12 @@ const getAuth = (config: AxiosRequestConfig): AxiosRequestConfig => {
 
   if (cookie) {
     //TODO: get cookie
-    return { ...config, headers: { ...config.headers, Authorization: 'Bearer ' } };
+    return {
+      ...config,
+      headers: {
+        ...config.headers,
+      },
+    };
   }
 
   if (sessionForDev) {

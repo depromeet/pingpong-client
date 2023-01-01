@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -18,15 +18,16 @@ import { Layout, Typography } from '@/components/styles';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
-import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
-import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
+import useMyInfoQuery from '@/hooks/queries/useMyInfoQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, midCategoryIdSelector } from '@/store/components';
+import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom } from '@/store/components';
+import type { UserInfo } from '@/typings/common';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
 
-  const { myInfo } = useMyInfo();
+  const { data: userData, isSuccess: userDataIsSuccess } = useMyInfoQuery();
+  const [myInfo, setMyInfo] = useRecoilState<UserInfo | null>(myInfoAtom);
 
   const [activeMainCategoryId, setActiveCategoryId] = useState(0);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
@@ -35,7 +36,7 @@ const Home: NextPage = () => {
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
 
   const queryClient = useQueryClient();
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
+
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
     subCategoryId: 1,
     page: 0,
@@ -71,6 +72,12 @@ const Home: NextPage = () => {
   }, [isShare, activeMainCategoryId, activeMidCategoryId, activeSubCategoryId, refetch]);
 
   useEffect(() => {
+    if (!userDataIsSuccess) return;
+
+    setMyInfo(userData);
+  }, [userDataIsSuccess, userData, setMyInfo]);
+
+  useEffect(() => {
     const { id } = activeOption;
     if (typeof id === 'string') return;
 
@@ -99,14 +106,14 @@ const Home: NextPage = () => {
     <Layout.DefaultContainer>
       <Layout.DefaultPadding>
         <div className="mb-28">
-          {userIsSuccess && (
+          {userDataIsSuccess && (
             <HomeHeader>
               <Typography.Title>
-                <span className="text-primary-blue">{userData?.nickname}</span> 님,
+                <span className="text-primary-blue">{myInfo?.nickname}</span> 님,
                 <br />
                 핑퐁에서 재능을 나눠볼까요?
               </Typography.Title>
-              <CircleImg size="large" src={userData?.image} alt="user-profile-img" />
+              <CircleImg size="large" src={myInfo?.image} alt="user-profile-img" />
             </HomeHeader>
           )}
         </div>
