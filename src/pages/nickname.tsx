@@ -85,11 +85,9 @@ const Nickname = () => {
           ))}
         </section>
         <Layout.FixedBottom>
-          <div className="absolute left-0 bottom-0 w-full">
-            <Button onClick={handleComplete} className="w-full" disabled={buttonDisabled}>
-              완료
-            </Button>
-          </div>
+          <Button onClick={handleComplete} className="w-full" disabled={buttonDisabled}>
+            완료
+          </Button>
         </Layout.FixedBottom>
       </div>
     </main>
