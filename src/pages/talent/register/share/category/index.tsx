@@ -8,10 +8,8 @@ const sort = 'SHARE';
 const TalentRegisterShareCategory = () => {
   return (
     <>
-      <div className="fixed top-0">
-        <TalentRegisterCategotyHeader sort={sort} />
-        <TalentRegisterCategoryTabList />
-      </div>
+      <TalentRegisterCategotyHeader sort={sort} />
+      <TalentRegisterCategoryTabList />
       <TalentRegisterCategoryTagList sort={sort} />
     </>
   );
