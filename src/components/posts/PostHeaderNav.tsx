@@ -17,9 +17,13 @@ const PostHeaderNav = ({ isMyPost = false }: { isMyPost?: boolean }) => {
     openBottomSheet();
   };
 
+  const onClickBack = () => {
+    router.query.new ? router.push('/main') : router.back();
+  };
+
   return (
     <HeaderNavContainer>
-      <button onClick={() => router.back()}>
+      <button onClick={onClickBack}>
         <ArrowLeftIcon />
       </button>
       <MoreIcon onClick={onClickMore} />

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useBackPage from '@/hooks/useBackPage';
 import useRegisterTalentPost from '@/hooks/useRegisterTalentPost';
 import { useToast } from '@/hooks/useToast';
 import { talentRegisterOrderAtom } from '@/store/components';
-import { talentRegisterSelector } from '@/store/components/selectors';
+import { talentRegisterResetSelector, talentRegisterSelector } from '@/store/components/selectors';
 
 import Button from '../common/Button';
 import { Layout } from '../styles';
@@ -140,15 +140,19 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
   const { handleOrder: onBackClick } = useBackPage(talentRegisterOrderAtom);
   const { data, mutate, isSuccess, isError } = useRegisterTalentPost();
   const { setToast } = useToast();
+  const setReset = useSetRecoilState(talentRegisterResetSelector);
 
   useEffect(() => {
     if (isSuccess) {
-      router.push(`/posts/${data.data.id}`);
+      setReset(true);
+      router.push(`/posts/${data.data.id}?new=${true}`);
     }
-  }, [data, isSuccess, router]);
+  }, [data, isSuccess, router, setReset]);
 
   useEffect(() => {
-    setToast('재능 등록에 실패했어요.');
+    if (isError) {
+      setToast('재능 등록에 실패했어요.');
+    }
   }, [isError, setToast]);
 
   return (
