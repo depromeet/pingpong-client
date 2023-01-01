@@ -45,6 +45,7 @@ const PostDetail = () => {
   const handleReportPopup = useCallback(() => {
     setPopup({
       title: '사용자 신고하기',
+      content: '신고 사유를 선택해주세요.',
       children: <PostReportRadioGroup setReportReason={setReportReason} />,
       onConfirm: () =>
         reportPostMutate({

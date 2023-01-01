@@ -24,6 +24,7 @@ export default function ProfileSetting() {
   const hanldeDeletePopup = useCallback(() => {
     setPopup({
       title: 'Ping-Pong 서비스 탈퇴하기',
+      content: `불편하셨던 점을 저희에게 말씀해주세요.<br/>서비스 개선에 적극 반영하도록 할게요.`,
       children: <DeleteAccountRadioGroup setDeleteReason={setDeleteReason} />,
       onConfirm: () => deleteAccountMutate({ content: deleteReason }),
       confirmText: '선택 완료',
