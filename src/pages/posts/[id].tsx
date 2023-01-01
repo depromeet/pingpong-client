@@ -57,6 +57,25 @@ const PostDetail = () => {
     });
   }, [setPopup, reportPostMutate, postId, reportReason]);
 
+  const handleKakaoLinkPopup = useCallback(
+    (link: string) => {
+      const openExternalLink = (link: string) => {
+        if (!window) return;
+
+        window.open(`//${link}`, '_blank');
+      };
+
+      setPopup({
+        title: '카카오톡 오픈채팅으로 이동됩니다',
+        content: '오픈채팅 시, 상대방에게 <br />불쾌감을 주는 언어 사용을 지양해주세요.',
+        onConfirm: () => openExternalLink(link),
+        confirmText: '이동하기',
+        cancelText: '취소',
+      });
+    },
+    [setPopup],
+  );
+
   useEffect(() => {
     if (!postIsSuccess) return;
 
@@ -151,10 +170,8 @@ const PostDetail = () => {
               count={postData.likes.toString()}
               onClick={handleLike}
             />
-            <Button className="ml-12">
-              <a href={postData.chatLink} target="_blank" rel="noreferrer">
-                오픈채팅 시작하기
-              </a>
+            <Button className="ml-12" onClick={() => handleKakaoLinkPopup(postData.chatLink)}>
+              오픈채팅 시작하기
             </Button>
           </BottomFixedBar>
         </>
