@@ -37,13 +37,6 @@ const Home: NextPage = () => {
 
   const queryClient = useQueryClient();
 
-  // XXX: 이후 삭제 필요
-  useEffect(() => {
-    if (!document) return;
-
-    document.cookie = `access_token=eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzI1NzQ2OTQsInN1YiI6IuuChOuChOu5oOu5oCDsnpjtlZjripQg64yA64KY66y0IO2XrOumrOy9pe2EsCIsIm1lbWJlcklkIjoyOCwiZXhwIjoxNjcyNjYxMDk0fQ.ADCBdKCK_Rp_04t2dWJ9lPeClAkGloPtZs00CRwL3DUxrbvnPYlyY3KmA1KARvZvWQbm2Au3r-U6Z_3NKGvTpA`;
-  }, []);
-
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
     subCategoryId: 1,
     page: 0,

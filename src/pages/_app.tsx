@@ -16,6 +16,7 @@ function RecoilDebugObserver(): ReactElement | null {
   const snapshot = useRecoilSnapshot();
   const getLoadable = snapshot.getLoadable;
   const snapshotList = Array.from(snapshot.getNodes_UNSTABLE({ isModified: true }));
+
   useEffect(() => {
     console.debug('The following atoms were modified:');
     for (const node of snapshotList) {
