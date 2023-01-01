@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Header from '@/components/common/Header';
 import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
-import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { useToast } from '@/hooks/useToast';
-import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
+import { myInfoAtom, tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
 const headerArgs = {
   title: '프로필 편집',
@@ -19,8 +18,7 @@ const headerArgs = {
 };
 
 const ProfileEdit = () => {
-  const { myInfo } = useMyInfo();
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
+  const myInfo = useRecoilValue(myInfoAtom);
 
   const [name, setName] = useState('');
   const [introduction, setIntroduction] = useState('');
@@ -62,27 +60,27 @@ const ProfileEdit = () => {
   }, []);
 
   useEffect(() => {
-    if (userIsSuccess && userData) {
-      setName(userData.nickname);
-      setIntroduction(userData.introduction);
-      setLink(userData.profileLink);
-      setGivenTalents((prev) => {
-        return prev.length > 0
-          ? prev
-          : userData.givenTalents.map((givenTalent) => {
-              return { id: givenTalent.id, name: givenTalent.content };
-            });
-      });
-      setTakenTalents((prev) => {
-        return prev.length > 0
-          ? prev
-          : userData.takenTalents.map((takenTalent) => {
-              return { id: takenTalent.id, name: takenTalent.content };
-            });
-      });
-    }
+    if (!myInfo) return;
+
+    setName(myInfo?.nickname);
+    setIntroduction(myInfo?.introduction);
+    setLink(myInfo?.profileLink);
+    setGivenTalents((prev) => {
+      return prev.length > 0
+        ? prev
+        : myInfo?.givenTalents.map((givenTalent) => {
+            return { id: givenTalent.id, name: givenTalent.content };
+          });
+    });
+    setTakenTalents((prev) => {
+      return prev.length > 0
+        ? prev
+        : myInfo?.takenTalents.map((takenTalent) => {
+            return { id: takenTalent.id, name: takenTalent.content };
+          });
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userData, userIsSuccess]);
+  }, [myInfo]);
 
   const handleSaveButton = () => {
     if (name.length === 0 || introduction.length === 0) {

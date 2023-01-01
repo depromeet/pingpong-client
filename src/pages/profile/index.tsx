@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import Card from '@/components/common/Card';
@@ -10,14 +11,12 @@ import EmptyCard from '@/components/common/EmptyCard';
 import Spinner from '@/components/common/Spinner';
 import Tag from '@/components/common/Tag';
 import TextBox from '@/components/common/TextBox';
-import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
-import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useGetMemberPosts from '@/hooks/useGetMemberPosts';
+import { myInfoAtom } from '@/store/components';
 
 export default function Profile() {
-  const { myInfo } = useMyInfo();
+  const myInfo = useRecoilValue(myInfoAtom);
 
-  const { data: userData, isSuccess: userIsSuccess } = useUserInfoQuery(myInfo?.memberId);
   const { posts, fetchNextPage, isSuccess: postsIsSuccess, hasNextPage } = useGetMemberPosts(myInfo?.memberId);
   const [isShowAllPosts, setIsShowAllPosts] = useState(false);
   const { ref, inView } = useInView();
@@ -42,8 +41,8 @@ export default function Profile() {
           </Link>
         </article>
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
-          <CircleImg size="xxlarge" src={`${userData?.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
-          <span className="text-h2">{`${userData?.nickname}`}</span>
+          <CircleImg size="xxlarge" src={`${myInfo?.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
+          <span className="text-h2">{`${myInfo?.nickname}`}</span>
         </article>
       </section>
       {/* <section className="border-y border-gray-100 bg-white p-[16px]">
@@ -64,8 +63,8 @@ export default function Profile() {
         <article>
           <h2 className="text-t3 mb-[8px]">이런 재능을 줄 수 있어요</h2>
           <div className="flex gap-3 flex-wrap">
-            {userIsSuccess ? (
-              userData?.givenTalents.map((talent, i) => (
+            {myInfo?.givenTalents.length ? (
+              myInfo?.givenTalents.map((talent, i) => (
                 <Tag styleType="LIGHT" key={i}>
                   {talent.content}
                 </Tag>
@@ -78,8 +77,8 @@ export default function Profile() {
         <article>
           <h2 className="text-t3 mb-[8px]">이런 재능을 받고 싶어요</h2>
           <div className="flex gap-3 flex-wrap">
-            {userIsSuccess ? (
-              userData?.takenTalents.map((talent, i) => (
+            {myInfo?.takenTalents.length ? (
+              myInfo?.takenTalents.map((talent, i) => (
                 <Tag styleType="LIGHT" key={i}>
                   {talent.content}
                 </Tag>
@@ -91,8 +90,8 @@ export default function Profile() {
         </article>
         <article>
           <h2 className="text-t3 mb-[8px]">자기소개</h2>
-          {userIsSuccess ? (
-            <TextBox>{userData?.introduction}</TextBox>
+          {myInfo?.introduction ? (
+            <TextBox>{myInfo?.introduction}</TextBox>
           ) : (
             <TextBox disabled={true}>
               <div className="flex flex-col">
@@ -104,8 +103,8 @@ export default function Profile() {
         </article>
         <article>
           <h2 className="text-t3 mb-[8px]">링크</h2>
-          {userIsSuccess ? (
-            <TextBox>{userData?.profileLink}</TextBox>
+          {myInfo?.profileLink ? (
+            <TextBox>{myInfo?.profileLink}</TextBox>
           ) : (
             <TextBox disabled={true}>재능을 보여줄 수 있는 링크를 추가해보세요</TextBox>
           )}

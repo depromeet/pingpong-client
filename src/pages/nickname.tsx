@@ -8,6 +8,7 @@ import IconAnchor from '@/components/common/IconAnchor';
 import Input from '@/components/common/Input';
 import { ArrowIcon } from '@/components/icons';
 import { Layout } from '@/components/styles';
+import useMyInfoQuery from '@/hooks/queries/useMyInfoQuery';
 import useNicknameMutate from '@/hooks/queries/useNicknameMutate';
 
 const agreementList = [
@@ -37,7 +38,9 @@ const Nickname = () => {
   };
 
   useEffect(() => {
-    isSuccess && router.push('/main');
+    if (!isSuccess) return;
+
+    router.push('/main');
   }, [isSuccess, router]);
 
   return (
