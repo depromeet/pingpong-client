@@ -1,11 +1,10 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { tabAtomFamily } from '@/store/components';
+import { popupAtom, tabAtomFamily } from '@/store/components';
 import type { TabProps } from '@/store/components/types';
-
-import { usePopupWithBlock } from './usePopupWithBlock';
+import type { PopupProps } from '@/typings/common';
 
 // TODO: 해당 카테고리 전체에 해당하는 값을 id=999로 사용함. 이후 전체를 의미하는 값을 따로 가지도록 변경 필요
 interface UseTabProps {
@@ -28,7 +27,8 @@ const POPUP_INFO = {
 const useTab = ({ key, id, selectingNumber = 1 }: UseTabProps) => {
   const [selectedTab, setSelectedTab] = useRecoilState<TabProps[]>(tabAtomFamily(key));
   const [clicked, setClicked] = useState(false);
-  const { setPopup } = usePopupWithBlock();
+  //* TODO: 팝업 관련 로직 수정 필요
+  const setPopup = useSetRecoilState<PopupProps | null>(popupAtom);
 
   useEffect(() => {
     if (selectedTab.some((tab) => tab.id === id)) {
