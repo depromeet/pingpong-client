@@ -102,11 +102,11 @@ const Home: NextPage = () => {
           {userIsSuccess && (
             <HomeHeader>
               <Typography.Title>
-                <span className="text-primary-blue">{userData.nickname}</span> 님,
+                <span className="text-primary-blue">{userData?.nickname}</span> 님,
                 <br />
                 핑퐁에서 재능을 나눠볼까요?
               </Typography.Title>
-              <CircleImg size="large" src={userData.image} alt="user-profile-img" />
+              <CircleImg size="large" src={userData?.image} alt="user-profile-img" />
             </HomeHeader>
           )}
         </div>
