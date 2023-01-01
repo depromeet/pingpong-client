@@ -96,6 +96,17 @@ const PostDetail = () => {
 
   usePopupWithBlock();
 
+  useEffect(() => {
+    setPopup(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (reportPostIsSuccess) {
+      router.back();
+    }
+  }, [reportPostIsSuccess, router]);
+
   return (
     <>
       {postIsSuccess && (
