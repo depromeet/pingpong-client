@@ -10,14 +10,14 @@ interface NavigationBarProps {
 }
 
 const NAV_LIST_INFO = [
-  { icon: <TalentSearchIcon />, selectedIcon: <TalentSearchIcon color="#4D77FF" />, href: '/main', text: '재능 탐색' },
+  { icon: <TalentSearchIcon />, selectedIcon: <TalentSearchIcon color="#4D77FF" />, href: '/main/', text: '재능 탐색' },
   {
     icon: <TalentRegisterIcon />,
     selectedIcon: <TalentRegisterIcon color="#4D77FF" />,
-    href: '/talent/register',
+    href: '/talent/register/',
     text: '재능 등록',
   },
-  { icon: <ProfileIcon />, selectedIcon: <ProfileIcon color="#4D77FF" />, href: '/profile', text: '프로필' },
+  { icon: <ProfileIcon />, selectedIcon: <ProfileIcon color="#4D77FF" />, href: '/profile/', text: '프로필' },
 ];
 
 const NavigationBar = ({ className }: NavigationBarProps) => {

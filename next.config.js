@@ -6,6 +6,7 @@ const Dotenv = require('dotenv-webpack');
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
+  trailingSlash: true,
   compiler: {
     styledComponents: true,
   },
