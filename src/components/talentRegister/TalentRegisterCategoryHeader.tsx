@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { talentRegisterOrderAtom } from '@/store/components';
+import { talentRegisterCategoryResetSelector } from '@/store/components/selectors';
 
 import HeaderTitle from '../common/HeaderTitle';
 import Arrow from '../icons/Arrow';
@@ -28,7 +29,8 @@ const EXCHANGE = {
 };
 
 const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) => {
-  const { src, alt, contents, contents2, textColor } = sort === 'SHARE' ? SHARE : EXCHANGE;
+  const { src, alt, href, contents, contents2, textColor } = sort === 'SHARE' ? SHARE : EXCHANGE;
+  const setCategoryReset = useSetRecoilState(talentRegisterCategoryResetSelector);
 
   const router = useRouter();
 
@@ -38,6 +40,10 @@ const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) 
     title: '카테고리 선택을 그만두시겠어요?',
     content: '지금까지 선택한 카테고리는 저장되지 않아요',
     confirmText: '그만둘래요',
+    onConfirm() {
+      router.push(href);
+      setCategoryReset(true);
+    },
     cancelText: '취소',
   });
 
