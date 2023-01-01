@@ -18,6 +18,7 @@ const TalentRegisterTextRadioButtonGroup = ({
 }) => {
   const { list, currentSelected, onChange } = useRadioGroup({
     list: radioList,
+    initialValue: radioList[0],
   });
 
   return (
