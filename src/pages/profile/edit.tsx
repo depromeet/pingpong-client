@@ -8,6 +8,7 @@ import Textarea from '@/components/common/Textarea';
 import { useMyInfo } from '@/hooks/queries/useMyInfoQuery';
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
 import useEditProfile from '@/hooks/useEditProfile';
+import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { useToast } from '@/hooks/useToast';
 import { tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
@@ -39,6 +40,13 @@ const ProfileEdit = () => {
   const handleNameChange = useCallback((v: string) => {
     setName(v);
   }, []);
+
+  usePopupWithBlock({
+    title: '프로필 편집을 그만두시겠어요?',
+    content: '지금까지 작성한 내용은 저장되지 않아요',
+    confirmText: '그만둘래요',
+    cancelText: '취소',
+  });
 
   useEffect(() => {
     isSuccess && setToast('프로필이 저장되었어요.');
