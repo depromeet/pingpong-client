@@ -38,7 +38,7 @@ const ProfileCategoryTagList = ({ categoryKey, className }: ProfileCategoryTagLi
   };
 
   return (
-    <form className={`${className} px-[16px] py-[24.5px]`}>
+    <form className={`${className} px-[16px]`}>
       {isSuccess &&
         data.data.map(({ id, name, subCategories }: MidAndSubCategoriesProps) => {
           return (
