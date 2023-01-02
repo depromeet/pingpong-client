@@ -16,7 +16,7 @@ const useUserInfoQuery = () => {
     return data;
   };
 
-  return useQuery({ queryKey: ['userInfo'], queryFn: fetchUserInfo, enabled: isLogin });
+  return useQuery({ queryKey: ['userInfo'], queryFn: fetchUserInfo, enabled: !isLogin });
 };
 
 export default useUserInfoQuery;
