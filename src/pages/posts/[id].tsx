@@ -83,7 +83,7 @@ const PostDetail = () => {
   }, [postLikeIsSuccess, postUnlikeIsSuccess, postIsSuccess, refetch]);
 
   useEffect(() => {
-    const pathHasIsMyPost = router.asPath.includes('isMyPost');
+    const pathHasIsMyPost = router.query.isMyPost === 'true';
     setIsMyPost(pathHasIsMyPost);
   }, [router]);
 
