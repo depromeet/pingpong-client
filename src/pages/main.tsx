@@ -158,7 +158,7 @@ const Home: NextPage = () => {
           />
         </div>
       )}
-      {activeMidCategoryList.length && (
+      {activeMidCategoryList.length > 0 && (
         <MidCategoryTab
           mainCategoryName={getActiveCategory(activeMainCategoryId)?.name || ''}
           list={activeMidCategoryList || []}
