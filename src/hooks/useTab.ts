@@ -14,6 +14,7 @@ interface UseTabProps {
 }
 
 const POPUP_INFO = {
+  isShowing: true,
   title: '최대 5개까지 선택할 수 있어요',
   confirmText: '확인',
 };
