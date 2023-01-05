@@ -39,6 +39,7 @@ const ProfileEdit = () => {
   }, []);
 
   usePopupWithBlock({
+    isShowing: true,
     title: '프로필 편집을 그만두시겠어요?',
     content: '지금까지 작성한 내용은 저장되지 않아요',
     confirmText: '그만둘래요',

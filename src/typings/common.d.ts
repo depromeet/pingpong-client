@@ -9,6 +9,7 @@ interface DefaultProps {
 }
 
 interface PopupProps {
+  isShowing: boolean;
   title?: string;
   content?: string;
   children?: ReactNode;

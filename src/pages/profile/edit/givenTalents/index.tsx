@@ -25,6 +25,7 @@ const ProfileEditGivenTalents = () => {
 
   usePopupWithBlock({
     ...POPUP_INFO,
+    isShowing: true,
     onConfirm: () => {
       setReset(true);
     },

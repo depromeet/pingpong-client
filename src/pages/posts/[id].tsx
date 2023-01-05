@@ -44,6 +44,7 @@ const PostDetail = () => {
 
   const handleReportPopup = useCallback(() => {
     setPopup({
+      isShowing: true,
       title: '사용자 신고하기',
       content: '신고 사유를 선택해주세요.',
       children: <PostReportRadioGroup setReportReason={setReportReason} />,
@@ -66,6 +67,7 @@ const PostDetail = () => {
       };
 
       setPopup({
+        isShowing: true,
         title: '카카오톡 오픈채팅으로 이동됩니다',
         content: '오픈채팅 시, 상대방에게 <br />불쾌감을 주는 언어 사용을 지양해주세요.',
         onConfirm: () => openExternalLink(link),

@@ -14,6 +14,7 @@ export const usePopupWithBlock = (blockPopupProps?: PopupProps) => {
   const showBlockPopup = () => {
     setPopup({
       ...blockPopupProps,
+      isShowing: true,
       onCancel: () => null,
       onConfirm: () => {
         isBlockBack.current = undefined;
