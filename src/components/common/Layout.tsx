@@ -21,7 +21,7 @@ const hasGnbPath = ['/main', '/profile', '/talent/register'];
 
 const Layout = ({ children }: PropsWithChildren) => {
   const toastValue = useRecoilValue(toastAtom);
-  const popupValue = useRecoilValue(popupAtom);
+  const [popupValue, setPopup] = useRecoilState(popupAtom);
   const headerValue = useRecoilValue(headerAtom);
   const router = useRouter();
 
@@ -56,11 +56,15 @@ const Layout = ({ children }: PropsWithChildren) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, setIsSpinnerActive]);
 
+  useEffect(() => {
+    setPopup(null);
+  }, [router.asPath, setPopup]);
+
   return (
     <>
       {headerValue && <Header {...headerValue} />}
       <main className={showGnb ? `pb-[82px]` : ''}>{children}</main>
-      {popupValue && <Popup {...popupValue} />}
+      {popupValue?.isShowing && <Popup {...popupValue} />}
       {toastValue && <Toast value={toastValue} />}
       {showGnb && <NavigationBar className="fixed bottom-0 left-0" />}
       {isSpinnerActive && <Spinner isDimmed={isSpinnerActive} />}

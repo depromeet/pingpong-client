@@ -23,6 +23,7 @@ export default function ProfileSetting() {
 
   const handleDeletePopup = useCallback(() => {
     setPopup({
+      isShowing: true,
       title: 'Ping-Pong 서비스 탈퇴하기',
       content: `불편하셨던 점을 저희에게 말씀해주세요.<br/>서비스 개선에 적극 반영하도록 할게요.`,
       children: <DeleteAccountRadioGroup setDeleteReason={setDeleteReason} />,
@@ -42,6 +43,7 @@ export default function ProfileSetting() {
       label: '로그아웃',
       onClick: () => {
         setPopup({
+          isShowing: true,
           title: '정말 로그아웃 하시겠어요?',
           cancelText: '취소',
           confirmText: '로그아웃',

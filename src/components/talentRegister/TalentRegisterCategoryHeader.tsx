@@ -37,6 +37,7 @@ const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) 
   const order = useRecoilValue(talentRegisterOrderAtom);
 
   usePopupWithBlock({
+    isShowing: true,
     title: '카테고리 선택을 그만두시겠어요?',
     content: '지금까지 선택한 카테고리는 저장되지 않아요',
     confirmText: '그만둘래요',

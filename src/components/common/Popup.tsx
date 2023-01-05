@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import { popupAtom } from '@/store/components';
@@ -5,7 +6,16 @@ import type { PopupProps } from '@/typings/common';
 
 import Portal from './Portal';
 
-const Popup = ({ children, content, title, cancelText, confirmText, onCancel, onConfirm }: PopupProps) => {
+const Popup = ({
+  isShowing = false,
+  children,
+  content,
+  title,
+  cancelText,
+  confirmText,
+  onCancel,
+  onConfirm,
+}: PopupProps) => {
   const setPopup = useSetRecoilState<PopupProps | null>(popupAtom);
 
   const onCancelClicked = () => {
@@ -21,7 +31,10 @@ const Popup = ({ children, content, title, cancelText, confirmText, onCancel, on
   };
 
   return (
-    <Portal isShowing className="fixed w-screen h-screen left-0 top-0 grid place-items-center px-[6%] z-[100]">
+    <Portal
+      isShowing={isShowing}
+      className="fixed w-screen h-screen left-0 top-0 grid place-items-center px-[6%] z-[100]"
+    >
       <div className="rounded-[16px] w-full bg-white z-50">
         <main className="px-5 py-[8%] flex items-center gap-2 flex-col">
           <h1 className="text-t1 text-center text-gray-600">{title}</h1>
