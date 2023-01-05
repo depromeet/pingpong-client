@@ -1,20 +1,17 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React from 'react';
+
+import { useAuth } from '@/hooks/useAuth';
 
 import Button from '../components/common/Button';
 
 export default function Login() {
   const router = useRouter();
+  useAuth();
 
   const handleLogin = () => {
     router.push(`${process.env.NEXT_PUBLIC_REDIRECT_URL}?redirect_uri=${process.env.NEXT_PUBLIC_FE_URL}/nickname/`);
   };
-
-  //TODO:
-  // const handleToMain = () => {
-  //   router.push('/main');
-  // };
 
   return (
     <main className="w-screen h-screen bg-primary-blue p-[16px] flex flex-col items-center">
