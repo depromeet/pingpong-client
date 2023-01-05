@@ -16,6 +16,7 @@ export const useAuth = () => {
       document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
     }
 
+    setIsLogin(false);
     sessionStorage.clear();
     router.push('/');
   };
@@ -25,6 +26,12 @@ export const useAuth = () => {
 
     setIsLogin(cookie ? true : false);
   }, []);
+
+  useEffect(() => {
+    if (isLogin && router.asPath === '/') {
+      router.replace('/main');
+    }
+  }, [isLogin, router]);
 
   return { isLogin, logout };
 };
