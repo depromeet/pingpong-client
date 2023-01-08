@@ -1,33 +1,47 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
 import { axiosClient } from '@/apis';
+import { loginStateAtom } from '@/store/components';
 
 export const useAuth = () => {
   const router = useRouter();
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useRecoilState(loginStateAtom);
 
-  const logout = async () => {
-    axiosClient.post('/auth/logout');
+  const handleLogout = async () => {
+    try {
+      await axiosClient.post('/auth/logout');
+      setIsLogin(false);
+      router.replace('/');
+    } catch (err) {
+      console.error(err);
+      // TODO: modal 메세지 노출
+    }
+  };
 
-    //TODO: check error
-    router.push('/');
-    setIsLogin(false);
-    sessionStorage.clear();
+  const handleLogin = () => {
+    router.push(`${process.env.NEXT_PUBLIC_REDIRECT_URL}`);
   };
 
   useEffect(() => {
-    const cookie = document.cookie.includes('access_token');
+    const hasToken = document.cookie.includes('access_token');
+    console.log('here', hasToken);
 
-    setIsLogin(cookie ? true : false);
-  }, []);
+    setIsLogin(hasToken ? true : false);
+  }, [setIsLogin]);
 
   useEffect(() => {
+    console.log('isLogin ---', isLogin);
+    if (!isLogin) {
+      router.replace('/');
+    }
+
     if (isLogin && router.asPath === '/') {
       router.replace('/main');
     }
   }, [isLogin, router]);
 
-  return { isLogin, logout };
+  return { isLogin, handleLogout, handleLogin };
 };

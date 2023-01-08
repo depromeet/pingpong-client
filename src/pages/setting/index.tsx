@@ -11,7 +11,7 @@ import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 export default function ProfileSetting() {
   const router = useRouter();
 
-  const { logout } = useAuth();
+  const { handleLogout } = useAuth();
   const { setPopup } = usePopupWithBlock();
 
   const handleMoveToLink = (path: string) => {
@@ -48,7 +48,7 @@ export default function ProfileSetting() {
           cancelText: '취소',
           confirmText: '로그아웃',
           onCancel: () => null,
-          onConfirm: () => logout(),
+          onConfirm: () => handleLogout(),
         });
       },
     },
