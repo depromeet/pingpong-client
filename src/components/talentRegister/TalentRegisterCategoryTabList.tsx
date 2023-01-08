@@ -5,7 +5,7 @@ import TabList from '../common/TabList';
 const TalentRegisterCategoryTabList = () => {
   const {
     mainMidCategoryQuery: { isLoading, data },
-  } = useCategoriesQuery();
+  } = useCategoriesQuery({});
 
   return (
     <>

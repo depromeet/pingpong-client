@@ -25,7 +25,7 @@ const midCategoryIdSelector = selector<number>({
   get: ({ get }) => {
     const midCategoryList = get(tabAtomFamily('midCategory'));
 
-    return midCategoryList[0].id;
+    return midCategoryList[0]?.id || 0;
   },
 });
 
