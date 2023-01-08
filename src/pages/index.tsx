@@ -10,7 +10,7 @@ export default function Login() {
   useAuth();
 
   const handleLogin = () => {
-    router.push(`${process.env.NEXT_PUBLIC_REDIRECT_URL}?redirect_uri=${process.env.NEXT_PUBLIC_FE_URL}/nickname/`);
+    router.push(`${process.env.NEXT_PUBLIC_REDIRECT_URL}`);
   };
 
   return (
