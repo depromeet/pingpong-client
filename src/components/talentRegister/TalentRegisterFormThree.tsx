@@ -67,7 +67,7 @@ const TalentRegisterFormThree = ({ className, sort }: TalentRegisterProps) => {
   const disabled = useTalentRegisterFormDisabled({ requiredTakenCategoryNumber: 1 });
 
   return (
-    <form className={`${className} px-[16px]`}>
+    <form className={`${className} px-[16px] pt-[24.5px]`}>
       <TextSelectInput option={{ ...CATEGORY[sort], key: categoryKey }} />
       <TextTextarea option={EXPLANATION[sort]} />
       <Layout.FixedBottom>
