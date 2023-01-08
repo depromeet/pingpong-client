@@ -1,24 +1,20 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import { axiosRequest } from '@/apis';
+
 export const useAuth = () => {
   const router = useRouter();
 
   const [isLogin, setIsLogin] = useState(false);
 
-  const logout = () => {
-    const cookies = document.cookie.split(';');
+  const logout = async () => {
+    await axiosRequest<{ data: number; message: string }>({ method: 'post', url: '/auth/logout' });
 
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i];
-      const eqPos = cookie.indexOf('=');
-      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
-    }
-
+    //TODO: check error
+    router.push('/');
     setIsLogin(false);
     sessionStorage.clear();
-    router.push('/');
   };
 
   useEffect(() => {
