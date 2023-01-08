@@ -1,5 +1,6 @@
 /* doc: https://swiperjs.com/react */
 
+import Link from 'next/link';
 import styled from 'styled-components';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -15,7 +16,9 @@ const CardCarousel = ({ list }: { list: CardInfo[] }) => {
       <Swiper pagination={true} modules={[Pagination]}>
         {list.map((item) => (
           <SwiperSlide key={uniqueId('carousel-slide')}>
-            <Card {...item} hideTakenTalents={true} />
+            <Link href={`/posts/${item.id}`}>
+              <Card {...item} hideTakenTalents={true} />
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
