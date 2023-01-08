@@ -1,3 +1,5 @@
+import { arrayBuffer } from 'node:stream/consumers';
+
 import { useRecoilValue } from 'recoil';
 
 import { talentRegisterOrderAtom } from '@/store/components';
@@ -34,4 +36,28 @@ export const makeAndRemoveAtomKey = ({ prev, newInput, input }: MakeAndRemoveAto
   return newInput.contents.length === 0
     ? prev.filter((prevInput) => prevInput !== input.inputKey)
     : Array.from(new Set([...prev, input.inputKey]));
+};
+
+interface CookieOptions {
+  path?: string;
+  expires?: string;
+  domain?: string;
+  'max-age'?: number;
+}
+
+export const getCookie = (name: string) => {
+  const matches = document.cookie.match(
+    new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+export const setCookie = (name: string, value: string, options: CookieOptions) => {
+  let updatedCookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+
+  for (const optionKey in options) {
+    updatedCookie += '; ' + optionKey;
+  }
+
+  return updatedCookie;
 };
