@@ -2,27 +2,24 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
-import useGetCategory from '@/hooks/useGetCategory';
+import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
 import { tabAtomFamily } from '@/store/components';
-import type { CategoryProps } from '@/typings/common';
+import type { MidCategory } from '@/typings/common';
 
 import Button from '../common/Button';
 import ClickTagList from '../common/ClickTagList';
 import TalentRegisterCategoryBottomSheet from './TalentRegisterCategoryBottomSheet';
 
-interface MidAndSubCategoriesProps extends CategoryProps {
-  subCategories: CategoryProps[];
-}
-
 const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps) => {
   const [{ id }] = useRecoilValue(tabAtomFamily('mainCategory'));
   const categoryKey = SetTalnetRegisterCategorySelectInputKey();
   const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
-  const { isSuccess, data } = useGetCategory({
-    sort: 'mid',
-    type: 'mainCategoryId',
-    categoryId: id || 1,
+
+  const {
+    midCategoryQuery: { isSuccess, data },
+  } = useCategoriesQuery({
+    mainCategoryId: id || 1,
   });
 
   const href = sort === 'SHARE' ? '/talent/register/share' : '/talent/register/exchange';
@@ -35,7 +32,7 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
     <form className={`${className} px-[16px]`}>
       <div>
         {isSuccess &&
-          data.data.map(({ id, name, subCategories }: MidAndSubCategoriesProps) => {
+          data.map(({ id, name, subCategories }: MidCategory) => {
             return (
               <div key={id}>
                 <span className="text-t4 text-gray-600">{name}</span>

@@ -42,10 +42,22 @@ interface CardInfo {
   hideProfile?: boolean;
 }
 
-interface MainCategoryInfo {
+interface MainCategory {
+  id: number;
+  image: string;
+  midCategories: MidCategory[];
+  name: string;
+}
+
+interface MidCategory {
   id: number;
   name: string;
-  image: string;
+  subCategories: SubCategory[];
+}
+
+interface SubCategory {
+  id: number;
+  name: string;
 }
 
 interface LinkInfo {
