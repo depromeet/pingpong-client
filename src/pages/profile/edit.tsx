@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -38,6 +39,8 @@ const ProfileEdit = () => {
     setName(v);
   }, []);
 
+  const router = useRouter();
+
   usePopupWithBlock({
     isShowing: true,
     title: '프로필 편집을 그만두시겠어요?',
@@ -47,8 +50,11 @@ const ProfileEdit = () => {
   });
 
   useEffect(() => {
-    isSuccess && setToast('프로필이 저장되었어요.');
-  }, [isSuccess, setToast]);
+    if (isSuccess) {
+      setToast('프로필이 저장되었어요.');
+      router.push('/profile');
+    }
+  }, [isSuccess, router, setToast]);
 
   useEffect(() => {
     isError && setToast('프로필 저장에 실패했어요.');
