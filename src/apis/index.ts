@@ -1,28 +1,25 @@
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import axios from 'axios';
-import { formatQueryString } from 'src/lib/utils';
 
-axios.defaults.baseURL = `https://${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/`;
-axios.defaults.withCredentials = true;
+export interface ServerResponse<T = Record<string, unknown>> {
+  data: T;
+  message: string;
+}
 
-const getAuth = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  const cookie = document.cookie;
-  const sessionForDev = sessionStorage.getItem('token');
+export const axiosClient = axios.create({
+  baseURL: `https://${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/`,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-  if (cookie) {
-    return {
-      ...config,
-      headers: {
-        ...config.headers,
-      },
-    };
+const getDevTokenFromSessionStorage = () => {
+  const token = sessionStorage.getItem('token');
+  // TODO: sessionForDev 실제로 사용되지 않는것 같아보임. 삭제 필요
+  if (token) {
+    return `Bearer ${token}`;
   }
-
-  if (sessionForDev) {
-    return { ...config, headers: { ...config.headers, Authorization: `Bearer ${sessionForDev}` } };
-  }
-
-  return config;
 };
 
 const handleError = (_: AxiosError) => {
@@ -31,74 +28,46 @@ const handleError = (_: AxiosError) => {
 };
 
 // only for QUERY
-export const queryFetcher = async (url: string, queries?: Record<string, unknown>) => {
-  const newUrl = formatQueryString(url, queries);
-  let config: AxiosRequestConfig = {
-    method: 'GET',
-    url: newUrl,
-  };
+// export const queryFetcher = async (url: string, queries?: Record<string, unknown>) => {
+//   const newUrl = formatQueryString(url, queries);
 
-  config = getAuth(config);
+// const token = getDevTokenFromSessionStorage();
 
-  try {
-    const res = await axios(config);
+//   try {
+//     const res = await axios(config);
 
-    return res.data;
-  } catch (err) {
-    handleError(err as AxiosError);
+//     return res.data;
+//   } catch (err) {
+//     handleError(err as AxiosError);
 
-    throw err;
-  }
-};
+//     throw err;
+//   }
+// };
 
 // only for MUTATE
-export const mutateFetcher = async <T>(
-  url: string,
-  method: 'POST' | 'PUT' | 'DELETE' | 'PATCH',
-  data?: T,
-  params?: Record<string, unknown>,
-): Promise<T | null> => {
-  try {
-    let config: AxiosRequestConfig = {
-      method,
-      data,
-      url,
-      params,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+// export const mutateFetcher = async <T>(
+//   url: string,
+//   method: 'POST' | 'PUT' | 'DELETE' | 'PATCH',
+//   data?: T,
+//   params?: Record<string, unknown>,
+// ): Promise<T | null> => {
+//   try {
+//     let config: AxiosRequestConfig = {
+//       method,
+//       data,
+//       url,
+//       params,
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     };
 
-    config = getAuth(config);
+//     const res = await axios(config);
 
-    const res = await axios(config);
+//     return res.data;
+//   } catch (err) {
+//     handleError(err as AxiosError);
 
-    return res.data;
-  } catch (err) {
-    handleError(err as AxiosError);
-
-    throw err;
-  }
-};
-
-export const axiosRequest = async <T>(req: AxiosRequestConfig): Promise<AxiosResponse<T | null>> => {
-  try {
-    const config: AxiosRequestConfig = getAuth(req);
-
-    const res = await axios(config);
-
-    return res;
-  } catch (err) {
-    handleError(err as AxiosError);
-
-    throw err;
-  }
-};
-
-//TODO: remove this
-export interface ServerResponse<T = Record<string, unknown>> {
-  data: T;
-  message: string;
-}
-
-export const axiosClient = axios.create({});
+//     throw err;
+//   }
+// };
