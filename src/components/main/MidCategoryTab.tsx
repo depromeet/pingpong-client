@@ -1,4 +1,4 @@
-import type { MidCategory } from '@/typings/main';
+import type { MidCategory } from '@/typings/common';
 
 import TabList from '../common/TabList';
 
