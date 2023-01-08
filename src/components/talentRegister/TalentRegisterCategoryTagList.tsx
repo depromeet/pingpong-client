@@ -21,7 +21,7 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
   const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
   const { isSuccess, data } = useGetCategory({
     sort: 'mid',
-    query: 'mainCategoryId',
+    type: 'mainCategoryId',
     categoryId: id || 1,
   });
 

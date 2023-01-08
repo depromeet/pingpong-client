@@ -27,7 +27,7 @@ const ProfileCategoryTagList = ({ categoryKey, className }: ProfileCategoryTagLi
   const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
   const { isSuccess, data } = useGetCategory({
     sort: 'mid',
-    query: 'mainCategoryId',
+    type: 'mainCategoryId',
     categoryId: id || 1,
   });
 
