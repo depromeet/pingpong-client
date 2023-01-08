@@ -28,6 +28,7 @@ const ProfileEditGivenTalents = () => {
     isShowing: true,
     onConfirm: () => {
       setReset(true);
+      router.back();
     },
   });
 

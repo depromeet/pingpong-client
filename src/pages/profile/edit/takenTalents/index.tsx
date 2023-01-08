@@ -34,6 +34,7 @@ const ProfileEditTakenTalents = () => {
     isShowing: true,
     onConfirm: () => {
       setReset(true);
+      router.back();
     },
   });
 
