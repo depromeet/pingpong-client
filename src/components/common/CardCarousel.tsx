@@ -47,6 +47,10 @@ const SwiperWrapper = styled.div`
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+
+    a {
+      width: 100%;
+    }
   }
 
   .swiper-pagination {
