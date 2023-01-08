@@ -45,13 +45,6 @@ interface CookieOptions {
   'max-age'?: number;
 }
 
-export const getCookie = (name: string) => {
-  const matches = document.cookie.match(
-    new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
-  );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-};
-
 export const setCookie = (name: string, value: string, options: CookieOptions) => {
   let updatedCookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
 
