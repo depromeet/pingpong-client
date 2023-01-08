@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import { colors } from '@/constants/styles';
-import type { MainCategoryInfo } from '@/typings/common';
+import type { MainCategory } from '@/typings/common';
 
 import CircleImg from '../common/CircleImg';
 
-const MainCategoryItem = ({ category, isActive }: { category: MainCategoryInfo; isActive: boolean }) => {
+const MainCategoryItem = ({ category, isActive }: { category: MainCategory; isActive: boolean }) => {
   return (
     <CategoryItemContainer>
       <CircleImg

@@ -6,7 +6,7 @@ import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { uniqueId } from '@/lib/utils';
-import type { MainCategoryInfo } from '@/typings/common';
+import type { MainCategory } from '@/typings/common';
 
 import MainCategoryItem from './MainCategoryItem';
 
@@ -15,7 +15,7 @@ const CategoryCarousel = ({
   activeCategoryId,
   onClick,
 }: {
-  list: MainCategoryInfo[];
+  list: MainCategory[];
   activeCategoryId: number;
   onClick: (id: number) => void;
 }) => {

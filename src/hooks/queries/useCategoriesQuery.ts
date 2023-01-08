@@ -1,18 +1,34 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { axiosClient } from '@/apis';
-import type { MainCategory, SubCategory } from '@/typings/main';
+import type { MainCategory, MidCategory, SubCategory } from '@/typings/common';
 
 interface ServerResponse<T = Record<string, unknown>> {
   data: T;
   message: string;
 }
 
-const useCategoriesQuery = (midCategoryId?: number) => {
+const useCategoriesQuery = ({
+  mainCategoryId = 0,
+  midCategoryId = 0,
+}: {
+  mainCategoryId?: number;
+  midCategoryId?: number;
+}) => {
   const fetchMainMidCategories = async () => {
     const {
       data: { data },
     } = await axiosClient.get<ServerResponse<MainCategory[]>>(`/categories/main`);
+    return data;
+  };
+
+  const fetchMidCategoriesByMainCategoryId = async () => {
+    const {
+      data: { data },
+    } = await axiosClient.get<ServerResponse<MidCategory[]>>(`/categories/mid`, {
+      params: { mainCategoryId },
+    });
+
     return data;
   };
 
@@ -33,6 +49,12 @@ const useCategoriesQuery = (midCategoryId?: number) => {
     initialData: [],
   });
 
+  const midCategoryQuery = useQuery({
+    queryKey: ['midCategories', mainCategoryId],
+    queryFn: fetchMidCategoriesByMainCategoryId,
+    initialData: [],
+  });
+
   const subCategoryQuery = useQuery({
     queryKey: ['subCategories', midCategoryId],
     queryFn: fetchSubCategoriesByMidCategoryId,
@@ -45,6 +67,7 @@ const useCategoriesQuery = (midCategoryId?: number) => {
 
   return {
     mainMidCategoryQuery,
+    midCategoryQuery,
     subCategoryQuery,
   };
 };

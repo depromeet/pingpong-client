@@ -20,7 +20,7 @@ import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom, tabAtomFamily } from '@/store/components';
-import type { MidCategory } from '@/typings/main';
+import type { MidCategory } from '@/typings/common';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
   const {
     mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
     subCategoryQuery: { data: subCategoryData },
-  } = useCategoriesQuery(activeMidCategoryId);
+  } = useCategoriesQuery({ midCategoryId: activeMidCategoryId });
 
   const { posts, fetchNextPage, refetch, hasNextPage } = useInfinitePostsQuery({
     isShare,
