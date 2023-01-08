@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
@@ -13,32 +14,46 @@ import TextBox from '@/components/common/TextBox';
 import useGetMemberPosts from '@/hooks/useGetMemberPosts';
 import type { UserInfo } from '@/typings/common';
 
+import ArrowLeftBlackIcon from '../../../public/icons/arrow-left-black.svg';
+
 const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: UserInfo }) => {
   const { posts, fetchNextPage, isSuccess: postsIsSuccess, hasNextPage } = useGetMemberPosts(userInfo?.memberId);
   const [isShowAllPosts, setIsShowAllPosts] = useState(false);
   const { ref, inView } = useInView();
+  const router = useRouter();
 
   useEffect(() => {
     if (inView && isShowAllPosts) fetchNextPage();
   }, [inView, fetchNextPage, isShowAllPosts]);
 
+  const onClickBack = () => {
+    router.query.new ? router.push('/main') : router.back();
+  };
+
   return (
     <>
-      <section className="pt-[5%] pb-[6%]">
+      <ProfileHeader>
+        <button onClick={onClickBack}>
+          <ArrowLeftBlackIcon />
+        </button>
         {isMe && (
-          <article className="flex gap-7 justify-end pr-7">
-            <Link href={'/profile/edit'}>
-              <button className="w-[20px] h-[20px]">
-                <Image src={'/icons/modify.svg'} alt="modify" width={100} height={100} />
-              </button>
-            </Link>
-            <Link href={'/setting'}>
-              <button className="w-[20px] h-[20px]">
-                <Image src={'/icons/setting.svg'} alt="setting" width={100} height={100} />
-              </button>
-            </Link>
-          </article>
+          <div>
+            <article className="flex gap-7 justify-end pr-7">
+              <Link href={'/profile/edit'}>
+                <button className="w-[20px] h-[20px]">
+                  <Image src={'/icons/modify.svg'} alt="modify" width={100} height={100} />
+                </button>
+              </Link>
+              <Link href={'/setting'}>
+                <button className="w-[20px] h-[20px]">
+                  <Image src={'/icons/setting.svg'} alt="setting" width={100} height={100} />
+                </button>
+              </Link>
+            </article>
+          </div>
         )}
+      </ProfileHeader>
+      <section className="pt-[5%] pb-[6%]">
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
           <CircleImg size="xxlarge" src={`${userInfo.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
           <span className="text-h2">{`${userInfo.nickname}`}</span>
@@ -154,5 +169,19 @@ const ContainerRef = styled.div`
 const CardContainer = styled.ul`
   > li ~ li {
     margin-top: 1.2rem;
+  }
+`;
+
+const ProfileHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1.6rem;
+  width: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 3.6rem;
+
+  svg {
+    fill: black;
   }
 `;
