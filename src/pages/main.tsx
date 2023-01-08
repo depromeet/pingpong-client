@@ -38,7 +38,6 @@ const Home: NextPage = () => {
   const queryClient = useQueryClient();
 
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
-    subCategoryId: 1,
     page: 0,
     size: 5,
   });
