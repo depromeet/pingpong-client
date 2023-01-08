@@ -20,6 +20,7 @@ import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useReportPostMutate from '@/hooks/queries/useReportPostMutate';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
+import { uniqueId } from '@/lib/utils';
 import { bottomSheetActiveOptionAtom, myInfoAtom } from '@/store/components';
 import type { LinkInfo } from '@/typings/common';
 
@@ -154,15 +155,41 @@ const PostDetail = () => {
               <Typography.Title className="mt-12 mb-24">{postData.title}</Typography.Title>
               <Typography.Subtitle className="mb-6">재능 소개</Typography.Subtitle>
               <Typography.Content className="mb-24">{postData.content}</Typography.Content>
-              <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>
+              {postData.links.length > 0 && <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>}
               <PostDetailRow>
                 {postData.links.map((link: LinkInfo) => (
                   <GrayBlock key={`link-${link.id}`}>
-                    <li>{link.content}</li>
+                    <p>{link.content}</p>
                   </GrayBlock>
                 ))}
               </PostDetailRow>
             </Layout.DefaultPadding>
+
+            {postData.isShare === false && (
+              <Layout.DefaultPadding>
+                <Layout.Divider className="my-24" />
+                <Typography.Subtitle className="mb-6">이런 재능을 해요</Typography.Subtitle>
+                <ProfileTakenTalents className="mb-16">
+                  {postData.takenTalents.map((takenTalent) => {
+                    return (
+                      <Tag
+                        key={uniqueId(takenTalent)}
+                        styleType="LIGHT"
+                        color="blue"
+                        className="mb-8 mr-6 whitespace-nowrap"
+                      >
+                        {takenTalent}
+                      </Tag>
+                    );
+                  })}
+                </ProfileTakenTalents>
+                <Typography.Subtitle className="mb-6">상세 설명</Typography.Subtitle>
+                <GrayBlock>
+                  <p>{postData.takenContent}</p>
+                </GrayBlock>
+              </Layout.DefaultPadding>
+            )}
+
             <Layout.Divider className="my-24" />
             <Layout.DefaultPadding>
               <Typography.Subtitle className="mb-6">이렇게 공유하고 싶어요</Typography.Subtitle>
@@ -266,4 +293,9 @@ const ProfileLinkButton = styled.button`
   border-radius: 2rem;
   border: 0.1rem solid ${colors.gray200};
   color: ${colors.gray500};
+`;
+
+const ProfileTakenTalents = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
 `;
