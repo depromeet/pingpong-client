@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
@@ -22,6 +23,7 @@ const Nickname = () => {
   const [agreement, setAgreement] = useState([false, false]);
 
   const { mutate, isSuccess } = useNicknameMutate();
+  const queryClient = useQueryClient();
 
   const buttonDisabled = useMemo(
     () => name.length < 2 || name.length > 10 || agreement.some((v) => !v),
@@ -39,8 +41,9 @@ const Nickname = () => {
   useEffect(() => {
     if (!isSuccess) return;
 
+    queryClient.invalidateQueries(['userInfo']);
     router.push('/main');
-  }, [isSuccess, router]);
+  }, [isSuccess, queryClient, router]);
 
   return (
     <main className="relatvie w-screen h-screen p-[16px]">
