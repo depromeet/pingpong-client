@@ -1,23 +1,39 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { queryFetcher } from '@/apis';
+import type { ServerResponse } from '@/apis';
+import { axiosClient } from '@/apis';
 
 interface UseCategoryProps {
   sort: 'main' | 'mid' | 'sub';
-  query?: 'mainCategoryId' | 'midCategoryId';
+  type?: 'mainCategoryId' | 'midCategoryId';
   categoryId?: number;
 }
 
-const useGetCategory = ({ sort, query, categoryId }: UseCategoryProps) => {
-  const queries = query === 'mainCategoryId' ? { mainCategoryId: categoryId } : { midCategoryId: categoryId };
-
-  // TODO: useQuery type 선언이 필요합니다.
-  const results = useQuery({
-    queryKey: [`${sort}`, `${query}`, `${categoryId}`],
-    queryFn: () => queryFetcher(`/categories/${sort}`, queries),
+const fetchCategoriesByMainCategoryId = async ({ mainCategoryId = 1 }: { mainCategoryId?: number }) => {
+  const { data: data } = await axiosClient.get<ServerResponse<MainCategoryInfo[]>>(`/categories/mid`, {
+    params: { mainCategoryId },
   });
 
-  return results;
+  return data;
+};
+
+const fetchCategoriesByMidCategoryId = async ({ midCategoryId = 1 }: { midCategoryId?: number }) => {
+  const { data: data } = await axiosClient.get<ServerResponse<MainCategoryInfo[]>>(`/categories/sub`, {
+    params: { midCategoryId },
+  });
+
+  return data;
+};
+
+const useGetCategory = ({ sort, type, categoryId = 1 }: UseCategoryProps) => {
+  const isSortMain = sort === 'main';
+  const queryFn = isSortMain ? fetchCategoriesByMainCategoryId : fetchCategoriesByMidCategoryId;
+  const params = isSortMain ? { mainCategoryId: categoryId } : { midCategoryId: categoryId };
+
+  return useQuery({
+    queryKey: [`${sort}`, `${type}`, `${categoryId}`],
+    queryFn: () => queryFn(params),
+  });
 };
 
 export default useGetCategory;
