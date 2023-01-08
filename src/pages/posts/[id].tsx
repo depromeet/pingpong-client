@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
@@ -20,8 +20,8 @@ import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useReportPostMutate from '@/hooks/queries/useReportPostMutate';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
-import { bottomSheetActiveOptionAtom, popupAtom } from '@/store/components';
-import type { LinkInfo, PopupProps } from '@/typings/common';
+import { bottomSheetActiveOptionAtom, myInfoAtom } from '@/store/components';
+import type { LinkInfo } from '@/typings/common';
 
 const PostDetail = () => {
   const router = useRouter();
@@ -30,6 +30,7 @@ const PostDetail = () => {
   const [reportReason, setReportReason] = useState<string>('');
   const [isMyPost, setIsMyPost] = useState(false);
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+  const myInfo = useRecoilValue(myInfoAtom);
 
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
@@ -85,9 +86,9 @@ const PostDetail = () => {
   }, [postLikeIsSuccess, postUnlikeIsSuccess, postIsSuccess, refetch]);
 
   useEffect(() => {
-    const pathHasIsMyPost = router.query.isMyPost === 'true';
+    const pathHasIsMyPost = myInfo?.memberId === postData?.memberId;
     setIsMyPost(pathHasIsMyPost);
-  }, [router]);
+  }, [myInfo?.memberId, postData?.memberId, router]);
 
   useEffect(() => {
     if (activeOption.id === 'DELETE') postDeleteMutate();
@@ -108,6 +109,12 @@ const PostDetail = () => {
       router.back();
     }
   }, [reportPostIsSuccess, router]);
+
+  useEffect(() => {
+    if (postDeleteIsSuccess) {
+      router.back();
+    }
+  }, [postDeleteIsSuccess, router]);
 
   return (
     <>
