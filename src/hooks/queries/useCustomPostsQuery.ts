@@ -7,7 +7,6 @@ import type { CardInfo } from '@/typings/common';
 import { useAuth } from '../useAuth';
 
 interface CustomPostsQueryParams {
-  subCategoryId: number;
   page: number;
   size: number;
 }
@@ -19,12 +18,11 @@ interface CustomPostsData {
 const useCustomPostsQuery = (params: CustomPostsQueryParams) => {
   const { isLogin } = useAuth();
 
-  const fetchCustomPosts = async ({ subCategoryId, page, size }: CustomPostsQueryParams) => {
+  const fetchCustomPosts = async ({ page, size }: CustomPostsQueryParams) => {
     const {
       data: { data },
     } = await axiosClient.get<ServerResponse<CustomPostsData>>(`/posts/custom`, {
       params: {
-        subCategoryId,
         page,
         size,
       },
