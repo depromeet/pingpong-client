@@ -16,6 +16,7 @@ export default function DevPage() {
   const router = useRouter();
 
   const onClick = () => {
+    console.log('dev에서 onClick');
     const setCookie = (cookieName: string, value: string) => {
       const exdate = new Date();
       exdate.setDate(exdate.getDate() + 3);
