@@ -74,6 +74,22 @@ interface PostInfo {
   ranks: string;
   isLike: false;
 }
+
+type PostRegisterInfo = Pick<
+  PostInfo,
+  | 'title'
+  | 'content'
+  | 'isShare'
+  | 'subCategoryId'
+  | 'links'
+  | 'chatLink'
+  | 'takenTalentIds'
+  | 'takenContent'
+  | 'exchangeType'
+  | 'exchangePeriod'
+  | 'exchangeTime'
+>;
+
 interface CategoryProps {
   id: number;
   name: string;
