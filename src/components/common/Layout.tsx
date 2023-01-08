@@ -5,6 +5,7 @@ import { useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
+import { useAuth } from '@/hooks/useAuth';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { headerAtom, myInfoAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
 import type { UserInfo } from '@/typings/common';

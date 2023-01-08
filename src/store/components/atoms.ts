@@ -5,6 +5,11 @@ import type { HeaderProps, Option, PopupProps, UserInfo } from '@/typings/common
 
 import type { TabProps, TalentRegisterInputInfo } from './types';
 
+const loginStateAtom = atom({
+  key: 'loginState',
+  default: false,
+});
+
 // TODO: tabAtom의 경우 key를 찾기 쉽지 않아 key 관리를 위한 좋은 방법이 필요합니다.
 const tabAtomFamily = atomFamily<TabProps[], string>({
   key: 'tab',
@@ -131,6 +136,7 @@ export {
   bottomSheetAtom,
   bottomSheetOptionsAtom,
   headerAtom,
+  loginStateAtom,
   midCategoryIdSelector,
   myInfoAtom,
   popupAtom,
