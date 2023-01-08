@@ -1,4 +1,5 @@
 import { useIsFetching } from '@tanstack/react-query';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useMemo } from 'react';
@@ -63,6 +64,9 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
+      </Head>
       {headerValue && <Header {...headerValue} />}
       <main className={showGnb ? `pb-[82px]` : ''}>{children}</main>
       {popupValue?.isShowing && <Popup {...popupValue} />}
