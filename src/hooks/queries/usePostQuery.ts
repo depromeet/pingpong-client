@@ -12,7 +12,6 @@ const usePostQuery = (id: number) => {
     return data;
   };
 
-  //TODO: 반복되는 useQuery + option -> queryFetcher 합치기
   return useQuery({
     queryKey: ['post', { id }],
     queryFn: () => fetchPostById(id),

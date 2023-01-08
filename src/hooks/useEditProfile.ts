@@ -1,13 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { mutateFetcher } from '@/apis';
+import { axiosClient } from '@/apis';
 import type { EditUserInfo } from '@/typings/common';
 
+const updateProfile = async (profileInfo: EditUserInfo) => {
+  const { data } = await axiosClient.put('/members', profileInfo);
+
+  return data;
+};
+
 const useEditProfile = () => {
-  const mutation = useMutation({
-    mutationFn: (profileInfo: EditUserInfo) => mutateFetcher('/members', 'PUT', JSON.stringify(profileInfo)),
+  return useMutation({
+    mutationFn: (profileInfo: EditUserInfo) => updateProfile(profileInfo),
   });
-  return mutation;
 };
 
 export default useEditProfile;
