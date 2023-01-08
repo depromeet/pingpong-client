@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { axiosRequest } from '@/apis';
+import { axiosClient } from '@/apis';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ export const useAuth = () => {
   const [isLogin, setIsLogin] = useState(false);
 
   const logout = async () => {
-    await axiosRequest<{ data: number; message: string }>({ method: 'post', url: '/auth/logout' });
+    axiosClient.post('/auth/logout');
 
     //TODO: check error
     router.push('/');
