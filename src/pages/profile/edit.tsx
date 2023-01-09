@@ -34,14 +34,12 @@ const ProfileEdit = () => {
 
   const setOrder = useSetRecoilState(talentRegisterOrderAtom);
 
-  const { mutate, isSuccess, isError } = useEditProfile();
+  const { mutate, isError } = useEditProfile();
   const { setToast } = useToast();
 
   const handleLinkChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setLink(() => validateLink(event.target.value));
   }, []);
-
-  const router = useRouter();
 
   usePopupWithBlock({
     isShowing: true,
@@ -50,13 +48,6 @@ const ProfileEdit = () => {
     confirmText: '그만둘래요',
     cancelText: '취소',
   });
-
-  useEffect(() => {
-    if (isSuccess) {
-      setToast('프로필이 저장되었어요.');
-      router.push('/profile');
-    }
-  }, [isSuccess, router, setToast]);
 
   useEffect(() => {
     isError && setToast('프로필 저장에 실패했어요.');

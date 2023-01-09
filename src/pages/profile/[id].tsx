@@ -8,5 +8,5 @@ export default function ProfileDetail() {
   const memberId = Number(router.query.id) || 0;
   const { data: userInfo, isSuccess } = useProfileQuery(memberId);
 
-  return <main className="bg-bg-gray">{isSuccess && <ProfileView isMe={false} userInfo={userInfo} />}</main>;
+  return <main className="bg-bg-gray">{isSuccess && <ProfileView isMe={false} {...userInfo} />}</main>;
 }
