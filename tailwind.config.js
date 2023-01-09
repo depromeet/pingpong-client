@@ -60,6 +60,7 @@ module.exports = {
         36: '3.6rem',
         40: '4rem',
         48: '4.8rem',
+        50: '5rem',
       },
       keyframes: {
         slideup: {
