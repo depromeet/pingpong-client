@@ -14,7 +14,7 @@ const PostHeader = ({ imageUrl, isMyPost }: PostHeaderProps) => {
   return (
     <HeaderContainer>
       <PostHeaderNav isMyPost={isMyPost} />
-      <ImageWrapper className="relative" width="100%" height="18.7rem">
+      <ImageWrapper className="relative translate-y-[-20px]" width="100%" height="18.7rem">
         <Image
           alt="post-header"
           src={imageUrl}

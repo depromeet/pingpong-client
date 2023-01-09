@@ -40,5 +40,5 @@ const HeaderNavContainer = styled.div`
   width: 100%;
   z-index: 10;
   position: absolute;
-  top: 3.6rem;
+  top: 2rem;
 `;

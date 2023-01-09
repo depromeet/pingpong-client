@@ -38,7 +38,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
         </button>
         {isMe && (
           <div>
-            <article className="flex gap-7 justify-end pr-7">
+            <article className="flex gap-7 justify-end">
               <Link href={'/profile/edit'}>
                 <button className="w-[20px] h-[20px]">
                   <Image src={'/icons/modify.svg'} alt="modify" width={100} height={100} />
@@ -53,7 +53,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
           </div>
         )}
       </ProfileHeader>
-      <section className="pt-[5%] pb-[6%]">
+      <section className="pt-[50px] pb-[6%]">
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
           <CircleImg size="xxlarge" src={`${userInfo.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
           <span className="text-h2">{`${userInfo.nickname}`}</span>
@@ -187,7 +187,7 @@ const ProfileHeader = styled.div`
   width: 100%;
   z-index: 10;
   position: absolute;
-  top: 3.6rem;
+  top: 2rem;
 
   svg {
     fill: black;

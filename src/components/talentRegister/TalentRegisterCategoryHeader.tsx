@@ -53,11 +53,11 @@ const TalentRegisterCategotyHeader = ({ sort, className }: TalentRegisterProps) 
   };
 
   return (
-    <div className={`relative w-full ${className}`}>
+    <div className={`relative w-full translate-y-[-20px] ${className}`}>
       <button type="button" onClick={handleHistoryBack} className="block">
-        <Arrow direction="right" width={10} height={15} className="absolute left-[16px] top-[60px]" />
+        <Arrow direction="right" width={10} height={15} className="absolute left-[16px] top-[50px]" />
       </button>
-      <Image src={src} alt={alt} width={375} height={187} className="w-[100vw] h-[187px] z-99" priority />
+      <Image src={src} alt={alt} width={375} height={187} className="w-[100vw] h-[187px] z-99 " priority />
       <HeaderTitle
         texts={sort === 'EXCHANGE' && order === 2 ? contents2 : contents}
         textClassName={textColor}
