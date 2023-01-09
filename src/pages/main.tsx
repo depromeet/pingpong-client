@@ -75,7 +75,7 @@ const Home: NextPage = () => {
 
     const list = getActiveCategory(activeMainCategoryId)?.midCategories;
 
-    list?.length && setActiveMidCategoryList(list);
+    setActiveMidCategoryList(list ?? []);
   }, [activeMainCategoryId, setActiveMidCategoryList, getActiveCategory, setActiveMidCategory]);
 
   useEffect(() => {
