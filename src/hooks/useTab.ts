@@ -1,8 +1,8 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { categoryAtomFamily } from '@/store/components';
+import { bottomSheetActiveOptionAtom, categoryAtomFamily } from '@/store/components';
 import type { TabProps } from '@/store/components/types';
 
 // TODO: 해당 카테고리 전체에 해당하는 값을 id=999로 사용함. 이후 전체를 의미하는 값을 따로 가지도록 변경 필요
@@ -21,6 +21,8 @@ const useTab = ({ key, id }: UseTabProps) => {
   const [selectedTab, setSelectedTab] = useRecoilState<TabProps>(categoryAtomFamily(key));
   const [clicked, setClicked] = useState(false);
 
+  const setSubCategory = useSetRecoilState(bottomSheetActiveOptionAtom);
+
   useEffect(() => {
     selectedTab.id === id ? setClicked(true) : setClicked(false);
   }, [id, selectedTab]);
@@ -28,11 +30,13 @@ const useTab = ({ key, id }: UseTabProps) => {
   const onClick = useCallback(
     (event: React.MouseEvent) => {
       const { id, innerHTML } = event.currentTarget;
+
       setSelectedTab(() => {
         return { id: Number(id), name: innerHTML };
       });
+      setSubCategory({ id: 0, label: '' });
     },
-    [setSelectedTab],
+    [setSelectedTab, setSubCategory],
   );
 
   return { onClick, clicked };
