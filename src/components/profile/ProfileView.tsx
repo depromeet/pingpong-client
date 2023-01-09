@@ -84,7 +84,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
                 </Tag>
               ))
             ) : (
-              <Tag styleType="DISABLED">내가 가진 재능을 등록해 주세요</Tag>
+              <Tag styleType="DISABLED">{isMe ? '내가 가진 재능을 등록해 주세요' : '등록한 재능이 없어요'}</Tag>
             )}
           </div>
         </article>
@@ -98,7 +98,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
                 </Tag>
               ))
             ) : (
-              <Tag styleType="DISABLED">받고 싶은 재능을 등록해 주세요</Tag>
+              <Tag styleType="DISABLED">{isMe ? '받고 싶은 재능을 등록해 주세요' : '등록한 재능이 없어요'}</Tag>
             )}
           </div>
         </article>
@@ -108,10 +108,14 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
             <TextBox>{userInfo?.introduction}</TextBox>
           ) : (
             <TextBox disabled={true}>
-              <div className="flex flex-col">
-                <span className="text-gray-400">자기소개가 아직 입력되지 않았네요</span>
-                <span className="text-gray-400">간단한 인사와 함께 관심 분야에 대해 소개해주세요</span>
-              </div>
+              {isMe ? (
+                <div className="flex flex-col">
+                  <span className="text-gray-400">자기소개가 아직 입력되지 않았네요</span>
+                  <span className="text-gray-400">간단한 인사와 함께 관심 분야에 대해 소개해주세요</span>
+                </div>
+              ) : (
+                '등록한 자기소개가 없어요'
+              )}
             </TextBox>
           )}
         </article>
@@ -119,8 +123,10 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
           <h2 className="text-t3 mb-[8px]">링크</h2>
           {userInfo?.profileLink ? (
             <TextBox>{userInfo?.profileLink}</TextBox>
-          ) : (
+          ) : isMe ? (
             <TextBox disabled={true}>재능을 보여줄 수 있는 링크를 추가해보세요</TextBox>
+          ) : (
+            <TextBox disabled={true}>추가된 링크가 없어요</TextBox>
           )}
         </article>
       </section>
