@@ -126,7 +126,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
       </section>
       <section className="bg-white border-t border-gray-100 pt-[28px] pb-[36px] px-[16px]">
         <h2 className="text-t3 mb-[8px]">{isMe ? `내가 쓴 글` : `${userInfo.nickname}님이 쓴 글`}</h2>
-        {postsIsSuccess ? (
+        {postsIsSuccess && posts.length > 0 ? (
           <CardContainer>
             {posts.map((item) => {
               return (
