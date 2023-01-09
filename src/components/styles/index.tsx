@@ -43,6 +43,7 @@ const DefaultContainer = styled.div`
 
 const DetailContainer = styled.div`
   padding: 1.6rem 0;
+  margin-bottom: 80px;
 `;
 
 const DefaultPadding = styled.div`
