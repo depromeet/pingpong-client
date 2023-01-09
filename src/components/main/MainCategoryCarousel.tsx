@@ -42,8 +42,6 @@ const CategoryCarousel = ({
 export default CategoryCarousel;
 
 const SwiperWrapper = styled.div`
-  padding-left: 1rem;
-
   .swiper-slide {
     /* Center slide text vertically */
     display: -webkit-box;

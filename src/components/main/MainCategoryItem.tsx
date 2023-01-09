@@ -24,6 +24,12 @@ export default MainCategoryItem;
 const CategoryItemContainer = styled.div`
   display: flex;
   flex-direction: column;
+  :first-child {
+    margin-left: 1.5rem;
+  }
+  :last-child {
+    margin-right: 1.5rem;
+  }
 `;
 
 const CategoryName = styled.h5<{ isActive: boolean }>`
