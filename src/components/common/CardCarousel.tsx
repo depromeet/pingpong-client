@@ -10,13 +10,17 @@ import type { CardInfo } from '@/typings/common';
 
 import Card from './Card';
 
-const CardCarousel = ({ list }: { list: CardInfo[] }) => {
+interface CardCarouselInfo extends CardInfo {
+  postId?: number;
+}
+
+const CardCarousel = ({ list }: { list: CardCarouselInfo[] }) => {
   return (
     <SwiperWrapper>
       <Swiper pagination={true} modules={[Pagination]}>
         {list.map((item) => (
           <SwiperSlide key={uniqueId('carousel-slide')}>
-            <Link href={`/posts/${item.id}`}>
+            <Link href={`/posts/${item.postId}`}>
               <Card {...item} hideTakenTalents={true} />
             </Link>
           </SwiperSlide>
