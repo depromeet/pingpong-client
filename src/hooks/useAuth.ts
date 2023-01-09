@@ -1,19 +1,22 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import { axiosClient } from '@/apis';
-import { loginStateAtom } from '@/store/components';
+import { loginStateAtom, toastAtom } from '@/store/components';
 
 export const useAuth = () => {
   const router = useRouter();
-
-  const [redirectUrl, setRedirectUrl] = useState('');
+  const setToast = useSetRecoilState(toastAtom);
 
   const [isLogin, setIsLogin] = useRecoilState(loginStateAtom);
 
   const handleLogin = () => {
-    router.push(redirectUrl);
+    if (!process.env.NEXT_PUBLIC_REDIRECT_URL) {
+      setToast('예상치 못한 에러가 발생했습니다. 앱을 다시 실행해주세요.');
+      return;
+    }
+    router.push(process.env.NEXT_PUBLIC_REDIRECT_URL);
   };
 
   const handleLogout = async () => {
@@ -25,11 +28,6 @@ export const useAuth = () => {
       // TODO: modal 메세지 노출
     }
   };
-
-  useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_REDIRECT_URL) return;
-    setRedirectUrl(process.env.NEXT_PUBLIC_REDIRECT_URL);
-  }, []);
 
   useEffect(() => {
     const hasToken = document.cookie.includes('access_token');
