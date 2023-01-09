@@ -217,8 +217,11 @@ const PostDetail = () => {
               count={postData.likes.toString()}
               onClick={handleLike}
             />
-            <Button className="ml-12" onClick={() => handleKakaoLinkPopup(postData.chatLink)}>
-              오픈채팅 시작하기
+            {/* <Button className="ml-12" onClick={() => handleKakaoLinkPopup(postData.chatLink)}> */}
+            <Button className="ml-12">
+              <a href={postData.chatLink} target="_blank" rel="noopener noreferrer" className="ml-12">
+                오픈채팅 시작하기
+              </a>
             </Button>
           </BottomFixedBar>
         </>
