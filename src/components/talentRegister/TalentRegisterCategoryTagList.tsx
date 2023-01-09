@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
-import { mainCategoryAtom, tabAtomFamily } from '@/store/components';
+import { categoryAtomFamily, tabAtomFamily } from '@/store/components';
 import type { MidCategory } from '@/typings/common';
 
 import Button from '../common/Button';
@@ -12,7 +12,7 @@ import ClickTagList from '../common/ClickTagList';
 import TalentRegisterCategoryBottomSheet from './TalentRegisterCategoryBottomSheet';
 
 const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps) => {
-  const [{ id }] = useRecoilValue(mainCategoryAtom);
+  const { id } = useRecoilValue(categoryAtomFamily('mainCategory'));
 
   const categoryKey = SetTalnetRegisterCategorySelectInputKey();
   const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
@@ -38,7 +38,7 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
               <div key={id}>
                 <span className="text-t4 text-gray-600">{name}</span>
                 <ClickTagList
-                  key={id}
+                  key={`taglist-${id}`}
                   categoryKey={categoryKey}
                   list={subCategories}
                   sort={sort}
