@@ -27,7 +27,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
   }, [inView, fetchNextPage, isShowAllPosts]);
 
   const onClickBack = () => {
-    router.query.new ? router.push('/main') : router.back();
+    router.query.new || isMe ? router.push('/main') : router.back();
   };
 
   return (
