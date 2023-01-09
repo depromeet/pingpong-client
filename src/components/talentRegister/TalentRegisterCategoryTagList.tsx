@@ -15,7 +15,7 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
   const { id } = useRecoilValue(categoryAtomFamily('mainCategory'));
 
   const categoryKey = SetTalnetRegisterCategorySelectInputKey();
-  const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
+  const selectedTag = useRecoilValue(tabAtomFamily(categoryKey));
 
   const {
     midCategoryQuery: { isSuccess, data },
@@ -50,7 +50,7 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
       </div>
       <TalentRegisterCategoryBottomSheet sort={sort} categoryKey={categoryKey}>
         <Link href={href} className="block">
-          <Button type="button" onClick={onClick} disabled={selectedTab.length === 0} className="w-full">
+          <Button type="button" onClick={onClick} disabled={selectedTag.length === 0} className="w-full">
             선택 완료
           </Button>
         </Link>
