@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
 import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
-import { tabAtomFamily } from '@/store/components';
+import { mainCategoryAtom, tabAtomFamily } from '@/store/components';
 import type { MidCategory } from '@/typings/common';
 
 import Button from '../common/Button';
@@ -18,7 +18,7 @@ interface ProfileCategoryTagListProps {
 }
 
 const ProfileCategoryTagList = ({ categoryKey, className }: ProfileCategoryTagListProps) => {
-  const [{ id }] = useRecoilValue(tabAtomFamily('mainCategory'));
+  const [{ id }] = useRecoilValue(mainCategoryAtom);
   const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
   const {
     midCategoryQuery: { isSuccess, data },
