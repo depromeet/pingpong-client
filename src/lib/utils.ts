@@ -59,3 +59,8 @@ export const validateNickname = (value: string) => {
   const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z]+$/;
   return value.replace(regex, '$&');
 };
+
+export const validateLink = (value: string) => {
+  // TODO: 링크 부분만 자르고, https:// 붙이기
+  return value;
+};
