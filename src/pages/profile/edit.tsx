@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -7,8 +8,10 @@ import Input from '@/components/common/Input';
 import SelectInput from '@/components/common/SelectInput';
 import Textarea from '@/components/common/Textarea';
 import useEditProfile from '@/hooks/useEditProfile';
+import useNickname from '@/hooks/useNickname';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 import { useToast } from '@/hooks/useToast';
+import { validateLink } from '@/lib/utils';
 import { myInfoAtom, tabAtomFamily, talentRegisterOrderAtom } from '@/store/components';
 
 const headerArgs = {
@@ -20,11 +23,10 @@ const headerArgs = {
 const ProfileEdit = () => {
   const myInfo = useRecoilValue(myInfoAtom);
 
-  const [name, setName] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [link, setLink] = useState('');
+  const { name, setName, errorMessage, setErrorMessage, handleNameChange, handleNameClear } = useNickname();
 
-  const [nameError, setNameError] = useState('');
   const [introductionError, setIntroductionError] = useState('');
 
   const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
@@ -35,8 +37,8 @@ const ProfileEdit = () => {
   const { mutate, isSuccess, isError } = useEditProfile();
   const { setToast } = useToast();
 
-  const handleNameChange = useCallback((v: string) => {
-    setName(v);
+  const handleLinkChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setLink(() => validateLink(event.target.value));
   }, []);
 
   const router = useRouter();
@@ -90,7 +92,7 @@ const ProfileEdit = () => {
 
   const handleSaveButton = () => {
     if (name.length === 0 || introduction.length === 0) {
-      setNameError(name.length === 0 ? '이름을 작성해주세요' : '');
+      setErrorMessage(name.length === 0 ? '이름을 작성해주세요' : '');
       setIntroductionError(introduction.length === 0 ? '자기소개를 작성해주세요' : '');
       return;
     }
@@ -103,7 +105,7 @@ const ProfileEdit = () => {
       takenTalents: takenTalents.map((takenTalent) => takenTalent.id),
     };
 
-    setNameError('');
+    setErrorMessage('');
     setIntroductionError('');
 
     mutate(profileInfo);
@@ -124,7 +126,8 @@ const ProfileEdit = () => {
             maxLength={10}
             value={name}
             onChange={handleNameChange}
-            error={nameError}
+            handleClear={handleNameClear}
+            error={errorMessage}
           />
         </section>
         <section className="mt-[28px]">
@@ -172,7 +175,7 @@ const ProfileEdit = () => {
             id="link"
             placeholder="링크를 입력해주세요."
             value={link}
-            onChange={(v) => setLink(v)}
+            onChange={handleLinkChange}
           />
         </section>
       </main>

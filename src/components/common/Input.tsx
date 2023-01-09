@@ -6,7 +6,7 @@ import type { DefaultProps } from '@/typings/common';
 type Props = DefaultProps & {
   type?: 'text' | 'email' | 'tel' | 'number' | 'password' | 'date' | 'datetime';
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleClear: () => void;
+  handleClear?: () => void;
   placeholder?: string;
   error?: string;
   maxLength?: number;
@@ -34,7 +34,7 @@ const Input = ({
         maxLength={maxLength}
         {...props}
       />
-      {props.value && (
+      {props.value && handleClear && (
         <button
           type="button"
           className="absolute right-0 w-[20px] h-[20px] m-[13px] rounded-full my-[13px] bg-[#CFCFCF] grid place-items-center"
