@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { validateNickname } from '@/lib/utils';
 
@@ -9,9 +9,9 @@ const useNickname = () => {
   const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setName(() => validateNickname(event.target.value));
-  };
+  }, []);
 
   const handleNameClear = () => {
     setName('');
@@ -27,6 +27,7 @@ const useNickname = () => {
     handleNameChange,
     handleNameClear,
     errorMessage,
+    setErrorMessage,
   };
 };
 

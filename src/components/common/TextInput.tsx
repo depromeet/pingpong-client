@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { talentRegisterInputSelectorFamily } from '@/store/components/selectors';
@@ -26,6 +27,10 @@ const TextInput = ({
   option: { key, title, explanation, placeholder, htmlFor, showCount, maxLength, error, required, className },
 }: TextInputProps) => {
   const [input, setInput] = useRecoilState(talentRegisterInputSelectorFamily(key));
+  const handleContentsChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => setInput((prev) => ({ ...prev, contents: event.target.value })),
+    [setInput],
+  );
 
   return (
     <div className={className}>
@@ -44,7 +49,7 @@ const TextInput = ({
         showCount={showCount}
         maxLength={maxLength}
         value={input.contents}
-        onChange={(value) => setInput((prev) => ({ ...prev, contents: value }))}
+        onChange={handleContentsChange}
         error={maxLength && input.contents.length >= maxLength ? error : undefined}
         className="mt-[8px]"
       />
