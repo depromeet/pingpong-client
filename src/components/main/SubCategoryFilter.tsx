@@ -27,7 +27,7 @@ const SubCategoryFilter = ({
     <FilterContainer>
       {isSubFilterVisible && (
         <SubFilterDropdown onClick={handleSubCategory}>
-          {activeOption ? activeOption.label : '소분류'}
+          {activeOption.label ? activeOption.label : '소분류'}
           <ArrowDownIcon />
         </SubFilterDropdown>
       )}
