@@ -30,10 +30,10 @@ export const useAuth = () => {
   }, [setIsLogin]);
 
   useEffect(() => {
-    if (!isLogin && router.asPath !== '/') {
-      router.replace('/');
-      return;
-    }
+    // if (!isLogin && router.asPath !== '/') {
+    //   router.replace('/');
+    //   return;
+    // }
     if (isLogin && router.asPath === '/') {
       router.replace('/main');
       return;
