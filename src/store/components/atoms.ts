@@ -3,25 +3,32 @@ import { atom, atomFamily, selector } from 'recoil';
 import type { Radio } from '@/hooks/useRadioGroup';
 import type { HeaderProps, Option, PopupProps, UserInfo } from '@/typings/common';
 
-import type { TabProps, TalentRegisterInputInfo } from './types';
+import type { TagProps, TalentRegisterInputInfo } from './types';
 
 const loginStateAtom = atom({
   key: 'loginState',
   default: false,
 });
 
-const mainCategoryAtom = atom({
+const categoryAtomFamily = atomFamily({
   key: 'mainCategory',
-  default: [{ id: 1, name: '' }],
+  default: (inputKey) => {
+    switch (inputKey) {
+      case 'mainCategory':
+        return { id: 1, name: '' };
+      case 'midCategory':
+        return { id: 0, name: '전체' };
+      default:
+        return { id: 0, name: '' };
+    }
+  },
 });
 
-// TODO: tabAtom의 경우 key를 찾기 쉽지 않아 key 관리를 위한 좋은 방법이 필요합니다.
-const tabAtomFamily = atomFamily<TabProps[], string>({
+// TODO: tabAtomFamily 사용 개선
+const tabAtomFamily = atomFamily<TagProps[], string>({
   key: 'tab',
   default: (inputKey) => {
     switch (inputKey) {
-      case 'midCategory':
-        return [{ id: 0, name: '전체' }];
       default:
         return [];
     }
@@ -31,9 +38,9 @@ const tabAtomFamily = atomFamily<TabProps[], string>({
 const midCategoryIdSelector = selector<number>({
   key: 'activeMidCategoryId',
   get: ({ get }) => {
-    const midCategoryList = get(tabAtomFamily('midCategory'));
+    const midCategory = get(categoryAtomFamily('midCategory'));
 
-    return midCategoryList[0]?.id || 0;
+    return midCategory.id || 0;
   },
 });
 
@@ -138,9 +145,9 @@ export {
   bottomSheetActiveOptionAtom,
   bottomSheetAtom,
   bottomSheetOptionsAtom,
+  categoryAtomFamily,
   headerAtom,
   loginStateAtom,
-  mainCategoryAtom,
   midCategoryIdSelector,
   myInfoAtom,
   popupAtom,
