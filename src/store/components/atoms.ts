@@ -10,13 +10,16 @@ const loginStateAtom = atom({
   default: false,
 });
 
+const mainCategoryAtom = atom({
+  key: 'mainCategory',
+  default: [{ id: 1, name: '' }],
+});
+
 // TODO: tabAtom의 경우 key를 찾기 쉽지 않아 key 관리를 위한 좋은 방법이 필요합니다.
 const tabAtomFamily = atomFamily<TabProps[], string>({
   key: 'tab',
   default: (inputKey) => {
     switch (inputKey) {
-      case 'mainCategory':
-        return [{ id: 1, name: '' }];
       case 'midCategory':
         return [{ id: 0, name: '전체' }];
       default:
@@ -137,6 +140,7 @@ export {
   bottomSheetOptionsAtom,
   headerAtom,
   loginStateAtom,
+  mainCategoryAtom,
   midCategoryIdSelector,
   myInfoAtom,
   popupAtom,

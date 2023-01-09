@@ -57,7 +57,7 @@ const useTab = ({ key, id, selectingNumber = 1 }: UseTabProps) => {
       } else {
         setSelectedTab(() => {
           return selectingNumber === 1
-            ? selectedTab[0].id === Number(clickedTabId)
+            ? selectedTab[0]?.id === Number(clickedTabId)
               ? selectedTab.filter((tab) => tab.id !== Number(clickedTabId))
               : [clickedTab]
             : selectedTab.filter((tab) => tab.id !== Number(clickedTabId));
