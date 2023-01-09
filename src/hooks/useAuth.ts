@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { axiosClient } from '@/apis';
@@ -8,7 +8,13 @@ import { loginStateAtom } from '@/store/components';
 export const useAuth = () => {
   const router = useRouter();
 
+  const [redirectUrl, setRedirectUrl] = useState('');
+
   const [isLogin, setIsLogin] = useRecoilState(loginStateAtom);
+
+  const handleLogin = () => {
+    router.push(redirectUrl);
+  };
 
   const handleLogout = async () => {
     try {
@@ -19,6 +25,11 @@ export const useAuth = () => {
       // TODO: modal 메세지 노출
     }
   };
+
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_REDIRECT_URL) return;
+    setRedirectUrl(process.env.NEXT_PUBLIC_REDIRECT_URL);
+  }, []);
 
   useEffect(() => {
     const hasToken = document.cookie.includes('access_token');
@@ -37,5 +48,5 @@ export const useAuth = () => {
     }
   }, [isLogin, router]);
 
-  return { isLogin, handleLogout };
+  return { isLogin, handleLogin, handleLogout };
 };
