@@ -142,14 +142,16 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
                 <Spinner />
               </ContainerRef>
             )}
-            <button
-              className={`mt-[8px] w-full border border-gray-200 rounded-[8px] p-[16px] text-gray-500 text-[15px] ${
-                isShowAllPosts && 'hidden'
-              }`}
-              onClick={() => setIsShowAllPosts(true)}
-            >
-              전체보기
-            </button>
+            {posts.length > 3 && (
+              <button
+                className={`mt-[8px] w-full border border-gray-200 rounded-[8px] p-[16px] text-gray-500 text-[15px] ${
+                  isShowAllPosts && 'hidden'
+                }`}
+                onClick={() => setIsShowAllPosts(true)}
+              >
+                전체보기
+              </button>
+            )}
           </CardContainer>
         ) : (
           <EmptyCard>아직 등록된 재능이 없어요</EmptyCard>
