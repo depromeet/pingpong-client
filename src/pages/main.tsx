@@ -19,7 +19,7 @@ import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom, tabAtomFamily } from '@/store/components';
+import { bottomSheetActiveOptionAtom, categoryAtomFamily, midCategoryIdSelector, myInfoAtom } from '@/store/components';
 import type { MidCategory } from '@/typings/common';
 
 const Home: NextPage = () => {
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   const [activeMidCategoryList, setActiveMidCategoryList] = useState<MidCategory[]>([]);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
 
-  const setActiveMidCategory = useSetRecoilState(tabAtomFamily('midCategory'));
+  const setActiveMidCategory = useSetRecoilState(categoryAtomFamily('midCategory'));
   const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
   const [isShare, handleIsShare] = useState(false);
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (!activeMainCategoryId) return;
-    setActiveMidCategory([{ id: 0, name: '전체' }]);
+    setActiveMidCategory({ id: 0, name: '전체' });
 
     const list = getActiveCategory(activeMainCategoryId)?.midCategories;
 

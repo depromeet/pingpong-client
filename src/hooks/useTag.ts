@@ -6,7 +6,6 @@ import { popupAtom, tabAtomFamily } from '@/store/components';
 import type { TagProps } from '@/store/components/types';
 import type { PopupProps } from '@/typings/common';
 
-// TODO: 해당 카테고리 전체에 해당하는 값을 id=999로 사용함. 이후 전체를 의미하는 값을 따로 가지도록 변경 필요
 interface UseTagProps {
   key: string;
   id: number;
