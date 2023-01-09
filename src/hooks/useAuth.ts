@@ -20,10 +20,6 @@ export const useAuth = () => {
     }
   };
 
-  const handleLogin = () => {
-    router.push(`${process.env.NEXT_PUBLIC_REDIRECT_URL}`);
-  };
-
   useEffect(() => {
     const hasToken = document.cookie.includes('access_token');
     setIsLogin(hasToken ? true : false);
@@ -41,5 +37,5 @@ export const useAuth = () => {
     }
   }, [isLogin, router]);
 
-  return { isLogin, handleLogout, handleLogin };
+  return { isLogin, handleLogout };
 };
