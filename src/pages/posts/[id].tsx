@@ -177,28 +177,30 @@ const PostDetail = () => {
             </Layout.DefaultPadding>
 
             {postData.isShare === false && (
-              <Layout.DefaultPadding>
+              <>
                 <Layout.Divider className="my-24" />
-                <Typography.Subtitle className="mb-6">이런 재능을 원해요</Typography.Subtitle>
-                <ProfileTakenTalents className="mb-16">
-                  {postData.takenTalents.map((takenTalent) => {
-                    return (
-                      <Tag
-                        key={uniqueId(takenTalent)}
-                        styleType="LIGHT"
-                        color="blue"
-                        className="mb-8 mr-6 whitespace-nowrap"
-                      >
-                        {takenTalent}
-                      </Tag>
-                    );
-                  })}
-                </ProfileTakenTalents>
-                <Typography.Subtitle className="mb-6">상세 설명</Typography.Subtitle>
-                <GrayBlock>
-                  <p className="whitespace-pre-wrap">{postData.takenContent}</p>
-                </GrayBlock>
-              </Layout.DefaultPadding>
+                <Layout.DefaultPadding>
+                  <Typography.Subtitle className="mb-6">이런 재능을 원해요</Typography.Subtitle>
+                  <ProfileTakenTalents className="mb-16">
+                    {postData.takenTalents.map((takenTalent) => {
+                      return (
+                        <Tag
+                          key={uniqueId(takenTalent)}
+                          styleType="LIGHT"
+                          color="blue"
+                          className="mb-8 mr-6 whitespace-nowrap"
+                        >
+                          {takenTalent}
+                        </Tag>
+                      );
+                    })}
+                  </ProfileTakenTalents>
+                  <Typography.Subtitle className="mb-6">상세 설명</Typography.Subtitle>
+                  <GrayBlock>
+                    <p className="whitespace-pre-wrap">{postData.takenContent}</p>
+                  </GrayBlock>
+                </Layout.DefaultPadding>
+              </>
             )}
 
             <Layout.Divider className="my-24" />
