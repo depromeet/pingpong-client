@@ -156,7 +156,7 @@ const TalentRegisterFormTwo = ({ className, sort }: TalentRegisterProps) => {
   }, [isError, setToast]);
 
   return (
-    <form className={`${className} px-[16px] pt-[24.5px] h-screen`}>
+    <form className={`${className} px-[16px] pt-[24.5px]`}>
       <TalentRegisterTextRadioButtonGroup options={ENVIRONMENT[sort]} />
       <TalentRegisterTextRadioButtonGroup options={PERIOD[sort]} />
       <TalentRegisterTextRadioButtonGroup options={TIME} />
