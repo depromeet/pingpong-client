@@ -32,7 +32,7 @@ const Toast = ({ value }: Props) => {
         fadeout && 'animate-fadeout'
       }`}
     >
-      <p className="text-b2 text-white bg-primary-dark w-full px-16 py-12 rounded-xl break-all opacity-90">{value}</p>
+      <p className="text-b1 text-white bg-primary-dark w-full px-16 py-12 rounded-xl break-all opacity-90">{value}</p>
     </aside>
   );
 };
