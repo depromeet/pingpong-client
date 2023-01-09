@@ -19,7 +19,7 @@ export default function ProfileSetting() {
   };
 
   const [deleteReason, setDeleteReason] = useState('');
-  const { mutate: deleteAccountMutate, isSuccess: isDeleteSuccess } = useDeleteAccountMutate();
+  const { mutate: deleteAccountMutate } = useDeleteAccountMutate();
 
   const handleDeletePopup = useCallback(() => {
     setPopup({
@@ -28,12 +28,19 @@ export default function ProfileSetting() {
       content: `불편하셨던 점을 저희에게 말씀해주세요.<br/>서비스 개선에 적극 반영하도록 할게요.`,
       children: <DeleteAccountRadioGroup setDeleteReason={setDeleteReason} />,
       onConfirm: () => {
-        deleteAccountMutate({ content: deleteReason });
+        deleteAccountMutate(
+          { content: deleteReason },
+          {
+            onSuccess: () => {
+              router.replace('/');
+            },
+          },
+        );
       },
       confirmText: '선택 완료',
       cancelText: '취소',
     });
-  }, [setDeleteReason, setPopup, deleteAccountMutate, deleteReason]);
+  }, [setDeleteReason, setPopup, deleteAccountMutate, deleteReason, router]);
 
   const settingList = [
     { label: '알림 설정', onClick: () => handleMoveToLink('/setting/alarm') },
@@ -68,12 +75,6 @@ export default function ProfileSetting() {
     title: '설정',
     className: 'bg-white border-b border-gray-100',
   });
-
-  useEffect(() => {
-    if (isDeleteSuccess) {
-      router.replace('/');
-    }
-  }, [isDeleteSuccess, router]);
 
   return (
     <>
