@@ -154,7 +154,7 @@ const PostDetail = () => {
               )}
               <Typography.Title className="mt-12 mb-24">{postData.title}</Typography.Title>
               <Typography.Subtitle className="mb-6">재능 소개</Typography.Subtitle>
-              <Typography.Content className="mb-24">{postData.content}</Typography.Content>
+              <Typography.Content className="mb-24 whitespace-pre-wrap">{postData.content}</Typography.Content>
               {postData.links.length > 0 && <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>}
               <PostDetailRow>
                 {postData.links.map((link: LinkInfo) => (
@@ -168,7 +168,7 @@ const PostDetail = () => {
             {postData.isShare === false && (
               <Layout.DefaultPadding>
                 <Layout.Divider className="my-24" />
-                <Typography.Subtitle className="mb-6">이런 재능을 해요</Typography.Subtitle>
+                <Typography.Subtitle className="mb-6">이런 재능을 원해요</Typography.Subtitle>
                 <ProfileTakenTalents className="mb-16">
                   {postData.takenTalents.map((takenTalent) => {
                     return (
@@ -185,7 +185,7 @@ const PostDetail = () => {
                 </ProfileTakenTalents>
                 <Typography.Subtitle className="mb-6">상세 설명</Typography.Subtitle>
                 <GrayBlock>
-                  <p>{postData.takenContent}</p>
+                  <p className="whitespace-pre-wrap">{postData.takenContent}</p>
                 </GrayBlock>
               </Layout.DefaultPadding>
             )}
