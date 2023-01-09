@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import BottomFixedBar from '@/components/common/BottomFixedBar';
@@ -30,7 +30,7 @@ const PostDetail = () => {
 
   const [reportReason, setReportReason] = useState<string>('');
   const [isMyPost, setIsMyPost] = useState(false);
-  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+  const [activeOption, setActiveOption] = useRecoilState(bottomSheetActiveOptionAtom);
   const myInfo = useRecoilValue(myInfoAtom);
 
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
@@ -60,25 +60,25 @@ const PostDetail = () => {
     });
   }, [setPopup, reportPostMutate, postId, reportReason]);
 
-  const handleKakaoLinkPopup = useCallback(
-    (link: string) => {
-      const openExternalLink = (link: string) => {
-        if (!window) return;
+  // const handleKakaoLinkPopup = useCallback(
+  //   (link: string) => {
+  //     const openExternalLink = (link: string) => {
+  //       if (!window) return;
 
-        window.open(`//${link}`, '_blank');
-      };
+  //       window.open(`//${link}`, '_blank');
+  //     };
 
-      setPopup({
-        isShowing: true,
-        title: '카카오톡 오픈채팅으로 이동됩니다',
-        content: '오픈채팅 시, 상대방에게 <br />불쾌감을 주는 언어 사용을 지양해주세요.',
-        onConfirm: () => openExternalLink(link),
-        confirmText: '이동하기',
-        cancelText: '취소',
-      });
-    },
-    [setPopup],
-  );
+  //     setPopup({
+  //       isShowing: true,
+  //       title: '카카오톡 오픈채팅으로 이동됩니다',
+  //       content: '오픈채팅 시, 상대방에게 <br />불쾌감을 주는 언어 사용을 지양해주세요.',
+  //       onConfirm: () => openExternalLink(link),
+  //       confirmText: '이동하기',
+  //       cancelText: '취소',
+  //     });
+  //   },
+  //   [setPopup],
+  // );
 
   useEffect(() => {
     if (!postIsSuccess) return;
@@ -92,11 +92,14 @@ const PostDetail = () => {
   }, [myInfo?.memberId, postData?.memberId, router]);
 
   useEffect(() => {
-    if (activeOption.id === 'DELETE') postDeleteMutate();
+    if (activeOption.id === 'DELETE') {
+      postDeleteMutate();
+      setActiveOption({ id: 0, label: '' });
+    }
     if (activeOption.id === 'REPORT') {
       handleReportPopup();
     }
-  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup]);
+  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup, setActiveOption]);
 
   usePopupWithBlock();
 
@@ -112,7 +115,9 @@ const PostDetail = () => {
   }, [reportPostIsSuccess, router]);
 
   useEffect(() => {
-    if (postDeleteIsSuccess) {
+    if (postDeleteIsSuccess && router.query.new === 'true') {
+      router.push('/main');
+    } else if (postDeleteIsSuccess) {
       router.back();
     }
   }, [postDeleteIsSuccess, router]);
