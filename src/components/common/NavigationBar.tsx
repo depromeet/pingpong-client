@@ -29,7 +29,7 @@ const NavigationBar = ({ className }: NavigationBarProps) => {
   }, [router.asPath]);
 
   return (
-    <nav className={`bg-white w-full h-[82px] ${className}`}>
+    <nav className={`bg-white w-full h-[82px] border-t-[1px] border-gray-100 ${className}`}>
       <ul className="grid grid-cols-3">
         {NAV_LIST_INFO.map(({ icon, selectedIcon, href, text }, index) => (
           <li key={index} className="w-max justify-self-center">
