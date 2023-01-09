@@ -16,8 +16,21 @@ import type { UserInfo } from '@/typings/common';
 
 import ArrowLeftBlackIcon from '../../../public/icons/arrow-left-black.svg';
 
-const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: UserInfo }) => {
-  const { posts, fetchNextPage, isSuccess: postsIsSuccess, hasNextPage } = useGetMemberPosts(userInfo?.memberId);
+interface ProfileViewProps extends UserInfo {
+  isMe: boolean;
+}
+
+const ProfileView = ({
+  isMe = false,
+  memberId,
+  nickname,
+  image,
+  introduction,
+  profileLink,
+  givenTalents,
+  takenTalents,
+}: ProfileViewProps) => {
+  const { posts, fetchNextPage, isSuccess: postsIsSuccess, hasNextPage } = useGetMemberPosts(memberId);
   const [isShowAllPosts, setIsShowAllPosts] = useState(false);
   const { ref, inView } = useInView();
   const router = useRouter();
@@ -55,8 +68,8 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
       </ProfileHeader>
       <section className="pt-[50px] pb-[6%]">
         <article className="pt-[15px] flex items-center justify-center gap-5 flex-col">
-          <CircleImg size="xxlarge" src={`${userInfo.image ?? '/images/empty-profile.png'}`} alt="profile" fill />
-          <span className="text-h2">{`${userInfo.nickname}`}</span>
+          <CircleImg size="xxlarge" src={`${image ?? '/images/empty-profile.png'}`} alt="profile" fill />
+          <span className="text-h2">{`${nickname}`}</span>
         </article>
       </section>
       {/* <section className="border-y border-gray-100 bg-white p-[16px]">
@@ -77,8 +90,8 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
         <article>
           <h2 className="text-t3 mb-[8px]">이런 재능을 줄 수 있어요</h2>
           <div className="flex gap-3 flex-wrap">
-            {userInfo?.givenTalents?.length ? (
-              userInfo?.givenTalents?.map((talent, i) => (
+            {givenTalents?.length ? (
+              givenTalents?.map((talent, i) => (
                 <Tag styleType="LIGHT" key={i}>
                   {talent.content}
                 </Tag>
@@ -91,8 +104,8 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
         <article>
           <h2 className="text-t3 mb-[8px]">이런 재능을 받고 싶어요</h2>
           <div className="flex gap-3 flex-wrap">
-            {userInfo?.takenTalents?.length ? (
-              userInfo?.takenTalents?.map((talent, i) => (
+            {takenTalents?.length ? (
+              takenTalents?.map((talent, i) => (
                 <Tag styleType="LIGHT" key={i}>
                   {talent.content}
                 </Tag>
@@ -104,8 +117,8 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
         </article>
         <article>
           <h2 className="text-t3 mb-[8px]">자기소개</h2>
-          {userInfo?.introduction ? (
-            <TextBox>{userInfo?.introduction}</TextBox>
+          {introduction ? (
+            <TextBox>{introduction}</TextBox>
           ) : (
             <TextBox disabled={true}>
               {isMe ? (
@@ -121,8 +134,8 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
         </article>
         <article>
           <h2 className="text-t3 mb-[8px]">링크</h2>
-          {userInfo?.profileLink ? (
-            <TextBox>{userInfo?.profileLink}</TextBox>
+          {profileLink ? (
+            <TextBox>{profileLink}</TextBox>
           ) : isMe ? (
             <TextBox disabled={true}>재능을 보여줄 수 있는 링크를 추가해보세요</TextBox>
           ) : (
@@ -131,7 +144,7 @@ const ProfileView = ({ isMe = false, userInfo }: { isMe: boolean; userInfo: User
         </article>
       </section>
       <section className="bg-white border-t border-gray-100 pt-[28px] pb-[36px] px-[16px]">
-        <h2 className="text-t3 mb-[8px]">{isMe ? `내가 쓴 글` : `${userInfo.nickname}님이 쓴 글`}</h2>
+        <h2 className="text-t3 mb-[8px]">{isMe ? `내가 쓴 글` : `${nickname}님이 쓴 글`}</h2>
         {postsIsSuccess && posts.length > 0 ? (
           <CardContainer>
             {posts.map((item) => {
