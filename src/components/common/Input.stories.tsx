@@ -1,4 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 
 import Input from './Input';
@@ -11,7 +12,7 @@ export default {
 const Template: ComponentStory<typeof Input> = (args) => {
   const [value, setValue] = useState('');
 
-  const onChange = (v: string) => setValue(v);
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value);
 
   return <Input {...{ value, onChange }} {...args} />;
 };

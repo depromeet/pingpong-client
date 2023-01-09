@@ -11,7 +11,7 @@ import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
 export default function ProfileSetting() {
   const router = useRouter();
 
-  const { logout } = useAuth();
+  const { handleLogout } = useAuth();
   const { setPopup } = usePopupWithBlock();
 
   const handleMoveToLink = (path: string) => {
@@ -27,11 +27,20 @@ export default function ProfileSetting() {
       title: 'Ping-Pong 서비스 탈퇴하기',
       content: `불편하셨던 점을 저희에게 말씀해주세요.<br/>서비스 개선에 적극 반영하도록 할게요.`,
       children: <DeleteAccountRadioGroup setDeleteReason={setDeleteReason} />,
-      onConfirm: () => deleteAccountMutate({ content: deleteReason }),
+      onConfirm: () => {
+        deleteAccountMutate(
+          { content: deleteReason },
+          {
+            onSuccess: () => {
+              router.replace('/');
+            },
+          },
+        );
+      },
       confirmText: '선택 완료',
       cancelText: '취소',
     });
-  }, [setDeleteReason, setPopup, deleteAccountMutate, deleteReason]);
+  }, [setDeleteReason, setPopup, deleteAccountMutate, deleteReason, router]);
 
   const settingList = [
     { label: '알림 설정', onClick: () => handleMoveToLink('/setting/alarm') },
@@ -48,7 +57,7 @@ export default function ProfileSetting() {
           cancelText: '취소',
           confirmText: '로그아웃',
           onCancel: () => null,
-          onConfirm: () => logout(),
+          onConfirm: () => handleLogout(),
         });
       },
     },

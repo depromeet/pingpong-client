@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,6 +10,7 @@ import Input from '@/components/common/Input';
 import { ArrowIcon } from '@/components/icons';
 import { Layout } from '@/components/styles';
 import useNicknameMutate from '@/hooks/queries/useNicknameMutate';
+import useNickname from '@/hooks/useNickname';
 
 const agreementList = [
   { label: '(필수) 서비스 이용약관에 동의', href: '/setting/terms' },
@@ -18,15 +20,13 @@ const agreementList = [
 const Nickname = () => {
   const router = useRouter();
 
-  const [name, setName] = useState('');
   const [agreement, setAgreement] = useState([false, false]);
+  const { name, handleNameChange, handleNameClear, errorMessage } = useNickname();
 
   const { mutate, isSuccess } = useNicknameMutate();
+  const queryClient = useQueryClient();
 
-  const buttonDisabled = useMemo(
-    () => name.length < 2 || name.length > 10 || agreement.some((v) => !v),
-    [name, agreement],
-  );
+  const buttonDisabled = useMemo(() => agreement.some((v) => !v) || errorMessage.length > 0, [agreement, errorMessage]);
 
   const handleAgreementClick = (index: number) => {
     setAgreement(([first, second]) => (index === 0 ? [!first, second] : [first, !second]));
@@ -39,8 +39,9 @@ const Nickname = () => {
   useEffect(() => {
     if (!isSuccess) return;
 
+    queryClient.invalidateQueries(['userInfo']);
     router.push('/main');
-  }, [isSuccess, router]);
+  }, [isSuccess, queryClient, router]);
 
   return (
     <main className="relatvie w-screen h-screen p-[16px]">
@@ -64,7 +65,9 @@ const Nickname = () => {
         <Input
           className="mt-[24px] flex"
           value={name}
-          onChange={(value) => setName(value.replace(/[0-9]/, ''))}
+          error={errorMessage}
+          onChange={handleNameChange}
+          handleClear={handleNameClear}
           placeholder="이름을 입력해주세요."
         />
         <section className="mt-[20%]">

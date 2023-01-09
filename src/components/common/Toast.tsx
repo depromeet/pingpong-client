@@ -28,11 +28,11 @@ const Toast = ({ value }: Props) => {
 
   return (
     <aside
-      className={`fixed grid place-items-center w-full px-5 bottom-9 z-10 animate-slideup ${
+      className={`fixed grid place-items-center px-6 w-full bottom-50 z-10 animate-slideup ${
         fadeout && 'animate-fadeout'
       }`}
     >
-      <p className="text-white bg-primary-dark w-full px-5 py-3 rounded-xl break-all">{value}</p>
+      <p className="text-b1 text-white bg-primary-dark w-full px-16 py-12 rounded-xl break-all opacity-90">{value}</p>
     </aside>
   );
 };

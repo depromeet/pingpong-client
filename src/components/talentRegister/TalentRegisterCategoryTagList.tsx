@@ -2,27 +2,25 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
 import type { TalentRegisterProps } from '@/constants/talentRegister/talentRegisterType';
-import useGetCategory from '@/hooks/useGetCategory';
+import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import { SetTalnetRegisterCategorySelectInputKey } from '@/lib/utils';
-import { tabAtomFamily } from '@/store/components';
-import type { CategoryProps } from '@/typings/common';
+import { categoryAtomFamily, tabAtomFamily } from '@/store/components';
+import type { MidCategory } from '@/typings/common';
 
 import Button from '../common/Button';
 import ClickTagList from '../common/ClickTagList';
 import TalentRegisterCategoryBottomSheet from './TalentRegisterCategoryBottomSheet';
 
-interface MidAndSubCategoriesProps extends CategoryProps {
-  subCategories: CategoryProps[];
-}
-
 const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps) => {
-  const [{ id }] = useRecoilValue(tabAtomFamily('mainCategory'));
+  const { id } = useRecoilValue(categoryAtomFamily('mainCategory'));
+
   const categoryKey = SetTalnetRegisterCategorySelectInputKey();
-  const selectedTab = useRecoilValue(tabAtomFamily(categoryKey));
-  const { isSuccess, data } = useGetCategory({
-    sort: 'mid',
-    query: 'mainCategoryId',
-    categoryId: id || 1,
+  const selectedTag = useRecoilValue(tabAtomFamily(categoryKey));
+
+  const {
+    midCategoryQuery: { isSuccess, data },
+  } = useCategoriesQuery({
+    mainCategoryId: id || 1,
   });
 
   const href = sort === 'SHARE' ? '/talent/register/share' : '/talent/register/exchange';
@@ -35,12 +33,12 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
     <form className={`${className} px-[16px]`}>
       <div>
         {isSuccess &&
-          data.data.map(({ id, name, subCategories }: MidAndSubCategoriesProps) => {
+          data.map(({ id, name, subCategories }: MidCategory) => {
             return (
               <div key={id}>
                 <span className="text-t4 text-gray-600">{name}</span>
                 <ClickTagList
-                  key={id}
+                  key={`taglist-${id}`}
                   categoryKey={categoryKey}
                   list={subCategories}
                   sort={sort}
@@ -52,7 +50,7 @@ const TalentRegisterCategoryTagList = ({ sort, className }: TalentRegisterProps)
       </div>
       <TalentRegisterCategoryBottomSheet sort={sort} categoryKey={categoryKey}>
         <Link href={href} className="block">
-          <Button type="button" onClick={onClick} disabled={selectedTab.length === 0} className="w-full">
+          <Button type="button" onClick={onClick} disabled={selectedTag.length === 0} className="w-full">
             선택 완료
           </Button>
         </Link>

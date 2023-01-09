@@ -11,23 +11,6 @@ type Tag = {
   label: string;
 };
 
-export interface MainCategory {
-  id: number;
-  image: string;
-  midCategories: MidCategory[];
-  name: string;
-}
-
-export interface MidCategory {
-  id: number;
-  name: string;
-}
-
-export interface SubCategory {
-  id: number;
-  name: string;
-}
-
 export interface CategoryFilterParams {
   isShare: boolean;
   mainCategory: number;

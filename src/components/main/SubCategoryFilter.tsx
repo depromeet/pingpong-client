@@ -1,6 +1,8 @@
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/styles';
+import { bottomSheetActiveOptionAtom } from '@/store/components';
 
 import ArrowDownIcon from '../../../public/icons/arrow-down.svg';
 import CheckBlackIcon from '../../../public/icons/check-black.svg';
@@ -19,11 +21,13 @@ const SubCategoryFilter = ({
   isShare,
   handleIsShare,
 }: SubCategoryFilterProps) => {
+  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+
   return (
     <FilterContainer>
       {isSubFilterVisible && (
         <SubFilterDropdown onClick={handleSubCategory}>
-          소분류
+          {activeOption.label ? activeOption.label : '소분류'}
           <ArrowDownIcon />
         </SubFilterDropdown>
       )}

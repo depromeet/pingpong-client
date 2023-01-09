@@ -1,10 +1,12 @@
 import { useIsFetching } from '@tanstack/react-query';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useMemo } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import useUserInfoQuery from '@/hooks/queries/useUserInfoQuery';
+import { useAuth } from '@/hooks/useAuth';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { headerAtom, myInfoAtom, popupAtom, spinnerAtom, toastAtom } from '@/store/components/atoms';
 import type { UserInfo } from '@/typings/common';
@@ -62,6 +64,9 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   return (
     <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
+      </Head>
       {headerValue && <Header {...headerValue} />}
       <main className={showGnb ? `pb-[82px]` : ''}>{children}</main>
       {popupValue?.isShowing && <Popup {...popupValue} />}

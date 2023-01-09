@@ -21,7 +21,8 @@ interface PopupProps {
 
 interface HeaderProps {
   title: string;
-  activeButton?: string;
+  isButtonDisabled?: boolean;
+  buttonText?: string;
   className?: string;
   onArrowClick?: () => void;
   onActiveButtonClick?: () => void;
@@ -42,10 +43,22 @@ interface CardInfo {
   hideProfile?: boolean;
 }
 
-interface MainCategoryInfo {
+interface MainCategory {
+  id: number;
+  image: string;
+  midCategories: MidCategory[];
+  name: string;
+}
+
+interface MidCategory {
   id: number;
   name: string;
-  image: string;
+  subCategories: SubCategory[];
+}
+
+interface SubCategory {
+  id: number;
+  name: string;
 }
 
 interface LinkInfo {
@@ -74,6 +87,22 @@ interface PostInfo {
   ranks: string;
   isLike: false;
 }
+
+type PostRegisterInfo = Pick<
+  PostInfo,
+  | 'title'
+  | 'content'
+  | 'isShare'
+  | 'subCategoryId'
+  | 'links'
+  | 'chatLink'
+  | 'takenTalentIds'
+  | 'takenContent'
+  | 'exchangeType'
+  | 'exchangePeriod'
+  | 'exchangeTime'
+>;
+
 interface CategoryProps {
   id: number;
   name: string;

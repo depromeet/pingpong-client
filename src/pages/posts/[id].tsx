@@ -20,8 +20,9 @@ import usePostQuery from '@/hooks/queries/usePostQuery';
 import usePostUnlikeMutate from '@/hooks/queries/usePostUnlikeMutate';
 import useReportPostMutate from '@/hooks/queries/useReportPostMutate';
 import { usePopupWithBlock } from '@/hooks/usePopupWithBlock';
-import { bottomSheetActiveOptionAtom, popupAtom } from '@/store/components';
-import type { LinkInfo, PopupProps } from '@/typings/common';
+import { uniqueId } from '@/lib/utils';
+import { bottomSheetActiveOptionAtom, myInfoAtom } from '@/store/components';
+import type { LinkInfo } from '@/typings/common';
 
 const PostDetail = () => {
   const router = useRouter();
@@ -29,7 +30,8 @@ const PostDetail = () => {
 
   const [reportReason, setReportReason] = useState<string>('');
   const [isMyPost, setIsMyPost] = useState(false);
-  const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
+  const [activeOption, setActiveOption] = useRecoilState(bottomSheetActiveOptionAtom);
+  const myInfo = useRecoilValue(myInfoAtom);
 
   const { data: postData, isSuccess: postIsSuccess, refetch } = usePostQuery(postId);
   const { mutate: postLikeMutate, isSuccess: postLikeIsSuccess } = usePostLikeMutate(postId);
@@ -58,25 +60,25 @@ const PostDetail = () => {
     });
   }, [setPopup, reportPostMutate, postId, reportReason]);
 
-  const handleKakaoLinkPopup = useCallback(
-    (link: string) => {
-      const openExternalLink = (link: string) => {
-        if (!window) return;
+  // const handleKakaoLinkPopup = useCallback(
+  //   (link: string) => {
+  //     const openExternalLink = (link: string) => {
+  //       if (!window) return;
 
-        window.open(`//${link}`, '_blank');
-      };
+  //       window.open(`//${link}`, '_blank');
+  //     };
 
-      setPopup({
-        isShowing: true,
-        title: '카카오톡 오픈채팅으로 이동됩니다',
-        content: '오픈채팅 시, 상대방에게 <br />불쾌감을 주는 언어 사용을 지양해주세요.',
-        onConfirm: () => openExternalLink(link),
-        confirmText: '이동하기',
-        cancelText: '취소',
-      });
-    },
-    [setPopup],
-  );
+  //     setPopup({
+  //       isShowing: true,
+  //       title: '카카오톡 오픈채팅으로 이동됩니다',
+  //       content: '오픈채팅 시, 상대방에게 <br />불쾌감을 주는 언어 사용을 지양해주세요.',
+  //       onConfirm: () => openExternalLink(link),
+  //       confirmText: '이동하기',
+  //       cancelText: '취소',
+  //     });
+  //   },
+  //   [setPopup],
+  // );
 
   useEffect(() => {
     if (!postIsSuccess) return;
@@ -85,18 +87,27 @@ const PostDetail = () => {
   }, [postLikeIsSuccess, postUnlikeIsSuccess, postIsSuccess, refetch]);
 
   useEffect(() => {
-    const pathHasIsMyPost = router.query.isMyPost === 'true';
+    const pathHasIsMyPost = myInfo?.memberId === postData?.memberId;
     setIsMyPost(pathHasIsMyPost);
-  }, [router]);
+  }, [myInfo?.memberId, postData?.memberId, router]);
 
   useEffect(() => {
-    if (activeOption.id === 'DELETE') postDeleteMutate();
+    if (activeOption.id === 'DELETE') {
+      setPopup({
+        isShowing: true,
+        title: '게시글을 삭제하시겠어요?',
+        cancelText: '취소',
+        confirmText: '삭제할래요',
+        onConfirm: () => {
+          postDeleteMutate();
+          setActiveOption({ id: 0, label: '' });
+        },
+      });
+    }
     if (activeOption.id === 'REPORT') {
       handleReportPopup();
     }
-  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup]);
-
-  usePopupWithBlock();
+  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup, setActiveOption, setPopup]);
 
   useEffect(() => {
     setPopup(null);
@@ -108,6 +119,14 @@ const PostDetail = () => {
       router.back();
     }
   }, [reportPostIsSuccess, router]);
+
+  useEffect(() => {
+    if (postDeleteIsSuccess && router.query.new === 'true') {
+      router.push('/main');
+    } else if (postDeleteIsSuccess) {
+      router.back();
+    }
+  }, [postDeleteIsSuccess, router]);
 
   return (
     <>
@@ -146,16 +165,44 @@ const PostDetail = () => {
               )}
               <Typography.Title className="mt-12 mb-24">{postData.title}</Typography.Title>
               <Typography.Subtitle className="mb-6">재능 소개</Typography.Subtitle>
-              <Typography.Content className="mb-24">{postData.content}</Typography.Content>
-              <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>
+              <Typography.Content className="mb-24 whitespace-pre-wrap">{postData.content}</Typography.Content>
+              {postData.links.length > 0 && <Typography.Subtitle className="mb-6">링크</Typography.Subtitle>}
               <PostDetailRow>
                 {postData.links.map((link: LinkInfo) => (
                   <GrayBlock key={`link-${link.id}`}>
-                    <li>{link.content}</li>
+                    <p>{link.content}</p>
                   </GrayBlock>
                 ))}
               </PostDetailRow>
             </Layout.DefaultPadding>
+
+            {postData.isShare === false && (
+              <>
+                <Layout.Divider className="my-24" />
+                <Layout.DefaultPadding>
+                  <Typography.Subtitle className="mb-6">이런 재능을 원해요</Typography.Subtitle>
+                  <ProfileTakenTalents className="mb-16">
+                    {postData.takenTalents.map((takenTalent) => {
+                      return (
+                        <Tag
+                          key={uniqueId(takenTalent)}
+                          styleType="LIGHT"
+                          color="blue"
+                          className="mb-8 mr-6 whitespace-nowrap"
+                        >
+                          {takenTalent}
+                        </Tag>
+                      );
+                    })}
+                  </ProfileTakenTalents>
+                  <Typography.Subtitle className="mb-6">상세 설명</Typography.Subtitle>
+                  <GrayBlock>
+                    <p className="whitespace-pre-wrap">{postData.takenContent}</p>
+                  </GrayBlock>
+                </Layout.DefaultPadding>
+              </>
+            )}
+
             <Layout.Divider className="my-24" />
             <Layout.DefaultPadding>
               <Typography.Subtitle className="mb-6">이렇게 공유하고 싶어요</Typography.Subtitle>
@@ -183,8 +230,11 @@ const PostDetail = () => {
               count={postData.likes.toString()}
               onClick={handleLike}
             />
-            <Button className="ml-12" onClick={() => handleKakaoLinkPopup(postData.chatLink)}>
-              오픈채팅 시작하기
+            {/* <Button className="ml-12" onClick={() => handleKakaoLinkPopup(postData.chatLink)}> */}
+            <Button className="ml-12">
+              <a href={postData.chatLink} target="_blank" rel="noopener noreferrer" className="ml-12">
+                오픈채팅 시작하기
+              </a>
             </Button>
           </BottomFixedBar>
         </>
@@ -259,4 +309,9 @@ const ProfileLinkButton = styled.button`
   border-radius: 2rem;
   border: 0.1rem solid ${colors.gray200};
   color: ${colors.gray500};
+`;
+
+const ProfileTakenTalents = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
 `;

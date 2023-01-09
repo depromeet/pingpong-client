@@ -28,6 +28,7 @@ const Desc = styled.p`
   font-size: 1.3rem;
   line-height: 1.95rem;
   letter-spacing: -0.03rem;
+  color: ${colors.gray400};
 `;
 
 export const Typography = {
@@ -42,7 +43,7 @@ const DefaultContainer = styled.div`
 `;
 
 const DetailContainer = styled.div`
-  padding: 1.6rem 0;
+  padding: 1.6rem 0 10rem;
 `;
 
 const DefaultPadding = styled.div`

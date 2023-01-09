@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import { colors } from '@/constants/styles';
-import type { MainCategoryInfo } from '@/typings/common';
+import type { MainCategory } from '@/typings/common';
 
 import CircleImg from '../common/CircleImg';
 
-const MainCategoryItem = ({ category, isActive }: { category: MainCategoryInfo; isActive: boolean }) => {
+const MainCategoryItem = ({ category, isActive }: { category: MainCategory; isActive: boolean }) => {
   return (
     <CategoryItemContainer>
       <CircleImg
@@ -24,6 +24,12 @@ export default MainCategoryItem;
 const CategoryItemContainer = styled.div`
   display: flex;
   flex-direction: column;
+  :first-child {
+    margin-left: 1.5rem;
+  }
+  :last-child {
+    margin-right: 1.5rem;
+  }
 `;
 
 const CategoryName = styled.h5<{ isActive: boolean }>`

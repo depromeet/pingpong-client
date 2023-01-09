@@ -19,8 +19,8 @@ import useCategoriesQuery from '@/hooks/queries/useCategoriesQuery';
 import useCustomPostsQuery from '@/hooks/queries/useCustomPostsQuery';
 import useInfinitePostsQuery from '@/hooks/queries/useInfinitePostsQuery';
 import useBottomSheet from '@/hooks/useBottomSheet';
-import { bottomSheetActiveOptionAtom, midCategoryIdSelector, myInfoAtom, tabAtomFamily } from '@/store/components';
-import type { MidCategory } from '@/typings/main';
+import { bottomSheetActiveOptionAtom, categoryAtomFamily, midCategoryIdSelector, myInfoAtom } from '@/store/components';
+import type { MidCategory } from '@/typings/common';
 
 const Home: NextPage = () => {
   const { ref, inView } = useInView();
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
   const [activeMidCategoryList, setActiveMidCategoryList] = useState<MidCategory[]>([]);
   const [activeSubCategoryId, setActiveSubCategoryId] = useState(0);
 
-  const setActiveMidCategory = useSetRecoilState(tabAtomFamily('midCategory'));
+  const setActiveMidCategory = useSetRecoilState(categoryAtomFamily('midCategory'));
   const activeMidCategoryId = useRecoilValue(midCategoryIdSelector);
   const activeOption = useRecoilValue(bottomSheetActiveOptionAtom);
   const [isShare, handleIsShare] = useState(false);
@@ -38,7 +38,6 @@ const Home: NextPage = () => {
   const queryClient = useQueryClient();
 
   const { data: customPostsData, isSuccess: customPostsIsSuccess } = useCustomPostsQuery({
-    subCategoryId: 1,
     page: 0,
     size: 5,
   });
@@ -46,7 +45,7 @@ const Home: NextPage = () => {
   const {
     mainMidCategoryQuery: { data: mainCategoryData, isSuccess: mainCategoryIsSuccess },
     subCategoryQuery: { data: subCategoryData },
-  } = useCategoriesQuery(activeMidCategoryId);
+  } = useCategoriesQuery({ midCategoryId: activeMidCategoryId });
 
   const { posts, fetchNextPage, refetch, hasNextPage } = useInfinitePostsQuery({
     isShare,
@@ -72,11 +71,11 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (!activeMainCategoryId) return;
-    setActiveMidCategory([{ id: 0, name: '전체' }]);
+    setActiveMidCategory({ id: 0, name: '전체' });
 
     const list = getActiveCategory(activeMainCategoryId)?.midCategories;
 
-    list?.length && setActiveMidCategoryList(list);
+    setActiveMidCategoryList(list ?? []);
   }, [activeMainCategoryId, setActiveMidCategoryList, getActiveCategory, setActiveMidCategory]);
 
   useEffect(() => {
@@ -150,7 +149,7 @@ const Home: NextPage = () => {
         </div>
       </Layout.DefaultPadding>
       {mainCategoryIsSuccess && (
-        <div className="pb-20 mb-12 border-b border-gray-100">
+        <div className="pb-20 border-b border-gray-100">
           <MainCategoryCarousel
             list={mainCategoryData}
             activeCategoryId={activeMainCategoryId}
@@ -164,12 +163,14 @@ const Home: NextPage = () => {
           list={activeMidCategoryList || []}
         />
       )}
-      <SubCategoryFilter
-        isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 0}
-        handleSubCategory={openSubCategorySheet}
-        isShare={isShare}
-        handleIsShare={handleIsShare}
-      />
+      <div className="mt-12">
+        <SubCategoryFilter
+          isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 0}
+          handleSubCategory={openSubCategorySheet}
+          isShare={isShare}
+          handleIsShare={handleIsShare}
+        />
+      </div>
       <Layout.DefaultPadding>
         <CardContainer>
           {posts.length ? (

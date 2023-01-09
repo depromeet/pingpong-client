@@ -1,4 +1,4 @@
-import useTab from '@/hooks/useTab';
+import useTag from '@/hooks/useTag';
 
 import { XIcon } from '../icons/XIcon';
 
@@ -12,7 +12,7 @@ interface ClickTagProps {
 }
 
 const ClickTag = ({ categoryKey, id, name, sort, isDelete = false, className }: ClickTagProps) => {
-  const { onClick, clicked } = useTab({
+  const { onClick, clicked } = useTag({
     key: categoryKey,
     id,
     selectingNumber: categoryKey === 'subCategoryId' ? 1 : 5,

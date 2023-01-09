@@ -1,30 +1,52 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { axiosClient } from '@/apis';
+import { loginStateAtom } from '@/store/components';
 
 export const useAuth = () => {
   const router = useRouter();
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState('');
 
-  const logout = () => {
-    const cookies = document.cookie.split(';');
+  const [isLogin, setIsLogin] = useRecoilState(loginStateAtom);
 
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i];
-      const eqPos = cookie.indexOf('=');
-      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  const handleLogin = () => {
+    router.push(redirectUrl);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axiosClient.post('/auth/logout');
+      setIsLogin(false);
+    } catch (err) {
+      console.error(err);
+      // TODO: modal 메세지 노출
     }
-
-    sessionStorage.clear();
-    router.push('/');
   };
 
   useEffect(() => {
-    const cookie = document.cookie.includes('access_token');
-
-    setIsLogin(cookie ? true : false);
+    if (!process.env.NEXT_PUBLIC_REDIRECT_URL) return;
+    setRedirectUrl(process.env.NEXT_PUBLIC_REDIRECT_URL);
   }, []);
 
-  return { isLogin, logout };
+  useEffect(() => {
+    const hasToken = document.cookie.includes('access_token');
+    setIsLogin(hasToken ? true : false);
+  }, [setIsLogin]);
+
+  useEffect(() => {
+    if (!isLogin && router.asPath !== '/') {
+      router.replace('/');
+      return;
+    }
+
+    if (isLogin && router.asPath === '/') {
+      router.replace('/main');
+      return;
+    }
+  }, [isLogin, router]);
+
+  return { isLogin, handleLogin, handleLogout };
 };

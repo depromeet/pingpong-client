@@ -13,7 +13,7 @@ interface ClickTagListProps {
 const ClickTagList = ({ categoryKey, list, sort, isDelete = false, className = '' }: ClickTagListProps) => {
   return (
     <ul className={`${className} flex flex-wrap`}>
-      {list.map(({ id, name }) => {
+      {list?.map(({ id, name }) => {
         return (
           <li key={id} className="pr-[8px]">
             {
