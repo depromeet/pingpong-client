@@ -21,7 +21,8 @@ interface PopupProps {
 
 interface HeaderProps {
   title: string;
-  activeButton?: string;
+  isButtonDisabled?: boolean;
+  buttonText?: string;
   className?: string;
   onArrowClick?: () => void;
   onActiveButtonClick?: () => void;

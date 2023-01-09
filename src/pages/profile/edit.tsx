@@ -16,7 +16,7 @@ import { myInfoAtom, tabAtomFamily, talentRegisterOrderAtom } from '@/store/comp
 
 const headerArgs = {
   title: '프로필 편집',
-  activeButton: '저장',
+  buttonText: '저장',
   className: 'bg-white border-b border-gray-100',
 };
 
@@ -26,7 +26,7 @@ const ProfileEdit = () => {
   const [introduction, setIntroduction] = useState('');
   const [link, setLink] = useState('');
   const { name, setName, errorMessage, setErrorMessage, handleNameChange, handleNameClear } = useNickname();
-
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [introductionError, setIntroductionError] = useState('');
 
   const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
@@ -91,6 +91,8 @@ const ProfileEdit = () => {
   }, [myInfo]);
 
   const handleSaveButton = () => {
+    if (errorMessage) return;
+
     if (name.length === 0 || introduction.length === 0) {
       setErrorMessage(name.length === 0 ? '이름을 작성해주세요' : '');
       setIntroductionError(introduction.length === 0 ? '자기소개를 작성해주세요' : '');
@@ -111,9 +113,13 @@ const ProfileEdit = () => {
     mutate(profileInfo);
   };
 
+  useEffect(() => {
+    errorMessage ? setIsButtonDisabled(true) : setIsButtonDisabled(false);
+  }, [errorMessage]);
+
   return (
     <>
-      <Header {...headerArgs} onActiveButtonClick={handleSaveButton} />
+      <Header {...headerArgs} isButtonDisabled={isButtonDisabled} onActiveButtonClick={handleSaveButton} />
       <main className="px-[16px]">
         <section className="mt-[26px]">
           <label htmlFor="name" className="text-t3">

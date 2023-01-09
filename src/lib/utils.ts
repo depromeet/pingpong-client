@@ -55,8 +55,7 @@ export const setCookie = (name: string, value: string, options: CookieOptions) =
   return updatedCookie;
 };
 
-export const validateNickname = (value: string) => {
-  const regex = /^[ㄱ-ㅎ|가-힣|a-z|A-Z]+$/;
+export const replaceWithRegex = (regex: RegExp, value: string) => {
   return value.replace(regex, '$&');
 };
 
