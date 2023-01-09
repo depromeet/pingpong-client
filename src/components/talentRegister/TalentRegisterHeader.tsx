@@ -47,9 +47,9 @@ const TalentRegisterHeader = ({ sort, className }: TalentRegisterProps) => {
   };
 
   return (
-    <div className={`relative w-full ${className}`}>
+    <div className={`relative w-full translate-y-[-20px] ${className}`}>
       <button type="button" onClick={handleHistoryBack} className="block">
-        <XIcon className="absolute right-[16px] top-[60px]" />
+        <XIcon className="absolute right-[16px] top-[50px] z-10" />
       </button>
       <Image src={src} alt={alt} width={375} height={187} className="w-full z-99" priority />
       <HeaderTitle
