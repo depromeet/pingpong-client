@@ -93,15 +93,21 @@ const PostDetail = () => {
 
   useEffect(() => {
     if (activeOption.id === 'DELETE') {
-      postDeleteMutate();
-      setActiveOption({ id: 0, label: '' });
+      setPopup({
+        isShowing: true,
+        title: '게시글을 삭제하시겠어요?',
+        cancelText: '취소',
+        confirmText: '삭제할래요',
+        onConfirm: () => {
+          postDeleteMutate();
+          setActiveOption({ id: 0, label: '' });
+        },
+      });
     }
     if (activeOption.id === 'REPORT') {
       handleReportPopup();
     }
-  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup, setActiveOption]);
-
-  usePopupWithBlock();
+  }, [activeOption, postDeleteMutate, reportPostMutate, handleReportPopup, setActiveOption, setPopup]);
 
   useEffect(() => {
     setPopup(null);
