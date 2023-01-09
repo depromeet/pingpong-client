@@ -1,21 +1,28 @@
 import Image from 'next/image';
+import type { ChangeEvent } from 'react';
 
 import type { DefaultProps } from '@/typings/common';
 
 type Props = DefaultProps & {
   type?: 'text' | 'email' | 'tel' | 'number' | 'password' | 'date' | 'datetime';
-  onChange?: (value: string) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleClear: () => void;
   placeholder?: string;
   error?: string;
   maxLength?: number;
   showCount?: boolean;
 };
 
-const Input = ({ type = 'text', onChange, className, showCount, error, maxLength = 200, ...props }: Props) => {
-  const handleClear = () => {
-    onChange && onChange('');
-  };
-
+const Input = ({
+  type = 'text',
+  onChange,
+  handleClear,
+  className,
+  showCount,
+  error,
+  maxLength = 200,
+  ...props
+}: Props) => {
   return (
     <div className={`relative w-full flex flex-col text-b2 ${className}`}>
       <input
@@ -23,7 +30,7 @@ const Input = ({ type = 'text', onChange, className, showCount, error, maxLength
         className={`w-full pl-[12px] pr-[46px] py-[12.5px] border border-gray-200 focus:border-primary-dark focus:outline-none placeholder:text-gray-300 rounded-[8px] ${
           error && '!border-primary-error'
         }`}
-        onChange={(e) => onChange && onChange(e.target.value)}
+        onChange={onChange}
         maxLength={maxLength}
         {...props}
       />
