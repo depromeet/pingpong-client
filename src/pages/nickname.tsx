@@ -26,10 +26,7 @@ const Nickname = () => {
   const { mutate, isSuccess } = useNicknameMutate();
   const queryClient = useQueryClient();
 
-  const buttonDisabled = useMemo(
-    () => name.length < 2 || name.length > 10 || agreement.some((v) => !v) || errorMessage.length > 0,
-    [name, agreement, errorMessage],
-  );
+  const buttonDisabled = useMemo(() => agreement.some((v) => !v) || errorMessage.length > 0, [agreement, errorMessage]);
 
   const handleAgreementClick = (index: number) => {
     setAgreement(([first, second]) => (index === 0 ? [!first, second] : [first, !second]));
