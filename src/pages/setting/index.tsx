@@ -19,7 +19,7 @@ export default function ProfileSetting() {
   };
 
   const [deleteReason, setDeleteReason] = useState('');
-  const { mutate: deleteAccountMutate } = useDeleteAccountMutate();
+  const { mutate: deleteAccountMutate, isSuccess: isDeleteSuccess } = useDeleteAccountMutate();
 
   const handleDeletePopup = useCallback(() => {
     setPopup({
@@ -27,7 +27,9 @@ export default function ProfileSetting() {
       title: 'Ping-Pong 서비스 탈퇴하기',
       content: `불편하셨던 점을 저희에게 말씀해주세요.<br/>서비스 개선에 적극 반영하도록 할게요.`,
       children: <DeleteAccountRadioGroup setDeleteReason={setDeleteReason} />,
-      onConfirm: () => deleteAccountMutate({ content: deleteReason }),
+      onConfirm: () => {
+        deleteAccountMutate({ content: deleteReason });
+      },
       confirmText: '선택 완료',
       cancelText: '취소',
     });
@@ -66,6 +68,12 @@ export default function ProfileSetting() {
     title: '설정',
     className: 'bg-white border-b border-gray-100',
   });
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      router.replace('/');
+    }
+  }, [isDeleteSuccess, router]);
 
   return (
     <>
