@@ -27,10 +27,15 @@ const TextInput = ({
   option: { key, title, explanation, placeholder, htmlFor, showCount, maxLength, error, required, className },
 }: TextInputProps) => {
   const [input, setInput] = useRecoilState(talentRegisterInputSelectorFamily(key));
+
   const handleContentsChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setInput((prev) => ({ ...prev, contents: event.target.value })),
     [setInput],
   );
+
+  const handleClear = useCallback(() => {
+    setInput((prev) => ({ ...prev, contents: '' }));
+  }, [setInput]);
 
   return (
     <div className={className}>
@@ -50,6 +55,7 @@ const TextInput = ({
         maxLength={maxLength}
         value={input.contents}
         onChange={handleContentsChange}
+        handleClear={handleClear}
         error={maxLength && input.contents.length >= maxLength ? error : undefined}
         className="mt-[8px]"
       />

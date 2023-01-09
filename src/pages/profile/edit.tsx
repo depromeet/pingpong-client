@@ -113,6 +113,10 @@ const ProfileEdit = () => {
     mutate(profileInfo);
   };
 
+  const handleLinkClear = useCallback(() => {
+    setLink('');
+  }, []);
+
   useEffect(() => {
     errorMessage ? setIsButtonDisabled(true) : setIsButtonDisabled(false);
   }, [errorMessage]);
@@ -182,6 +186,7 @@ const ProfileEdit = () => {
             placeholder="링크를 입력해주세요."
             value={link}
             onChange={handleLinkChange}
+            handleClear={handleLinkClear}
           />
         </section>
       </main>
