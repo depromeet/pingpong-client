@@ -149,7 +149,7 @@ const Home: NextPage = () => {
         </div>
       </Layout.DefaultPadding>
       {mainCategoryIsSuccess && (
-        <div className="pb-20 mb-12 border-b border-gray-100">
+        <div className="pb-20 border-b border-gray-100">
           <MainCategoryCarousel
             list={mainCategoryData}
             activeCategoryId={activeMainCategoryId}
@@ -163,12 +163,14 @@ const Home: NextPage = () => {
           list={activeMidCategoryList || []}
         />
       )}
-      <SubCategoryFilter
-        isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 0}
-        handleSubCategory={openSubCategorySheet}
-        isShare={isShare}
-        handleIsShare={handleIsShare}
-      />
+      <div className="mt-12">
+        <SubCategoryFilter
+          isSubFilterVisible={activeMainCategoryId !== 0 && activeMidCategoryId !== 0}
+          handleSubCategory={openSubCategorySheet}
+          isShare={isShare}
+          handleIsShare={handleIsShare}
+        />
+      </div>
       <Layout.DefaultPadding>
         <CardContainer>
           {posts.length ? (
