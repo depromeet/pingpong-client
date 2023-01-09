@@ -20,12 +20,12 @@ export default function Login() {
       </section>
       <section className="w-full flex flex-col h-full justify-end">
         <Button className="bg-black w-full mb-50">
-          <Link href={redirectUrl}>
+          <a href={redirectUrl}>
             <div className="flex text-white items-center justify-center gap-[12px]">
               <Image src={'/icons/apple.svg'} alt="apple" width={15} height={15} />
               Apple로 시작하기
             </div>
-          </Link>
+          </a>
         </Button>
         {/* <Button onClick={handleToMain} className="w-full !bg-primary-blue border !border-white mt-[8px]">
           로그인 없이 둘러보기
