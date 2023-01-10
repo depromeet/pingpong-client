@@ -38,7 +38,6 @@ export const useAuth = () => {
     if (router.asPath === '/nickname/') {
       return;
     }
-
     if (isLogin && router.asPath === '/') {
       router.replace('/main');
       return;
