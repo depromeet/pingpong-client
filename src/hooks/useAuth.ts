@@ -41,11 +41,6 @@ export const useAuth = () => {
       router.replace('/');
       return;
     }
-
-    if (isLogin && router.asPath === '/') {
-      router.replace('/main');
-      return;
-    }
   }, [isLogin, router]);
 
   return { isLogin, handleLogin, handleLogout };
