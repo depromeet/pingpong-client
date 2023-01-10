@@ -35,6 +35,15 @@ export const useAuth = () => {
   }, [setIsLogin]);
 
   useEffect(() => {
+    if (router.asPath === '/nickname/') {
+      return;
+    }
+
+    if (isLogin && router.asPath === '/') {
+      router.replace('/main');
+      return;
+    }
+
     if (!isLogin && router.asPath !== '/') {
       router.replace('/');
       return;
