@@ -8,7 +8,7 @@ const TextBox = ({
 }>) => {
   return (
     <div
-      className={`px-[16px] py-[12.5px] rounded-xl ${
+      className={`px-[16px] py-[12.5px] rounded-xl whitespace-pre-wrap ${
         disabled
           ? 'bg-bg-gray border border-gray-100 text-gray-300 text-b3'
           : 'bg-bg-gray border border-gray-100 text-b2 text-gray-500'
