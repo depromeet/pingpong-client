@@ -85,7 +85,7 @@ const ProfileEdit = () => {
     if (errorMessage) return;
 
     if (name.length === 0) {
-      setErrorMessage(name.length === 0 ? '이름을 작성해주세요' : '');
+      setErrorMessage(name.length === 0 ? '닉네임을 작성해주세요' : '');
       // setIntroductionError(introduction?.length === 0 ? '자기소개를 작성해주세요' : '');
       return;
     }
@@ -118,12 +118,12 @@ const ProfileEdit = () => {
       <main className="px-[16px]">
         <section className="mt-[26px]">
           <label htmlFor="name" className="text-t3">
-            이름
+            닉네임
           </label>
           <Input
             className="mt-[8px]"
             id="name"
-            placeholder="이름을 입력해주세요"
+            placeholder="닉네임을 입력해주세요"
             maxLength={10}
             value={name}
             onChange={handleNameChange}
