@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import type { ChangeEvent } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -27,7 +27,7 @@ const ProfileEdit = () => {
   const [link, setLink] = useState('');
   const { name, setName, errorMessage, setErrorMessage, handleNameChange, handleNameClear } = useNickname();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [introductionError, setIntroductionError] = useState('');
+  // const [introductionError, setIntroductionError] = useState('');
 
   const [givenTalents, setGivenTalents] = useRecoilState(tabAtomFamily('givenTalents'));
   const [takenTalents, setTakenTalents] = useRecoilState(tabAtomFamily('takenTalents'));
@@ -84,9 +84,9 @@ const ProfileEdit = () => {
   const handleSaveButton = () => {
     if (errorMessage) return;
 
-    if (name.length === 0 || introduction.length === 0) {
+    if (name.length === 0) {
       setErrorMessage(name.length === 0 ? '이름을 작성해주세요' : '');
-      setIntroductionError(introduction.length === 0 ? '자기소개를 작성해주세요' : '');
+      // setIntroductionError(introduction?.length === 0 ? '자기소개를 작성해주세요' : '');
       return;
     }
 
@@ -99,7 +99,7 @@ const ProfileEdit = () => {
     };
 
     setErrorMessage('');
-    setIntroductionError('');
+    // setIntroductionError('');
 
     mutate(profileInfo);
   };
@@ -160,7 +160,7 @@ const ProfileEdit = () => {
             maxLength={300}
             className="mt-[8px]"
             placeholder="소개 글을 작성해 주세요."
-            error={introductionError}
+            // error={introductionError}
             onChange={(v) => setIntroduction(v)}
           />
         </section>
