@@ -49,7 +49,7 @@ const Nickname = () => {
         <h1 className="text-h2 pt-[15%]">
           Ping-Pong에서 사용할
           <br />
-          이름을 입력해주세요.
+          닉네임을 입력해주세요.
         </h1>
         <ul className="mt-[16px]">
           <li className="flex itesm-center gap-3 text-b3 text-gray-500">
@@ -68,7 +68,7 @@ const Nickname = () => {
           error={errorMessage}
           onChange={handleNameChange}
           handleClear={handleNameClear}
-          placeholder="이름을 입력해주세요."
+          placeholder="닉네임을 입력해주세요."
         />
         <section className="mt-[20%]">
           {agreementList.map((item, i) => (
