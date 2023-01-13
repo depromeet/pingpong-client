@@ -134,7 +134,7 @@ PingPong은 두 가지 재능 공유 방식을 제공하고 있어요.
 
 <!--
 # ping-pong client
-- 재능 공유 플랫폼 앱 "핑퐁"의 app Repository입니다.
+- 재능 공유 플랫폼 앱 "핑퐁"의 client-side Repository입니다.
 <div style="display:flex;">
 <img src="https://user-images.githubusercontent.com/46391618/212315998-7cc12157-c17b-40ae-8402-700d40283317.jpg" width="250" height="auto" />
 <img src="https://user-images.githubusercontent.com/46391618/212316034-b85aeffc-abcb-48f8-adaa-2a8dbaa01bca.jpg" width="250" height="auto" />
@@ -165,8 +165,29 @@ PingPong은 두 가지 재능 공유 방식을 제공하고 있어요.
 
 ## Stack
 
-`Typescript` `React-Native` `React-Native navigation` `React-Native Webview`
+`Typescript` `Next.js` `Recoil` `Tanstack query`
+`firebase` `Storybook` 
 
+```
+├── public
+├── src
+│   ├── components
+│   │   ├── common
+│   │   └── post # directory sorted by routes
+│   ├── constants
+│   ├── hooks
+│   │   ├── queries
+│   │   └── others 
+│   ├── libs
+│   ├── pages
+│   ├── store
+│   │   └── components
+│   ├── styles
+│   └── typings
+├── eslint # custom eslint plugin
+└── README.md
+
+```
 
 <br />
 
@@ -219,4 +240,5 @@ yarn storybook
 ```
 gitmoji -c
 ```
+
 -->
